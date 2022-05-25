@@ -6,7 +6,7 @@
     "main": "index.js",
     "scripts": {
       "start": "node ./SiteInstitucional/app.js",
-      "dev": "nodemon --exec node app.js",
+      "dev": "nodemon ./SiteInstitucional/app.js",
       "test": "echo \"Error: no test specified\" && exit 1"
     },
     "author": "Feito pelos desenvolvedores @ Puppet Monitoring",
