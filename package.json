@@ -7,7 +7,6 @@
     "scripts": {
       "start": "node ./SiteInstitucional/app.js",
       "dev": "nodemon --exec node app.js",
-      "postinstall": "cd SiteInstitucional && npm install",
       "test": "echo \"Error: no test specified\" && exit 1"
     },
     "author": "Feito pelos desenvolvedores @ Puppet Monitoring",
