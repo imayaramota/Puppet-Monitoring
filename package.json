@@ -7,7 +7,7 @@
     "scripts": {
       "start": "node ./SiteInstitucional/app.js",
       "dev": "nodemon ./SiteInstitucional/app.js",
-      "test": "echo \"Error: no test specified\" && exit 1"
+      "test": "echo \"No test specified\""
     },
     "author": "Feito pelos desenvolvedores @ Puppet Monitoring",
     "license": "MIT",
