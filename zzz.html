@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LOGIN</title>
+
+    <script src="../js/funcoes.js"></script>
+
+    <link rel="stylesheet" href="login_style.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.14.0/css/all.css"
+    integrity="sha384-HzLeBuhoNPvSl5KYnjx0BT+WB0QEEqLprO+NBkkk5gbc67FTaL7XIGa2w1L0Xbgc" crossorigin="anonymous" />
+    <link rel="icon" href="./assets/logoHome.png">
+    <link rel="icon" href="/public/Home/">
+</head>
+<body>
+      
+    <div class="main-login">
+        <div class="left-login">
+            <h1>Faça Login <br>E entre para o nosso time</h1>
+            <img src="./Login/assets/server.svg" class="left-login-image" alt="Imagem Servidor">
+        </div>
+        <div class="right-login">
+            <div class="card-login">
+                <h1>LOGIN</h1>
+                <div class="textfield">
+                    <label for="usuario">Usuario</label>
+                    <input type="text" id="username_input" name="usuario" placeholder="Usuário">
+                </div>
+                <div class="textfield">
+                    <label for="senha">Senha</label>
+                    <input type="password" id="senha_input" name="senha" placeholder="Senha">
+                </div>
+                <button class="btn-login" onclick="entrar()">Login</button>
+                <button class="btn-login" onclick="ircadastro()">Cadastrar</button>
+            </div>
+        </div>
+    </div>
+    <div id="div_aguardar" class="loading-div">
+      <img src="" id="loading-gif">
+  </div>
+
+  <div id="div_erros_login">
+    </div>
+
+ 
+</body>

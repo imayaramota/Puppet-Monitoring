@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Usuários/Admin Dashboard</title>
+    <link rel="stylesheet"
+        href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
+    <link rel="stylesheet" href="./style/listarUsuarios.css">
+    <link rel="icon" href="./assets/LogoRoxo.png">
+</head>
+
+<body>
+    <!--Menu Lateral-->
+    <input type="checkbox" id="nav-toggle">
+    <div class="barraLateral">
+        <div class="barraLateralLogo">
+            <h2><span>PUPPET</span></h2>
+        </div>
+        <div class="barraLateralMenu">
+            <ul>
+                <li class="list">
+                    <a href="./admin.html">
+                        <span class="las la-window-restore"></span>
+                        <span>Geral</span>
+                    </a>
+                </li>
+                <li class="list active">
+                    <a href="./listarUsuarios.html">
+                        <span class="las la-users"></span>
+                        <span>Usuários</span>
+                    </a>
+                </li>
+                <li class="list">
+                    <a href="./listagemMaquina.html">
+                        <span class="las la-server"></span>
+                        <span>Máquinas virtuais</span>
+                    </a>
+                </li>
+                <li class="list">
+                    <a href="#">
+                        <span class="las la-cog"></span>
+                        <span>Configurações</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <!--Header-->
+    <div class="mainContent">
+        <header>
+            <h2>
+                <label for="nav-toggle">
+                    <span class="las la-bars"></span>
+                </label>
+                Usuários
+            </h2>
+            <div class="usuario">
+                <img src="./assets/whindUsuario.jpg" width="40px" height="40px" alt="">
+                <div>
+                    <h3><span id="b_usuario"></span></h3>
+                    <small id="setor_usuario"></small>
+                </div>
+            </div>
+        </header>
+        <!--Parte dos cards/main-->
+        <main>
+            <div class="card1">
+                <div class="cardSingle">
+                    <div>
+                        <h1 id="contador">0</h1>
+                        <span>Usuários</span>
+                    </div>
+                    <div>
+                        <span class="las la-users"></span>
+                    </div>
+                </div>
+            </div>
+
+            <!--Listagem de Usuários-->
+            <div class="listagemUsu">
+                <div class="listagem">
+                    <div class="card">
+                        <div class="cardHeader">
+                            <button class="btnCadastrar"><a
+                                    href="../CadastroUsuario/usuario.html">Cadastrar</a></button>
+                        </div>
+                        <div class="cardBody">
+                            <div class="tabelaResponsiva">
+                                <table width="100%">
+                                    <thead>
+                                        <tr>
+                                            <td>ID</td>
+                                            <td>UserName</td>
+                                            <td>Nome</td>
+                                            <td>Email</td>
+                                            <td>Setor</td>
+                                            <!--<td>Visualizar Acessos</td>-->
+                                        </tr>
+                                    </thead>
+                                    <tbody id="listagemUsuario"></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <script src="../plugins/sweetalert2-11.4.8/package/dist/sweetalert2.min.js"></script>
+        <link rel="stylesheet" href="../plugins/sweetalert2-11.4.8/package/dist/sweetalert2.min.css">
+        <script>
+             b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
+             setor_usuario.innerHTML = sessionStorage.SETOR_USUARIO;
+
+            window.addEventListener("load", function(event){
+                listagem();
+            })
+            function listagem() {
+                fetch("http://localhost:3333/usuarios", {
+                    method: "GET",
+                }).then(function (resposta) {
+                    resposta.json().then(json => {
+                        listar_usu(json)
+                    });
+
+                }).catch(function (erro) {
+                    console.log(erro);
+                })
+            }
+            function listar_usu(usuarios) {
+                let tbody = '';
+
+                // estrutura de repetição que não necessita de um break
+                usuarios.forEach(function (usuario) {
+                    tbody += `
+                        <tr>
+                            <td>${usuario.id}</td>
+                            <td>${usuario.username}</td>
+                            <td>${usuario.nome}</td>
+                            <td>${usuario.email}</td>
+                            <td>${usuario.setor}</td>
+                            <td>
+                                <button type="button" onclick="editar_usuario(${usuario.id})">Editar</button>
+                                <button type="button" onclick="excluir_usuario(${usuario.id})">Excluir</button>
+                            </td>
+                        </tr>
+                    `;
+                });
+
+                listagemUsuario.innerHTML = tbody;
+                contador.innerHTML = usuarios.length;
+            }
+
+            // para onde você quer que redirecione
+            function editar_usuario(id) {
+                window.location = "../CadastroUsuario/usuario.html?id=" + id
+            } // depois da ? é um parâmetro
+
+            function excluir_usuario(id) {
+                Swal.fire({
+                    title: 'Você tem certeza?',
+                    text: "Esta ação não poderá ser desfeita!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Sim, deletar!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        fetch("http://localhost:3333/usuarios/deletar/" + id, {
+                            method: "DELETE", // deletar
+                        }).then(function (resposta) {
+                                fetch("http://localhost:3333/usuarios", {
+                                    method: "GET",
+                                }).then(function (resposta) {
+                                    if (resposta.status == 200) {
+                                        resposta.json().then(json => {
+                                            listar_usu(json)
+                                            Swal.fire(
+                                                'Deletado!',
+                                                'Sua máquina virtual foi deletada',
+                                                'sucesso'
+                                            )
+                                        });
+                                    } else {
+                                        listagemUsuario.innerHTML = '';
+                                    }
+                                }).catch(function (erro) {
+                                    console.log(erro);
+                                })
+
+                        }).catch(function (erro) {
+                            console.log(erro);
+                        })
+                    }
+                })
+
+            }
+        </script>
+</body>
+
+</html>

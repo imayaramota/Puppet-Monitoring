@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet"
+        href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
+    <link rel="stylesheet" href="./style/adminStyle.css">
+    <script src="../js/funcoes.js"></script>
+    <link rel="icon" href="./assets/LogoRoxo.png">
+</head>
+
+<body>
+    <!--Menu Lateral-->
+    <input type="checkbox" id="nav-toggle">
+    <div class="barraLateral">
+        <div class="barraLateralLogo">
+            <h2><span>PUPPET</span></h2>
+        </div>
+        <div class="barraLateralMenu">
+            <ul>
+                <li class="list active">
+                    <a href="./admin.html">
+                        <span class="las la-window-restore"></span>
+                        <span>Geral</span>
+                    </a>
+                </li>
+                <li class="list">
+                    <a href="./listarUsuarios.html">
+                        <span class="las la-users"></span>
+                        <span>Usuários</span>
+                    </a>
+                </li>
+                <li class="list">
+                    <a href="./listagemMaquina.html">
+                        <span class="las la-server"></span>
+                        <span>Máquinas virtuais</span>
+                    </a>
+                </li>
+                <li class="list">
+                    <a href="#">
+                        <span class="las la-cog"></span>
+                        <span>Configurações</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <!--Header-->
+    <div class="mainContent">
+        <header>
+            <h2>
+                <label for="nav-toggle">
+                    <span class="las la-bars"></span>
+                </label>
+                Geral
+            </h2>
+            <div class="usuario">
+                <img src="./assets/whindUsuario.jpg" width="40px" height="40px" alt="">
+                <div>
+                    <h3><span id="b_usuario"></span></h3>
+
+                    <small id="setor_usuario"></small>
+                </div>
+            </div>
+        </header>
+        <!--Parte dos cards/main-->
+        <main>
+            <div class="cards">
+                <div class="cardSingle">
+                    <div>
+                        <h1 id="contador">0</h1>
+                        <span>Servidores em estado ótimo</span>
+                    </div>
+                    <div>
+                        <span class="las la-server"></span>
+                    </div>
+                </div>
+                <div class="cardSingle">
+                    <div>
+                        <h1 id="contadorServi">0</h1>
+                        <span>Servidores em estado razoável</span>
+                    </div>
+                    <div>
+                        <span class="las la-server"></span>
+                    </div>
+                </div>
+                <div class="cardSingle">
+                    <div>
+                        <h1 id="contadorServi">0</h1>
+                        <span>Servidores em estado preocupante</span>
+                    </div>
+                    <div>
+                        <span class="las la-server"></span>
+                    </div>
+                </div>
+                <div class="cardSingle">
+                    <div>
+                        <h1 id="contadorServi">0</h1>
+                        <span>Servidores em estado péssimo</span>
+                    </div>
+                    <div>
+                        <span class="las la-server"></span>
+                    </div>
+                </div>
+                <!-- <div class="cardSingle">
+                    <div>
+                        <h1>32</h1>
+                        <span>Aplicações</span>
+                    </div>
+                    <div>
+                        <span class="las la-clipboard-list"></span>
+                    </div>
+                </div>-->
+            </div>
+            <!--Parte dos alertas recentes-->
+            <div class="recente">
+                <div class="alertas">
+                    <div class="card">
+                        <div class="cardHeader">
+                            <h3>Alertas recentes</h3>
+                            <button>Ver tudo <span class="las la-arrow-right"></span></button>
+                        </div>
+                        <div class="cardBody">
+                            <div class="tabelaResponsiva">
+                                <table width="100%">
+                                    <thead>
+                                        <tr>
+                                            <td>Nome Servidor</td>
+                                            <td>Status</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Servidor Galopa</td>
+                                            <td>
+                                                <span class="status pink"></span>
+                                                review
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Servidor Sampaio</td>
+                                            <td>
+                                                <span class="status purple"></span>
+                                                in progresses
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Servidor Hakuna</td>
+                                            <td>
+                                                <span class="status blue"></span>
+                                                pending
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--Parte dos usuários recentes-->
+                <div class="usuarios">
+                    <div class="card">
+                        <div class="cardHeader">
+                            <h3>Novos usuarios</h3>
+                            <button>Ver tudo <span class="las la-arrow-right"></span></button>
+                        </div>
+                        <div class="cardBody">
+                            <div class="usuario">
+                                <div class="info">
+                                    <img src="./assets/whindUsuario.jpg" width="40px" height="40px" alt="">
+                                    <div>
+                                        <h4>Whinderson Nunes</h4>
+                                        <small>CEO</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="usuario">
+                                <div class="info">
+                                    <img src="./assets/whindUsuario.jpg" width="40px" height="40px" alt="">
+                                    <div>
+                                        <h4>Whinderson Nunes</h4>
+                                        <small>CEO</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="usuario">
+                                <div class="info">
+                                    <img src="./assets/whindUsuario.jpg" width="40px" height="40px" alt="">
+                                    <div>
+                                        <h4>Whinderson Nunes</h4>
+                                        <small>CEO</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="usuario">
+                                <div class="info">
+                                    <img src="./assets/whindUsuario.jpg" width="40px" height="40px" alt="">
+                                    <div>
+                                        <h4>Whinderson Nunes</h4>
+                                        <small>CEO</small>
+                                    </div>
+                                </div>
+                                <!-- <div class="contato">
+                                    <span class="las la-user-circle"></span>
+                                    <span class="las la-comment"></span>
+                                    <span class="las la-phone"></span>
+                                </div> -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </main>
+    </div>
+    <script>
+        b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
+        setor_usuario.innerHTML = sessionStorage.SETOR_USUARIO;
+
+        let list = document.querySelectorAll('.list');
+        for (let i = 0; i < list.length; i++) {
+            list[i].onclick = function () {
+                let j = 0;
+                while (j < list.length) {
+                    list[j++].className = 'list';
+                }
+                list[i].className = 'list active';
+            }
+        }
+
+        function listar_usu(usuarios) {
+
+            contador.innerHTML = usuarios.length;
+        }
+
+        function listar_maq(maquinas) {
+
+            contadorServi.innerHTML = maquinas.length;
+        }
+    </script>
+</body>
+
+</html>

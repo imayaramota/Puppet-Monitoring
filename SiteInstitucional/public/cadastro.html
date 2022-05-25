@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cadastro | PUPPET</title>
+  <link rel="stylesheet" href="cadastro_style.css">
+
+  <script src="./js/funcoes.js"></script>
+  <script src="http://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
+
+
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.14.0/css/all.css"
+    integrity="sha384-HzLeBuhoNPvSl5KYnjx0BT+WB0QEEqLprO+NBkkk5gbc67FTaL7XIGa2w1L0Xbgc" crossorigin="anonymous" />
+    <link rel="icon" href="./Cadastro/assets/LogoRoxo.png">
+</head>
+
+<body>
+  <!--NAVBAR-->
+  <nav class="navbar">
+    <img class="navbar_img" src="./Cadastro/assets/LogoSemLetra.png" alt="">
+    <h1 class="navbar_logo">PUPPET</h1>
+  <div class="navbar_mobile" id="mobile_navbar">
+    <span class="bar"></span>
+    <span class="bar"></span>
+    <span class="bar"></span>
+  </div>
+  <ul class="navbar_menu">
+    <li class="navbar_item">
+      <a href="./Home/index.html" class="navbar_links" id="home_page">Home</a>
+    </li>
+    <li class="navbar_item">
+      <a href="./Home/index.html" class="navbar_links" id="sobre_page">Sobre nós</a>
+    </li>
+    <li class="navbar_item">
+      <a href="./Home/index.htmlnpm" class="navbar_links" id="servico_page">Serviços</a>
+    </li>
+    <li class="navbar_item">
+      <a href="./login.html" class="navbar_links" id="login_page">Login</a>
+    </li>
+    <li class="navbar_btn">
+      <a href="./cadastro.html" class="button" id="cadastro_page">Cadastre-se</a>
+    </li>
+  </ul>
+  </div>
+  </nav>
+  <!--header fim-->
+
+  <div class="container">
+    <div class="container-cadastro">
+      <div class="form-image">
+        <img src="./Cadastro/assets/servidor.svg" alt="Imagem Servidor">
+      </div>
+      <div class="form">
+        <form action="#">
+          <div class="form-header">
+            <div class="title">
+              <h1>Cadastre-se</h1>
+              <h5>Crie sua conta, é rápido e fácil</h5>
+            </div>
+          </div>
+        <div class="formulario">
+          <div id="form_cadastro">
+             <div class="input-group">
+            <div class="all-input">
+            
+              <div class="input-box">
+                <label for="nomeempresa">Nome Empresa</label>
+                <input type="text" id="nome_empresa_input" name="nomeempresa" placeholder="Nome Empresa"> 
+              </div>
+
+              <div class="input-box">
+                <label for="cnpj">CNPJ</label>
+                <input type="text" id="cnpj_input" name="cnpj" placeholder="CNPJ"
+                onkeypress="$(this).mask('00.000.000/0000-00')" )> 
+              </div>
+
+            <div class="input-box">
+              <label for="telefone">Telefone</label>
+              <input type="text" id="telefone_input" name="telefone" placeholder="Telefone"
+              onkeypress="$(this).mask('(00) 0 0000-0000')" )> 
+            </div>
+
+            <div class="input-box">
+              <label for="firstname">Nome Usuário</label>
+              <input type="text" id="nome_input" name="firstname" placeholder="Nome"> 
+            </div>
+
+            <div class="input-box">
+              <label for="username">User Name</label>
+              <input type="text" id="username_input" name="username" placeholder="UserName"> 
+            </div>
+
+              <div class="input-box">
+                <label for="email">Email</label>
+                <input type="email" id="email_input" name="email" placeholder="E-mail"> 
+              </div>
+
+              <div class="input-box">
+                <label for="setor">Setor</label>
+                <input type="text" id="setor_input" name="setor" placeholder="Setor"> 
+              </div>
+
+              <div class="input-box">
+                <label for="password">Senha</label>
+                <input type="password" id="senha_input" name="password" placeholder="Senha"> 
+              </div>
+
+              <div class="input-box">
+                <label for="confirmpassword">Confirme sua Senha</label>
+                <input type="password" id="confirmacao_senha_input" name="confirmpassword" placeholder="Confirmar Senha"> 
+              </div>
+
+            </div>
+          </div>
+              <div class="btns">
+                
+                <div class="continue-button">
+                  <button class="btn" type="button" onclick="cadastrar()">Cadastrar</button>
+                </div>
+
+              </div>
+          </div>
+        </div>
+        <div id="div_aguardar" class="loading-div">
+        </div>
+
+        <div id="div_erros_login"></div>
+      </div>
+    </div>
+  </div>
+
+ <!-- footer inicio
+<div class="footer_container">
+      <div class="footer_links">
+        <div class="footer_link--wrapper">
+          <div class="footer_link--items">
+            <h2>Sobre nós</h2>
+            <a href="/sign__up">Como trabalhamos</a> <a href="/">Depoimentos</a>
+            <a href="/">Carreiras</a> <a href="/">Termos de serviço</a>
+          </div>
+          <div class="footer_link--items">
+            <h2>Contato</h2>
+            <a href="/">Contato</a> <a href="/">Suporte</a>
+            <a href="/">Destinação</a>
+          </div>
+        </div>
+        <div class="footer_link--wrapper">
+          <div class="footer_link--items">
+            <h2>Videos</h2>
+            <a href="/">Videos</a> <a href="/">Embaixadores</a>
+            <a href="/">Agência</a>
+          </div>
+          <div class="footer_link--items">
+            <h2>Mídia Social</h2>
+            <a href="/">Instagram</a> <a href="/">Facebook</a>
+            <a href="/">Youtube</a> <a href="/">Twitter</a>
+          </div>
+        </div>
+      </div>
+      <section class="social_media">
+        <div class="social_media--wrap">
+          <div class="footer_logo">
+            <a href="/" id="footer_logo">PUPPET</a>
+          </div>
+          <p class="website_rights">© PUPPET 2020. All rights reserved</p>
+          <div class="social_icons">
+            <a href="/" class="social_icon--link" target="_blank"><i class="fab fa-facebook"></i></a>
+            <a href="/" class="social_icon--link"><i class="fab fa-instagram"></i></a>
+            <a href="/" class="social_icon--link"><i class="fab fa-youtube"></i></a>
+            <a href="/" class="social_icon--link"><i class="fab fa-linkedin"></i></a>
+            <a href="/" class="social_icon--link"><i class="fab fa-twitter"></i></a>
+          </div>
+        </div>
+      </section>
+    </div>
+  footer fim-->-->
+</body>
+</html>
+
+
+<script>
+
+  function cadastrar() {
+    aguardar();
+    
+    var nomeVar = nome_input.value;
+    var emailVar = email_input.value;
+    var senhaVar = senha_input.value;
+    var confirmacaoSenhaVar = confirmacao_senha_input.value;
+    var setorVar = setor_input.value;
+    var usernameVar = username_input.value;
+    var nomeEmpresaVar = nome_empresa_input.value;
+    var cnpjVar = cnpj_input.value;
+    var telefoneVar = telefone_input.value;
+
+    if (
+      nomeVar == "" ||
+      emailVar == "" ||
+      senhaVar == "" ||
+      confirmacaoSenhaVar == "" ||
+      setorVar == "" ||
+      usernameVar == "" ||
+      nomeEmpresaVar == "" ||
+      cnpjVar == "" ||
+      telefoneVar == "" 
+    ) {
+      // window.alert("Preencha todos os campos para prosseguir!");
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Preencha todos os campos para prosseguir!',
+      })
+      if (nomeVar == "") {
+        console.log("nome está em branco");
+      }
+      if (emailVar == "") {
+        console.log("email está em branco");
+      }
+      if (senhaVar == "") {
+        console.log("senha está em branco");
+      }
+      if (confirmacaoSenhaVar == "") {
+        console.log("confirmacaoSenha está em branco");
+      }
+      if (setorVar == "") {
+        console.log("setor está em branco");
+      }
+      if (usernameVar == "") {
+        console.log("username está em branco");
+      }
+      if (nomeEmpresaVar == "") {
+        console.log("nome empresa está em branco");
+      }
+      if (cnpjVar == "") {
+        console.log("cnpj está em branco");
+      }
+      if (telefoneVar == "") {
+        console.log("telefone está em branco");
+      }
+      finalizarAguardar();
+      return false;
+    }
+
+    if (emailVar.indexOf("@") == -1 || emailVar.indexOf(".com") == -1) {
+      // window.alert("Ops, e-mail inválido! Verifique e tente novamente.");
+      Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'E-mail inválido! Verifique e tente novamente.',
+      })
+      finalizarAguardar();
+      return false;
+    }
+    if(senhaVar.length < 6){
+                // alert("A senha deve conter no minímo 6 digitos!");
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'A senha deve conter no minímo 6 digitos!',
+                })
+                ipt_senha.focus();
+                ipt_senha.value='';
+                ipt_senha_confirmacao.value='';
+                return false;
+    }
+
+    if (senhaVar != confirmacaoSenhaVar) {
+      // window.alert("As senhas inseridas devem ser iguais para prosseguir!");
+      Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'As senhas inseridas devem ser iguais para prosseguir!',
+      })
+      finalizarAguardar();
+      return false;
+    }
+
+    fetch("http://localhost:3333/usuariosLogin/cadastrar", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        nomeServer: nomeVar,
+        emailServer: emailVar,
+        senhaServer: senhaVar,
+        setorServer: setorVar,
+        usernameServer: usernameVar,
+        nomeEmpresaServer: nomeEmpresaVar,
+        cnpjServer: cnpjVar,
+        telefoneServer: telefoneVar,
+      }),
+    }).then(async function (resposta) {
+        console.log("resposta: ", resposta);
+        if (resposta.ok === true) {
+          await Swal.fire(
+            'Cadastrado com sucesso!',
+            '',
+            'success'
+          )
+          window.location = "login.html";
+          // limparFormulario();
+          // finalizarAguardar();
+        } else {
+          throw "Houve um erro ao tentar realizar o cadastro!";
+        }
+      })
+      .catch(function (resposta) {
+        console.log(`#ERRO: ${resposta}`);
+        finalizarAguardar();
+      });
+
+    return false;
+  }
+
+</script>

@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro Máquina | PUPPET</title>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet"
+        href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
+    <link rel="stylesheet" href="./style/styleContato.css">
+    <link rel="stylesheet" href="./style/maquinaStyle.css">
+    <link rel="icon" href="./assets/LogoRoxo.png">
+    <script src="/js/funcoes.js"></script>
+</head>
+
+<body>
+    <!--Menu Lateral-->
+    <input type="checkbox" id="nav-toggle">
+    <div class="barraLateral">
+        <div class="barraLateralLogo">
+            <h2><span>PUPPET</span></h2>
+        </div>
+        <div class="barraLateralMenu">
+            <ul>
+                <li class="list">
+                    <a href="../Dashboard Admin/admin.html">
+                        <span class="las la-window-restore"></span>
+                        <span>Geral</span>
+                    </a>
+                </li>
+                <li class="list">
+                    <a href="../Dashboard Admin/listarUsuarios.html">
+                        <span class="las la-users"></span>
+                        <span>Usuários</span>
+                    </a>
+                </li>
+                <li class="list active">
+                    <a href="../Dashboard Admin/listagemMaquina.html">
+                        <span class="las la-server"></span>
+                        <span>Máquinas virtuais</span>
+                    </a>
+                </li>
+                <li class="list">
+                    <a href="#">
+                        <span class="las la-cog"></span>
+                        <span>Configurações</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <!--Header-->
+    <div class="mainContent">
+        <header>
+            <h2>
+                <label for="nav-toggle">
+                    <span class="las la-bars"></span>
+                </label>
+                Cadastro Máquinas
+            </h2>
+            <div class="usuario">
+                <img src="./assets/whindUsuario.jpg" width="40px" height="40px" alt="">
+                <div>
+                    <h3><span id="b_usuario"></span></h3>
+                    <small id="setor_usuario">
+                </div>
+            </div>
+        </header>
+        <!--Parte dos cards/main-->
+        <main>
+            <div class="boxMain">
+                <div class="div_main">
+                    <form id="formulario" class="form" action="">
+                        <label for=""> Nome da Máquina Virtual: </label>
+                        <input name="nome" type="text" id="ipt_nome" placeholder="Insira seu nome" />
+                        <div class="alinhamento-btn">
+                            <button class="btn-primary" onclick="cadastrar()">Cadastrar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script>
+        let list = document.querySelectorAll('.list');
+        for (let i = 0; i < list.length; i++) {
+            list[i].onclick = function () {
+                let j = 0;
+                while (j < list.length) {
+                    list[j++].className = 'list';
+                }
+                list[i].className = 'list active';
+            }
+        }
+    </script>
+</body>
+
+</html>
+<script>
+    var id = location.search.slice(1).split('=')[1];
+
+    if (typeof id != "undefined") {
+        fetch('http://localhost:3333/maquinas/mostrar/' + id, {
+            method: 'GET' // listagem ou recuperar alguma informação
+        })
+            .then(function (resposta) {
+                resposta.json().then(json => {
+                    var retorno_usuario = json[0];
+                    ipt_nome.value = retorno_usuario.nome;
+                });
+            })
+            .catch(function (erro) {
+                console.log(erro);
+            });
+    }
+
+    function cadastrar() {
+        // aguardar();
+             b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
+             setor_usuario.innerHTML = sessionStorage.SETOR_USUARIO;
+        event.preventDefault();
+        var nomeVar = ipt_nome.value;
+
+        if (nomeVar == "") {
+
+            // window.alert("Preencha todos os campos para prosseguir!");
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Preencha o campo nome para prosseguir!',
+            })
+            return false;
+        }
+
+        if (typeof id == "undefined") {
+            fetch("http://localhost:3333/maquinas/cadastrar", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    nomeServer: nomeVar,
+                    idUsuario: sessionStorage.ID_USUARIO
+                })
+            }).then(async function (resposta) {
+
+                console.log("resposta: ", resposta);
+
+                if (resposta.ok) {
+                    // window.alert("Cadastro da máquina realizado com sucesso!");
+                    await Swal.fire(
+                        'Cadastro da máquina realizado com sucesso!',
+                        '',
+                        'success'
+                    )
+                    window.location = "../Dashboard Admin/listagemMaquina.html";
+                    console.log(`deu certoooooo`);
+                } else {
+                    throw ("Houve um erro ao tentar realizar o cadastro!");
+                }
+            }).catch(function (resposta) {
+                console.log(`#ERRO: ${resposta}`);
+                // finalizarAguardar();
+            });
+        } else {
+            let formulario = new URLSearchParams(
+                new FormData(document.getElementById('formulario'))
+            );
+            fetch('http://localhost:3333/maquinas/atualizar/' + id, {
+                method: 'PUT',
+                body: formulario
+            })
+                .then(function (resposta) {
+                    if (resposta.ok) {
+                            alert('Servidor atualizado com sucesso!!');
+                            setTimeout(function () {
+                                window.location = '../Dashboard Admin/listagemMaquina.html';
+                            }, 1000); // apenas para exibir o loading
+                    } else {
+                        resposta.text().then(texto => {
+                            alert(texto);
+                        });
+                    }
+                })
+                .catch(function (erro) {
+                    console.log(erro);
+                });
+
+        }
+        return false;
+    }
+
+</script>
