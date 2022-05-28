@@ -13,6 +13,8 @@
     <link rel="stylesheet" href="./style/maquinaStyle.css">
     <link rel="icon" href="./assets/LogoRoxo.png">
     <script src="/js/funcoes.js"></script>
+    <script src="//code.jivosite.com/widget/5q0iqZqyVo" async></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 </head>
 
 <body>
@@ -45,7 +47,7 @@
                 <li class="list">
                     <a href="#">
                         <span class="las la-cog"></span>
-                        <span>Configurações</span>
+                        <span id="sair" onclick="functionSair()">Sair</span>
                     </a>
                 </li>
             </ul>
@@ -64,7 +66,7 @@
                 <img src="./assets/whindUsuario.jpg" width="40px" height="40px" alt="">
                 <div>
                     <h3><span id="b_usuario"></span></h3>
-                    <small id="setor_usuario">
+                    <small id="setor_usuario"></small>
                 </div>
             </div>
         </header>
@@ -76,7 +78,7 @@
                         <label for=""> Nome da Máquina Virtual: </label>
                         <input name="nome" type="text" id="ipt_nome" placeholder="Insira seu nome" />
                         <div class="alinhamento-btn">
-                            <button class="btn-primary" onclick="cadastrar()">Cadastrar</button>
+                            <button class="btn-primary" onclick="cadastrar()" id="btnDisabled">Cadastrar</button>
                         </div>
                     </form>
                 </div>
@@ -118,6 +120,7 @@
 
     function cadastrar() {
         // aguardar();
+        document.getElementById("btnDisabled").disabled = true;
              b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
              setor_usuario.innerHTML = sessionStorage.SETOR_USUARIO;
         event.preventDefault();
@@ -142,7 +145,8 @@
                 },
                 body: JSON.stringify({
                     nomeServer: nomeVar,
-                    idUsuario: sessionStorage.ID_USUARIO
+                    idUsuario: sessionStorage.ID_USUARIO,
+                    keyVMServer
                 })
             }).then(async function (resposta) {
 
@@ -191,5 +195,13 @@
         }
         return false;
     }
-
+    function functionSair(){
+    document.getElementById("sair")
+            Swal.fire(
+                    'Deseja realemte sair?',
+                    'Sim? Basta clicar em "OK"',
+                    'question'
+            )
+            window.location = "../Home/index.html";
+    }
 </script>

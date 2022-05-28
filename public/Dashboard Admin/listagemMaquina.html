@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="./style/listagemMaquina.css">
     <link rel="stylesheet" href="./style/listarUsuarios.css">
     <link rel="icon" href="./assets/LogoRoxo.png">
+    <script src="//code.jivosite.com/widget/5q0iqZqyVo" async></script>
 </head>
 
 <body>
@@ -43,7 +44,7 @@
                 <li class="list">
                     <a href="#">
                         <span class="las la-cog"></span>
-                        <span>Configurações</span>
+                        <span id="sair" onclick="functionSair()">Sair</span>
                     </a>
                 </li>
             </ul>
@@ -71,7 +72,7 @@
             <div class="card1">
                 <div class="cardSingle">
                     <div>
-                        <h1 id="contador">0</h1>
+                        <h1 id="contador"></h1>
                         <span>Máquinas</span>
                     </div>
                     <div>
@@ -126,6 +127,7 @@
                 });
 
                 listagemMaquina.innerHTML = tbody;
+                contador.innerHTML = maquinas.length;
             }
 
             // para onde você quer que redirecione
