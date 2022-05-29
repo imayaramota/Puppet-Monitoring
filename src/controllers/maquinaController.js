@@ -5,6 +5,7 @@ var sessoes = [];
 function cadastrar(req, res) {
     var nome = req.body.nomeServer;
     var idUsuario = req.body.idUsuario;
+    
 
 
     if (nome == undefined) {

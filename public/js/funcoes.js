@@ -6,6 +6,7 @@ function validarSessao() {
     var nome = sessionStorage.NOME_USUARIO;
     var setor = sessionStorage.SETOR_USUARIO;
     var fkEmpresa = sessionStorage.EMPRESA_USUARIO;
+    // var keyVM = sessionStorage.KEY_VM;
 
     var h1LoginUsuario = document.getElementById("h1_login_usuario");
 

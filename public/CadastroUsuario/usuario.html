@@ -282,5 +282,23 @@
         }
         return false;
     }
+    let btnSair = document.getElementById("sair")
+    btnSair.addEventListener("click", functionSair);
+
+    function functionSair(){
+        Swal.fire({
+            title: 'Deseja realmente sair?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Sim',
+            cancelButtonText: 'Não, sair'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location = "../Home/index.html";
+            }
+        })
+    }
 
 </script>

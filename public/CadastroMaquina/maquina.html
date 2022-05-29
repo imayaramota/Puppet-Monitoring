@@ -47,7 +47,7 @@
                 <li class="list">
                     <a href="#">
                         <span class="las la-cog"></span>
-                        <span id="sair" onclick="functionSair()">Sair</span>
+                        <span id="sair">Sair</span>
                     </a>
                 </li>
             </ul>
@@ -145,8 +145,7 @@
                 },
                 body: JSON.stringify({
                     nomeServer: nomeVar,
-                    idUsuario: sessionStorage.ID_USUARIO,
-                    keyVMServer
+                    idUsuario: sessionStorage.ID_USUARIO
                 })
             }).then(async function (resposta) {
 
@@ -195,13 +194,22 @@
         }
         return false;
     }
+    let btnSair = document.getElementById("sair")
+    btnSair.addEventListener("click", functionSair);
+
     function functionSair(){
-    document.getElementById("sair")
-            Swal.fire(
-                    'Deseja realemte sair?',
-                    'Sim? Basta clicar em "OK"',
-                    'question'
-            )
-            window.location = "../Home/index.html";
+        Swal.fire({
+            title: 'Deseja realmente sair?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Sim',
+            cancelButtonText: 'Não, sair'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location = "../Home/index.html";
+            }
+        })
     }
 </script>
