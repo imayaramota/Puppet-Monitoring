@@ -455,6 +455,8 @@ tr td:last-child {
   
   
   .row-1 {
+    grid-template-columns: repeat(2, 1fr);
+    margin-top: 2rem;
     display: flex;
     justify-content: center;
   }
