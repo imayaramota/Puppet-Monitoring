@@ -282,7 +282,7 @@
                         ctx.font = fontSize + "em sans-serif";
                         ctx.textBaseline = "middle";
 
-                        var text = dadosPieCpu.datasets[0].data[1] + "%",
+                        var text = `${dadosPieCpu.datasets[0].data[1]}%`,
                             textX = Math.round((width - ctx.measureText(text).width) / 2),
                             textY = height / 2;
 
@@ -345,7 +345,7 @@
                         ctx.font = fontSize + "em sans-serif";
                         ctx.textBaseline = "middle";
 
-                        var text = dadosPieRam.datasets[0].data[1] + "%",
+                        var text = `${dadosPieRam.datasets[0].data[1]}%`,
                             textX = Math.round((width - ctx.measureText(text).width) / 2),
                             textY = height / 2;
 
@@ -407,7 +407,7 @@
                         ctx.font = fontSize + "em sans-serif";
                         ctx.textBaseline = "middle";
 
-                        var text = dadosPieDisco.datasets[0].data[1] + "%",
+                        var text = `${dadosPieDisco.datasets[0].data[1]}%`,
                             textX = Math.round((width - ctx.measureText(text).width) / 2),
                             textY = height / 2;
 
@@ -640,8 +640,8 @@
                             dadosDisco.datasets[0].data.push(resposta[0].usoDisco)
 
 
-                            // pieChartDisco.data.datasets[0].data[1] = resposta[resposta.length - 1].usoDisco;
-                            // pieChartDisco.data.datasets[0].data[2] = 100 - (resposta[resposta.length - 1].usoDisco)
+                            pieChartDisco.data.datasets[0].data[1] = resposta[resposta.length - 1].usoDisco;
+                            pieChartDisco.data.datasets[0].data[2] = 100 - (resposta[resposta.length - 1].usoDisco)
 
                             // Atualizando gráficos
 
@@ -663,6 +663,12 @@
 
 
             }
+            var ramFlat, disco;
+
+            function informacoesMaquina() {
+                
+            }
+            
         </script>
 </body>
 
