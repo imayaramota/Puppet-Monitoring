@@ -71,18 +71,37 @@
         </header>
         <!--Parte dos cards/main-->
         <main>
-            <div>
-                <canvas id="myChart1"></canvas>
-              </div>
-              <div>
-                <canvas id="myChart2"></canvas>
-              </div>
-              <div>
-                <canvas id="myChart3"></canvas>
-              </div>
-              <div>
-                <canvas id="myChart4"></canvas>
-              </div>
+            <div class="row-1" style="height:50%">
+                <div class="col-md-4 grafico-linha" style="width:100%">
+                    <h3 style="text-align:center;padding-top: 2em;font-size: 26px;font-weight: 600;margin-top: -25px; color: #320552;">
+                        EC2-MAGAZINE</h3>
+                    <div class="estilo-grafico-linha" id="grafico-linha-12">
+                        <canvas id="myChart1"></canvas>
+                    </div>
+                </div>
+                <div class="col-md-4 grafico-linha" style="width:100%">
+                    <h3 style="text-align:center;padding-top: 2em;font-size: 26px;font-weight: 600;margin-top: -25px; color: #320552;">
+                        EC2-RIACHUELO</h3>
+                    <div class="estilo-grafico-linha" id="grafico-linha-12">
+                        <canvas id="myChart2"></canvas>
+                    </div>
+                </div>
+                <div class="col-md-4 grafico-linha" style="width:100%">
+                    <h3 style="text-align:center;padding-top: 2em;font-size: 26px;font-weight: 600;margin-top: -25px; color: #320552;">
+                        EC2-RIHAPPY</h3>
+                    <div class="estilo-grafico-linha" id="grafico-linha-12">
+                        <canvas id="myChart3"></canvas>
+                    </div>
+                </div>
+               <!-- <div class="col-md-4 grafico-linha" style="width:100%">
+                    <h3 style="text-align:center;padding-top: 2em;font-size: 26px;font-weight: 600;margin-top: -25px; color: #320552;">
+                        EC2-MARISA</h3>
+                    <div class="estilo-grafico-linha" id="grafico-linha-12">
+                        <canvas id="myChart4"></canvas>
+                    </div>
+                </div>-->
+            </div>
+
             <!--<div class="cards">
                 <div class="cardSingle">
                     <div>
@@ -229,10 +248,14 @@
     </div>
     </main>
     </div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.8.0/chart.min.js" integrity="sha512-sW/w8s4RWTdFFSduOTGtk4isV1+190E/GghVffMA9XczdJ2MDzSzLEubKAs5h0wzgSJOQTRYyaz73L3d6RtJSg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.8.0/chart.min.js" integrity="sha512-sW/w8s4RWTdFFSduOTGtk4isV1+190E/GghVffMA9XczdJ2MDzSzLEubKAs5h0wzgSJOQTRYyaz73L3d6RtJSg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.8.0/chart.min.js"
+        integrity="sha512-sW/w8s4RWTdFFSduOTGtk4isV1+190E/GghVffMA9XczdJ2MDzSzLEubKAs5h0wzgSJOQTRYyaz73L3d6RtJSg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.8.0/chart.min.js"
+        integrity="sha512-sW/w8s4RWTdFFSduOTGtk4isV1+190E/GghVffMA9XczdJ2MDzSzLEubKAs5h0wzgSJOQTRYyaz73L3d6RtJSg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script>
-        
+
         const data = [];
         const data2 = [];
         const data3 = [];
@@ -279,7 +302,7 @@
             }
         };
 
-        
+
         const config = {
             type: 'line',
             data: {
@@ -301,7 +324,7 @@
                     radius: 0,
                     data: data3,
                 }
-            ]
+                ]
             },
             options: {
                 animation,
@@ -319,20 +342,20 @@
             }
         };
         const myChart1 = new Chart(
-          document.getElementById('myChart1'),
-          config
+            document.getElementById('myChart1'),
+            config
         );
         const myChart2 = new Chart(
-          document.getElementById('myChart2'),
-          config
+            document.getElementById('myChart2'),
+            config
         );
         const myChart3 = new Chart(
-          document.getElementById('myChart3'),
-          config
+            document.getElementById('myChart3'),
+            config
         );
         const myChart4 = new Chart(
-          document.getElementById('myChart4'),
-          config
+            document.getElementById('myChart4'),
+            config
         );
     </script>
     <script>
@@ -377,8 +400,8 @@
                 }
             })
         }
-       
-      </script>
+
+    </script>
 </body>
 
 </html>
