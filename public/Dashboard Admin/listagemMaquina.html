@@ -118,7 +118,7 @@
                 // estrutura de repetição que não necessita de um break
                 maquinas.forEach(function (maquina) {
                     tbody += `
-                    <div class="cardSingle">
+                    <div class="cardSingle" onclick="maquinaSelecionada(${maquina.id})">
                         <h1 style="color:#320552">${[maquina.nome]}</h1>
                         <div class="btns">
                             <button class="btn" type="button" onclick="editar_maquina(${maquina.id})">Editar</button>
@@ -131,6 +131,11 @@
 
                 listagemMaquina.innerHTML = tbody;
                 contador.innerHTML = maquinas.length;
+            }
+
+            function maquinaSelecionada(maquina) {
+                window.location = "./telaGraficosAdmin.html?id="+maquina;
+                console.log("hello")
             }
 
             // para onde você quer que redirecione

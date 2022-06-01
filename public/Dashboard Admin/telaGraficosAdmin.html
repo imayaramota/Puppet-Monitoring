@@ -3,31 +3,45 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible"
+          content="IE=edge">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
     <title>Gráficos VM | Puppet</title>
+    <script type="text/javascript"
+            src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet"
-        href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
-    <link rel="stylesheet" href="./style/telaGraficoAdmin.css">
-    <link rel="icon" href="./assets/LogoRoxo.png">
+          href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
+    <link rel="stylesheet"
+          href="./style/telaGraficoAdmin.css">
+    <link rel="icon"
+          href="./assets/LogoRoxo.png">
     <!-- Font Awesome JS -->
-    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js"
-        integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ"
-        crossorigin="anonymous"></script>
-    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js"
-        integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY"
-        crossorigin="anonymous"></script>
+    <script defer
+            src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js"
+            integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ"
+            crossorigin="anonymous"></script>
+    <script defer
+            src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js"
+            integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY"
+            crossorigin="anonymous"></script>
 
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Chivo:wght@300&display=swap" rel="stylesheet" />
-    <script src="//code.jivosite.com/widget/5q0iqZqyVo" async></script>
+    <link rel="preconnect"
+          href="https://fonts.googleapis.com" />
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Chivo:wght@300&display=swap"
+          rel="stylesheet" />
+    <script src="//code.jivosite.com/widget/5q0iqZqyVo"
+            async></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body>
     <!--Menu Lateral-->
-    <input type="checkbox" id="nav-toggle">
+    <input type="checkbox"
+           id="nav-toggle">
     <div class="barraLateral">
         <div class="barraLateralLogo">
             <h2><span>PUPPET</span></h2>
@@ -55,7 +69,8 @@
                 <li class="list">
                     <a href="#">
                         <span class="las la-cog"></span>
-                        <span id="sair" onclick="functionSair()">Sair</span>
+                        <span id="sair"
+                              onclick="functionSair()">Sair</span>
                     </a>
                 </li>
             </ul>
@@ -71,7 +86,10 @@
                 Máquinas Virtuais
             </h2>
             <div class="usuario">
-                <img src="./assets/whindUsuario.jpg" width="40px" height="40px" alt="">
+                <img src="./assets/whindUsuario.jpg"
+                     width="40px"
+                     height="40px"
+                     alt="">
                 <div>
                     <h3><span id="b_usuario"></span></h3>
                     <small id="setor_usuario"></small>
@@ -89,7 +107,8 @@
                                     <h3>Filtro</h3>
                                     <span class="status pink"></span>
                                     <span class="status purple"></span>
-                                    <span class="status yellow" style="background-color: yellow"></span>
+                                    <span class="status yellow"
+                                          style="background-color: yellow"></span>
                                     <span class="status blue"></span>
                                 </table>
                             </div>
@@ -97,65 +116,80 @@
                     </div>
                 </div>
             </div>
-            <div class="row-1"style="height:80%">
-                <div class="col-md-4 grafico-linha" style="width:100%">
-                    <div class="estilo-grafico-linha" id="grafico-linha-1" ></div>
+            <div class="row-1"
+                 style="height:80%">
+                <div class="col-md-4 grafico-linha"
+                     style="width:100%">
+                    <div class="estilo-grafico-linha"
+                         id="grafico-linha-12">
+                        <canvas id="graficoProcessador"></canvas>
+                    </div>
                 </div>
-                <div class="col-md-5" style="width:30%;padding-right:30px;">
-                    <h3 style="text-align:center;padding-top: 2em;font-size: 26px;font-weight: 600;margin-top: -25px; color: #320552;">CPU</h3>
-                    <p style="text-align:center;font-size: 15px;">
-                        Contratada Atualmente
-                    </p>
-                    <p style="text-align:center;padding-top: 12px;font-weight: 400;margin-bottom: 25px;margin-top: 20px;">Em 9 dias chegará em um <br>ponto crítico</p>
-                    <hr style="margin: 17px auto ;width:80%;">
-                    <h4 style="font-size:20px;font-weight:500;text-align:center">95% UPGRADE</h4>
-                    <span style="position: relative;top: -84px;margin-bottom: 20px;margin-left:160px;display: block;background-color:orange;width: 200px;height: 13px;transform: rotate(90deg);"></span>
-                </div>
-            </div>
-            <br>
-            <div class="row-1"style="height:80%">
-                <div class="col-md-4 grafico-linha" style="width:100%">
-                    <div class="estilo-grafico-linha" id="grafico-linha-2" ></div>
-                </div>
-                <div class="col-md-5" style="width:30%;padding-right:30px;">
-                    <h3 style="text-align:center;padding-top: 2em;font-size: 26px;font-weight: 600;margin-top: -25px; color: #320552;">RAM</h3>
-                    <p style="text-align:center;font-size: 15px;">
-                        Contratada Atualmente
-                    </p>
-                    <p style="text-align:center;padding-top: 12px;font-weight: 400;margin-bottom: 25px;margin-top: 20px;">Em 9 dias chegará em um <br>ponto crítico</p>
-                    <hr style="margin: 17px auto ;width:80%;">
-                    <h4 style="font-size:20px;font-weight:500;text-align:center">100% UPGRADE</h4>
-                    <span style="position: relative;top: -84px;margin-bottom: 20px;margin-left:160px;display: block;background-color:red;width: 200px;height: 13px;transform: rotate(90deg);"></span>
+                <div class="col-md-5"
+                     style="width:30%;">
+                    <h3
+                        style="text-align:center;padding-top: 2em;font-size: 26px;font-weight: 600;margin-top: -25px; color: #320552;">
+                        CPU</h3>
+                    <div style=" padding: 10px 10px;">
+                        <canvas id="pieChartProcessador"></canvas>
+                    </div>
+
                 </div>
             </div>
             <br>
-            <div class="row-1"style="height:80%">
-                <div class="col-md-4 grafico-linha" style="width:100%">
-                    <div class="estilo-grafico-linha" id="grafico-linha-3" ></div>
+            <div class="row-1"
+                 style="height:80%">
+                <div class="col-md-4 grafico-linha"
+                     style="width:100%">
+                    <div class="estilo-grafico-linha"
+                         id="grafico-linha-12">
+                        <canvas id="graficoRam"></canvas>
+                    </div>
                 </div>
-                <div class="col-md-5" style="width:30%;padding-right:30px;">
-                    <h3 style="text-align:center;padding-top: 2em;font-size: 26px;font-weight: 600;margin-top: -25px; color: #320552;">DISCO</h3>
-                    <p style="text-align:center;font-size: 15px;">
-                        Contratada Atualmente
-                    </p>
-                    <p style="text-align:center;padding-top: 12px;font-weight: 400;margin-bottom: 25px;margin-top: 20px;">Em 9 dias chegará em um <br>ponto crítico</p>
-                    <hr style="margin: 17px auto ;width:80%;">
-                    <h4 style="font-size:20px;font-weight:500;text-align:center">95% UPGRADE</h4>
-                    <span style="position: relative;top: -84px;margin-bottom: 20px;margin-left:160px;display: block;background-color:orange;width: 200px;height: 13px;transform: rotate(90deg);"></span>
+                <div class="col-md-5"
+                     style="width:30%;">
+                    <h3
+                        style="text-align:center;padding-top: 2em;font-size: 26px;font-weight: 600;margin-top: -25px; color: #320552;">
+                        RAM</h3>
+                    <div style=" padding: 10px 10px;">
+                        <canvas id="pieChartRam"></canvas>
+                    </div>
+
+                </div>
+            </div>
+            <br>
+            <div class="row-1"
+                 style="height:80%">
+                <div class="col-md-4 grafico-linha"
+                     style="width:100%">
+                    <div class="estilo-grafico-linha"
+                         id="grafico-linha-12">
+                        <canvas id="graficoDisco"></canvas>
+                    </div>
+                </div>
+                <div class="col-md-5"
+                     style="width:30%;">
+                    <h3
+                        style="text-align:center;padding-top: 2em;font-size: 26px;font-weight: 600;margin-top: -25px; color: #320552;">
+                        DISCO</h3>
+                    <div style=" padding: 10px 10px;">
+                        <canvas id="pieChartDisco"></canvas>
+                    </div>
+
                 </div>
             </div>
         </main>
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-            crossorigin="anonymous"></script>
+                integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+                crossorigin="anonymous"></script>
         <!-- Popper.JS -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"
-            integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ"
-            crossorigin="anonymous"></script>
+                integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ"
+                crossorigin="anonymous"></script>
         <!-- Bootstrap JS -->
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"
-            integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm"
-            crossorigin="anonymous"></script>
+                integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm"
+                crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
         <script>
             $(document).ready(function () {
@@ -164,17 +198,14 @@
                 });
             });
         </script>
-        <script src="graficos/linhas.js"></script>
-        <script src="graficos/pie.js"></script>
-        <script src="graficos/column.js"></script>
         <script> b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
-                 setor_usuario.innerHTML = sessionStorage.SETOR_USUARIO;
+            setor_usuario.innerHTML = sessionStorage.SETOR_USUARIO;
         </script>
         <script>
             let btnSair = document.getElementById("sair")
             btnSair.addEventListener("click", functionSair);
 
-            function functionSair(){
+            function functionSair() {
                 Swal.fire({
                     title: 'Deseja realmente sair?',
                     icon: 'warning',
@@ -188,6 +219,449 @@
                         window.location = "../Home/index.html";
                     }
                 })
+            }
+
+
+            const queryString = window.location.search;
+
+            const urlParams = new URLSearchParams(queryString)
+
+            var idMaquina = urlParams.get("id")
+
+            window.onload = inicializarDados();
+
+            // chart pie cpu
+
+            var dadosPieCpu = {
+                labels: [
+                    "disponivel",
+                    "uso ram",
+                ],
+                datasets: [
+                    {
+                        data: [],
+                        backgroundColor: [
+
+                            "transparent",
+                            "#009900",
+                            "#320552",
+                        ],
+                        borderColor: [
+                            "transparent",
+                            "#009900",
+                            "#320552",
+                        ],
+
+                        cutout: "80%"
+                    }
+                ]
+            };
+
+            var configCpu2 = {
+                type: 'doughnut',
+                data: dadosPieCpu,
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                    },
+                    events: [],
+                    rotation: 138,
+                },
+                plugins: [{
+                    id: 'text',
+                    beforeDraw: function (chart, a, b) {
+                        var width = chart.width,
+                            height = chart.height,
+                            ctx = chart.ctx;
+
+                        ctx.restore();
+                        var fontSize = (height / 114).toFixed(2);
+                        ctx.font = fontSize + "em sans-serif";
+                        ctx.textBaseline = "middle";
+
+                        var text = dadosPieCpu.datasets[0].data[1] + "%",
+                            textX = Math.round((width - ctx.measureText(text).width) / 2),
+                            textY = height / 2;
+
+                        ctx.fillText(text, textX, textY);
+                        ctx.save();
+                    }
+                }]
+            }
+
+            window.pieChartCpu = new Chart(document.getElementById('pieChartProcessador'), configCpu2);
+
+            // Piechart ram
+
+            var dadosPieRam = {
+                labels: [
+                    "disponivel",
+                    "uso ram",
+                ],
+                datasets: [
+                    {
+                        data: [],
+                        backgroundColor: [
+
+                            "transparent",
+                            "#009900",
+                            "#320552",
+                        ],
+                        borderColor: [
+                            "transparent",
+                            "#009900",
+                            "#320552",
+                        ],
+
+                        cutout: "80%"
+                    }
+                ]
+            };
+            var configRam2 = {
+                type: 'doughnut',
+                data: dadosPieRam,
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                    },
+                    events: [],
+                    rotation: 138,
+                },
+                plugins: [{
+                    id: 'text',
+                    beforeDraw: function (chart, a, b) {
+                        var width = chart.width,
+                            height = chart.height,
+                            ctx = chart.ctx;
+
+                        ctx.restore();
+                        var fontSize = (height / 114).toFixed(2);
+                        ctx.font = fontSize + "em sans-serif";
+                        ctx.textBaseline = "middle";
+
+                        var text = dadosPieRam.datasets[0].data[1] + "%",
+                            textX = Math.round((width - ctx.measureText(text).width) / 2),
+                            textY = height / 2;
+
+                        ctx.fillText(text, textX, textY);
+                        ctx.save();
+                    }
+                }]
+            }
+
+            window.pieChartRam = new Chart(document.getElementById('pieChartRam'), configRam2);
+
+            // piechart disco
+            var dadosPieDisco = {
+                labels: [
+                    "disponivel",
+                    "uso ram",
+                ],
+                datasets: [
+                    {
+                        data: [],
+                        backgroundColor: [
+
+                            "transparent",
+                            "#009900",
+                            "#320552",
+                        ],
+                        borderColor: [
+                            "transparent",
+                            "#009900",
+                            "#320552",
+                        ],
+
+                        cutout: "80%"
+                    }
+                ]
+            };
+            var configDiscoPie2 = {
+                type: 'doughnut',
+                data: dadosPieDisco,
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                    },
+                    events: [],
+                    rotation: 138,
+                },
+                plugins: [{
+                    id: 'text',
+                    beforeDraw: function (chart, a, b) {
+                        var width = chart.width,
+                            height = chart.height,
+                            ctx = chart.ctx;
+
+                        ctx.restore();
+                        var fontSize = (height / 114).toFixed(2);
+                        ctx.font = fontSize + "em sans-serif";
+                        ctx.textBaseline = "middle";
+
+                        var text = dadosPieDisco.datasets[0].data[1] + "%",
+                            textX = Math.round((width - ctx.measureText(text).width) / 2),
+                            textY = height / 2;
+
+                        ctx.fillText(text, textX, textY);
+                        ctx.save();
+                    }
+                }]
+            }
+
+            window.pieChartDisco = new Chart(document.getElementById('pieChartDisco'), configDiscoPie2);
+
+            // *************************
+            //
+            // Chart line cpu
+
+            const dadosLineCpu = {
+                labels: [],
+                datasets: [{
+                    label: 'USO PROCESSADOR',
+                    backgroundColor: 'rgb(255, 99, 132)',
+                    borderColor: 'rgb(255, 99, 132)',
+                    data: [],
+
+                }]
+            };
+
+            const configCpu1 = {
+                type: 'line',
+                data: dadosLineCpu,
+                options: {
+                    responsive: true,
+                    animation: { duration: 1000 },
+                    hoverMode: 'index',
+                    stacked: false,
+                    title: {
+                        display: true,
+                        text: 'Histórico recente de umidade/temperatura'
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                        },
+                    },
+                }
+            };
+
+
+            var lineChartCpu = document.getElementById('graficoProcessador').getContext("2d");
+            window.grafico_linha_cpu = new Chart(lineChartCpu, configCpu1);
+
+            // ******************
+            //
+            // Chart line ram
+
+
+            const dadosLineRam = {
+                labels: [],
+                datasets: [{
+                    label: 'USO RAM',
+                    backgroundColor: 'rgb(255, 99, 132)',
+                    borderColor: 'rgb(255, 99, 132)',
+                    data: [],
+
+                }]
+            };
+
+            const configLineRam = {
+                type: 'line',
+                data: dadosLineRam,
+                options: {
+                    responsive: true,
+                    animation: { duration: 1000 },
+                    hoverMode: 'index',
+                    stacked: false,
+                    title: {
+                        display: true,
+                        text: 'Histórico recente de umidade/temperatura'
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                        },
+                    },
+                }
+            };
+
+
+            var lineChartRam = document.getElementById('graficoRam').getContext("2d");
+            window.grafico_linha_ram = new Chart(lineChartRam, configLineRam);
+
+
+            // **************************
+            // 
+            // Char line disco
+            const dadosLineDisco = {
+                labels: [],
+                datasets: [{
+                    label: 'USO DISCO',
+                    backgroundColor: 'rgb(255, 99, 132)',
+                    borderColor: 'rgb(255, 99, 132)',
+                    data: [],
+
+                }]
+            };
+
+            const configDisco2 = {
+                type: 'line',
+                data: dadosLineDisco,
+                options: {
+                    responsive: true,
+                    animation: { duration: 1000 },
+                    hoverMode: 'index',
+                    stacked: false,
+                    title: {
+                        display: true,
+                        text: 'Histórico recente de umidade/temperatura'
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                        },
+                    },
+                }
+            };
+
+
+            var lineChartDisco = document.getElementById('graficoDisco').getContext("2d");
+            window.grafico_linha_disco = new Chart(lineChartDisco, configDisco2);
+
+
+            function inicializarDados() {
+
+
+                fetch(`/medidas/ultimas/${urlParams.get("id")}`, { cache: 'no-store' }).then(function (response) {
+                    if (response.ok) {
+                        response.json().then(function (resposta) {
+                            console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                            resposta.reverse();
+                            plotarGrafico(resposta);
+                        });
+                    } else {
+                        console.error('Nenhum dado encontrado ou erro na API');
+                    }
+                })
+                    .catch(function (error) {
+                        console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+                    });
+            }
+
+            function plotarGrafico(res) {
+
+
+                console.log(res.length)
+                for (i = 0; i < res.length; i++) {
+                    var dado = res[i];
+                    dadosLineCpu.labels.push(dado.dataHora);
+                    dadosLineCpu.datasets[0].data.push(dado.usoProcessador)
+
+                    dadosLineRam.labels.push(dado.dataHora);
+                    dadosLineRam.datasets[0].data.push(dado.usoRam)
+
+                    dadosLineDisco.labels.push(dado.dataHora);
+                    dadosLineDisco.datasets[0].data.push(dado.usoDisco)
+
+
+
+                }
+                console.log(res[res.length - 1].usoProcessador)
+                console.log(100 - (res[res.length - 1].usoProcessador));
+
+                pieChartCpu.data.datasets[0].data[0] = 30;
+                pieChartCpu.data.datasets[0].data[1] = res[res.length - 1].usoProcessador;
+                pieChartCpu.data.datasets[0].data[2] = 100 - (res[res.length - 1].usoProcessador);
+
+                pieChartRam.data.datasets[0].data[0] = 30;
+                pieChartRam.data.datasets[0].data[1] = res[res.length - 1].usoRam;
+                pieChartRam.data.datasets[0].data[2] = 100 - (res[res.length - 1].usoRam);
+
+                pieChartDisco.data.datasets[0].data[0] = 30;
+                pieChartDisco.data.datasets[0].data[1] = res[res.length - 1].usoDisco;
+                pieChartDisco.data.datasets[0].data[2] = 100 - (res[res.length - 1].usoDisco);
+
+
+                setInterval(() => {
+                    atualizarGraficos(idMaquina, dadosLineCpu, dadosLineRam, dadosLineDisco);
+
+                }, 5000)
+
+
+
+            }
+
+            function atualizarGraficos(maquina, dadosCpu, dadosRam, dadosDisco) {
+                fetch(`/medidas/tempo-real/${maquina}`, { cache: 'no-store' }).then(function (response) {
+                    if (response.ok) {
+                        response.json().then(function (resposta) {
+                            console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                            resposta.reverse();
+
+                            // Dados uso do processador
+                            dadosCpu.labels.shift();
+                            dadosCpu.labels.push(resposta[0].dataHora);
+
+                            dadosCpu.datasets[0].data.shift();
+                            dadosCpu.datasets[0].data.push(resposta[0].usoProcessador)
+
+
+                            pieChartCpu.data.datasets[0].data[1] = resposta[resposta.length - 1].usoProcessador;
+                            pieChartCpu.data.datasets[0].data[2] = 100 - (resposta[resposta.length - 1].usoProcessador)
+
+                            // Dados de uso de ram
+
+                            dadosRam.labels.shift();
+                            dadosRam.labels.push(resposta[0].dataHora);
+
+                            dadosRam.datasets[0].data.shift();
+                            dadosRam.datasets[0].data.push(resposta[0].usoRam)
+
+
+                            pieChartRam.data.datasets[0].data[1] = resposta[resposta.length - 1].usoRam;
+                            pieChartRam.data.datasets[0].data[2] = 100 - (resposta[resposta.length - 1].usoRam)
+
+
+                            // Dados do uso de disco
+
+                            dadosDisco.labels.shift();
+                            dadosDisco.labels.push(resposta[0].dataHora);
+
+                            dadosDisco.datasets[0].data.shift();
+                            dadosDisco.datasets[0].data.push(resposta[0].usoDisco)
+
+
+                            // pieChartDisco.data.datasets[0].data[1] = resposta[resposta.length - 1].usoDisco;
+                            // pieChartDisco.data.datasets[0].data[2] = 100 - (resposta[resposta.length - 1].usoDisco)
+
+                            // Atualizando gráficos
+
+                            window.pieChartCpu.update();
+                            window.pieChartDisco.update();
+                            window.pieChartRam.update();
+
+                            window.grafico_linha_cpu.update();
+                            window.grafico_linha_disco.update();
+                            window.grafico_linha_ram.update();
+                        });
+                    } else {
+                        console.error('Nenhum dado encontrado ou erro na API');
+                    }
+                })
+                    .catch(function (error) {
+                        console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+                    });
+
+
             }
         </script>
 </body>
