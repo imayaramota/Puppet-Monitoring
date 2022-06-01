@@ -11,7 +11,7 @@ router.post("/autenticar", function (req, res) {
     maquinaController.entrar(req, res);
 });
 
-router.get("/", function (req, res) {
+router.get("/:fkAdmin", function (req, res) {
     maquinaController.listar(req, res);
 });
 

@@ -32,7 +32,7 @@ function cadastrar(req, res) {
 
 function listar(req, res) {
     maquinaModel
-      .listar()
+      .listar(req.params.fkAdmin)
       .then(function (resultado) {
         if (resultado.length > 0) {
           res.status(200).json(resultado);

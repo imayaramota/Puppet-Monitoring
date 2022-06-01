@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="./style/adminStyle.css">
     <script src="../js/funcoes.js"></script>
     <link rel="icon" href="./assets/LogoRoxo.png">
-    <script src="//code.jivosite.com/widget/5q0iqZqyVo" async></script>
+    <script src="https://code.jivosite.com/widget/5q0iqZqyVo" async></script>
 </head>
 
 <body>
@@ -71,7 +71,19 @@
         </header>
         <!--Parte dos cards/main-->
         <main>
-            <div class="cards">
+            <div>
+                <canvas id="myChart1"></canvas>
+              </div>
+              <div>
+                <canvas id="myChart2"></canvas>
+              </div>
+              <div>
+                <canvas id="myChart3"></canvas>
+              </div>
+              <div>
+                <canvas id="myChart4"></canvas>
+              </div>
+            <!--<div class="cards">
                 <div class="cardSingle">
                     <div>
                         <h1 id="contador">0</h1>
@@ -108,7 +120,7 @@
                         <span class="las la-server"></span>
                     </div>
                 </div>
-                <!-- <div class="cardSingle">
+                 <div class="cardSingle">
                     <div>
                         <h1>32</h1>
                         <span>Aplicações</span>
@@ -116,9 +128,9 @@
                     <div>
                         <span class="las la-clipboard-list"></span>
                     </div>
-                </div>-->
+                </div>
             </div>
-            <!--Parte dos alertas recentes-->
+            Parte dos alertas recentes
             <div class="recente">
                 <div class="alertas">
                     <div class="card">
@@ -163,7 +175,7 @@
                         </div>
                     </div>
                 </div>
-                <!--Parte dos usuários recentes-->
+               Parte dos usuários recentes
                 <div class="usuarios">
                     <div class="card">
                         <div class="cardHeader">
@@ -206,17 +218,123 @@
                                         <small>CEO</small>
                                     </div>
                                 </div>
-                                <!-- <div class="contato">
+                                 <div class="contato">
                                     <span class="las la-user-circle"></span>
                                     <span class="las la-comment"></span>
                                     <span class="las la-phone"></span>
                                 </div> -->
-                            </div>
-                        </div>
-                    </div>
-                </div>
-        </main>
     </div>
+    </div>
+    </div>
+    </div>
+    </main>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.8.0/chart.min.js" integrity="sha512-sW/w8s4RWTdFFSduOTGtk4isV1+190E/GghVffMA9XczdJ2MDzSzLEubKAs5h0wzgSJOQTRYyaz73L3d6RtJSg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.8.0/chart.min.js" integrity="sha512-sW/w8s4RWTdFFSduOTGtk4isV1+190E/GghVffMA9XczdJ2MDzSzLEubKAs5h0wzgSJOQTRYyaz73L3d6RtJSg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+        
+        const data = [];
+        const data2 = [];
+        const data3 = [];
+        let prev = 100;
+        let prev2 = 80;
+        let prev3 = 200;
+        for (let i = 0; i < 1000; i++) {
+            prev += 5 - Math.random() * 10;
+            data.push({ x: i, y: prev });
+            prev2 += 5 - Math.random() * 10;
+            data2.push({ x: i, y: prev2 });
+            prev3 += 5 - Math.random() * 10;
+            data3.push({ x: i, y: prev3 });
+        }
+        const totalDuration = 10000;
+        const delayBetweenPoints = totalDuration / data.length;
+        const previousY = (ctx) => ctx.index === 0 ? ctx.chart.scales.y.getPixelForValue(100) : ctx.chart.getDatasetMeta(ctx.datasetIndex).data[ctx.index - 1].getProps(['y'], true).y;
+        const animation = {
+            x: {
+                type: 'number',
+                easing: 'linear',
+                duration: delayBetweenPoints,
+                from: NaN, // the point is initially skipped
+                delay(ctx) {
+                    if (ctx.type !== 'data' || ctx.xStarted) {
+                        return 0;
+                    }
+                    ctx.xStarted = true;
+                    return ctx.index * delayBetweenPoints;
+                }
+            },
+            y: {
+                type: 'number',
+                easing: 'linear',
+                duration: delayBetweenPoints,
+                from: previousY,
+                delay(ctx) {
+                    if (ctx.type !== 'data' || ctx.yStarted) {
+                        return 0;
+                    }
+                    ctx.yStarted = true;
+                    return ctx.index * delayBetweenPoints;
+                }
+            }
+        };
+
+        
+        const config = {
+            type: 'line',
+            data: {
+                datasets: [{
+                    borderColor: "red",
+                    borderWidth: 1,
+                    radius: 0,
+                    data: data,
+                },
+                {
+                    borderColor: "blue",
+                    borderWidth: 1,
+                    radius: 0,
+                    data: data2,
+                },
+                {
+                    borderColor: "green",
+                    borderWidth: 1,
+                    radius: 0,
+                    data: data3,
+                }
+            ]
+            },
+            options: {
+                animation,
+                interaction: {
+                    intersect: false
+                },
+                plugins: {
+                    legend: false
+                },
+                scales: {
+                    x: {
+                        type: 'linear'
+                    }
+                }
+            }
+        };
+        const myChart1 = new Chart(
+          document.getElementById('myChart1'),
+          config
+        );
+        const myChart2 = new Chart(
+          document.getElementById('myChart2'),
+          config
+        );
+        const myChart3 = new Chart(
+          document.getElementById('myChart3'),
+          config
+        );
+        const myChart4 = new Chart(
+          document.getElementById('myChart4'),
+          config
+        );
+    </script>
     <script>
         b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
         setor_usuario.innerHTML = sessionStorage.SETOR_USUARIO;
@@ -244,7 +362,7 @@
         let btnSair = document.getElementById("sair")
         btnSair.addEventListener("click", functionSair);
 
-        function functionSair(){
+        function functionSair() {
             Swal.fire({
                 title: 'Deseja realmente sair?',
                 icon: 'warning',
@@ -259,7 +377,8 @@
                 }
             })
         }
-    </script>
+       
+      </script>
 </body>
 
 </html>
