@@ -120,7 +120,7 @@
                 listagem();
             })
             function listagem() {
-                fetch("http://localhost:3333/usuarios", {
+                fetch("http://localhost:3333/usuarios/" + sessionStorage.ID_USUARIO, {
                     method: "GET",
                 }).then(function (resposta) {
                     resposta.json().then(json => {

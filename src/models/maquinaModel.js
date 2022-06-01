@@ -9,8 +9,11 @@ function cadastrar(nome, idUsuario) {
     return database.executar(instrucao);
 }
 
-function listar() {
-    return database.executar("SELECT * FROM maquinaVirtual;");
+function listar(fkAdmin) {
+    let instrucao = `
+    SELECT * FROM maquinaVirtual where fkAdmin = ${fkAdmin}
+    `;
+    return database.executar(instrucao);
 }
 
 function deletar(id) {

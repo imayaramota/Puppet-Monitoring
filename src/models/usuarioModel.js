@@ -23,8 +23,11 @@ async function cadastrar(nome, email, senha, setor, userName, idUsuario, fkEmpre
     return await database.executar(instrucao2);  
 }
 
-function listar() {
-    return database.executar("SELECT * FROM usuario;");
+function listar(fkAdmin) {
+    let instrucao = `
+    SELECT * FROM usuario where fkAdmin = ${fkAdmin}
+      `;
+    return database.executar(instrucao);
 }
 
 function deletar(id) {
