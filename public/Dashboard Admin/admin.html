@@ -14,7 +14,34 @@
     <link rel="icon" href="./assets/LogoRoxo.png">
     <script src="https://code.jivosite.com/widget/5q0iqZqyVo" async></script>
 </head>
-
+<style>
+    .tooltip {
+      position: relative;
+      display: inline-block;
+    }
+    .tooltip img{
+        width: 15px;
+        height: 15px;
+    }
+    .tooltip .tooltiptext {
+      visibility: hidden;
+      width: 120px;
+      background-color: #6db305;
+      color: #fff !important;
+      text-align: center;
+      border-radius: 6px;
+      padding: 5px 0;
+      font-size: smaller !important;
+    
+      /* Position the tooltip */
+      position: absolute;
+      z-index: 1;
+    }
+    
+    .tooltip:hover .tooltiptext {
+      visibility: visible;
+    }
+</style>
 <body>
     <!--Menu Lateral-->
     <input type="checkbox" id="nav-toggle">
@@ -76,6 +103,13 @@
                     <div>
                         <h1 id="contador">0</h1>
                         <span>Servidores em estado ótimo</span>
+                            <div class="tooltip"> 
+                                <img src="https://cdn.iconscout.com/icon/free/png-256/information-notice-info-ui-tooltip-guide-30515.png" alt="">
+                                <span class="tooltiptext" style="background-color: #6db305;"><b>Ótimo Estado</b><br>
+                                    Após análises o estado da CPU, RAM e 
+                                    Disco <b>não</b> apresentam riscos de lentidão e baixo processamento.
+                                </span>
+                            </div>
                     </div>
                     <div>
                         <span class="las la-server"></span>
@@ -85,6 +119,13 @@
                     <div>
                         <h1 id="contadorServi">0</h1>
                         <span>Servidores em estado razoável</span>
+                        <div class="tooltip"> 
+                            <img src="https://cdn.iconscout.com/icon/free/png-256/information-notice-info-ui-tooltip-guide-30515.png" alt="">
+                            <span class="tooltiptext" style="background-color: #ffc411"><b>Estado Razoável</b><br>
+                                Após análises o estado da CPU, RAM e 
+                                Disco apresentam <b>pouco</b> riscos de lentidão e baixo processamento.
+                            </span>
+                        </div>
                     </div>
                     <div>
                         <span class="las la-server"></span>
@@ -94,6 +135,13 @@
                     <div>
                         <h1 id="contadorServi">0</h1>
                         <span>Servidores em estado preocupante</span>
+                        <div class="tooltip"> 
+                            <img src="https://cdn.iconscout.com/icon/free/png-256/information-notice-info-ui-tooltip-guide-30515.png" alt="">
+                            <span class="tooltiptext" style="background-color: #f39e00"><b>Estado Razoável</b><br>
+                                Após análises o estado da CPU, RAM e 
+                                Disco apresentam riscos <b>consideráveis</b> de lentidão e baixo processamento.
+                            </span>
+                        </div>
                     </div>
                     <div>
                         <span class="las la-server"></span>
@@ -102,7 +150,14 @@
                 <div class="cardSingle">
                     <div>
                         <h1 id="contadorServi">0</h1>
-                        <span>Servidores em estado péssimo</span>
+                        <span>Servidores em estado crítico</span>
+                        <div class="tooltip"> 
+                            <img src="https://cdn.iconscout.com/icon/free/png-256/information-notice-info-ui-tooltip-guide-30515.png" alt="">
+                            <span class="tooltiptext" style="background-color: #e20b0b"><b>Estado Razoável</b><br>
+                                Após análises o estado da CPU, RAM e 
+                                Disco apresentam <b>muitos</b> riscos de lentidão e baixo processamento.
+                            </span>
+                        </div>
                     </div>
                     <div>
                         <span class="las la-server"></span>
