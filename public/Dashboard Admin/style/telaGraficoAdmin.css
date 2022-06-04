@@ -158,7 +158,6 @@ main {
   margin-top: 0.5rem;
   display: grid;
   grid-gap: 1rem;
-  grid-template-columns: 58% auto;
 }
 
 .card {
@@ -245,7 +244,7 @@ main {
 
 .col-md-5 {
   border-radius: 10px;
-  background-color: #f1f5f9;
+  background-color: hsla(0, 100%, 100%, 1);
   margin: 0 10px;
   box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px,
     rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
@@ -270,4 +269,8 @@ main {
 .row-1 {
   display: flex;
   justify-content: center;
+}
+
+.machine-content > p {
+  font-weight: bold;
 }
