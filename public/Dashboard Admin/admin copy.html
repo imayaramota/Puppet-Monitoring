@@ -177,13 +177,14 @@
     </div>
     </div>
     </div>
-    </div>
     </main>
     </div>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.8.0/chart.min.js"
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.8.0/chart.min.js"
         integrity="sha512-sW/w8s4RWTdFFSduOTGtk4isV1+190E/GghVffMA9XczdJ2MDzSzLEubKAs5h0wzgSJOQTRYyaz73L3d6RtJSg=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-        
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.8.0/chart.min.js"
+        integrity="sha512-sW/w8s4RWTdFFSduOTGtk4isV1+190E/GghVffMA9XczdJ2MDzSzLEubKAs5h0wzgSJOQTRYyaz73L3d6RtJSg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script>
 
         b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
@@ -194,89 +195,136 @@
             method: "GET",
         }).then(function (resposta) {
             resposta.json().then(json => {
+                console.log(json)
                 listar_maq(json)
             });
+
         }).catch(function (erro) {
             console.log(erro);
         })
 
-        async function listar_maq(maquinas) {
+        function listar_maq(maquinas) {
+            let tbody = '';
+            let totalDuration = '';
+            let delayBetweenPoints = '';
+            let previousY = '';
+            let animation = '';
+            let config = '';
             // estrutura de repetição que não necessita de um break
             maquinas.forEach(function (maquina) {
-                if (maquina.hostName != null) {
-                    listagemGrafico.innerHTML += `
-                        <div class="cardGrafico">
-                            <h3>${[maquina.nome]}</h3>
-                            <div class="parteGrafico">
-                                <canvas id="myChart${[maquina.id]}"></canvas>
-                            </div>
+                tbody += `
+                    <div class="cardGrafico">
+                        <h3>${[maquina.nome]}</h3>
+                        <div class="parteGrafico" id="grafico-linha-12">
+                            <canvas id="myChart${[maquina.id]}"></canvas>
                         </div>
+                    </div>
                     `;
-                    fetch(`/medidas/ultimas/${maquina.id}`, { cache: 'no-store' }).then(function (response) {
-                        if (response.ok) {
-                            if (response.statusText == "OK") {
-                                response.json().then(function (resposta) {
-                                    resposta.reverse();
+                fetch(`/medidas/ultimas/${maquina.id}`, { cache: 'no-store' }).then(function (response) {
+                    if (response.ok) {
+                        if (response.statusText == "OK") {
+                            response.json().then(function (resposta) {
+                                resposta.reverse();
 
-                                    let usoDisco = [];
-                                    let usoRam = [];
-                                    let usoProcessador = [];
-                                    let dataHora = [];
+                                let data = [];
+                                let data2 = [];
+                                let data3 = [];
+                                resposta.forEach(function (dados) {
+                                    data.push(dados.usoDisco);
+                                    data2.push(dados.usoRam);
+                                    data3.push(dados.usoProcessador);
+                                })
 
-                                    resposta.forEach(function (dados) {
-                                        usoDisco.push(dados.usoDisco);
-                                        usoRam.push(dados.usoRam);
-                                        usoProcessador.push(dados.usoProcessador);
-                                        dataHora.push(dados.dataHora);
-                                    });
-
-                                    const data = {
-                                        labels: dataHora,
-                                        datasets: [
-                                            {
-                                                label: 'Uso Processador',
-                                                data: usoProcessador,
-                                                backgroundColor: '#17A589'
-                                            },
-                                            {
-                                                label: 'Dataset 3',
-                                                data: usoDisco,
-                                                backgroundColor: '#A569BD',
-                                            },
-                                            {
-                                                label: 'Dataset 3',
-                                                data: usoRam,
-                                                backgroundColor: '#5DADE2',
+                                totalDuration = 10000;
+                                delayBetweenPoints = totalDuration / data.length;
+                                previousY = (ctx) => ctx.index === 0 ? ctx.chart.scales.y.getPixelForValue(100) : ctx.chart.getDatasetMeta(ctx.datasetIndex).data[ctx.index - 1].getProps(['y'], true).y;
+                                animation = {
+                                    x: {
+                                        type: 'number',
+                                        easing: 'linear',
+                                        duration: delayBetweenPoints,
+                                        from: NaN, // the point is initially skipped
+                                        delay(ctx) {
+                                            if (ctx.type !== 'data' || ctx.xStarted) {
+                                                return 0;
                                             }
-                                        ]
-                                    };
-
-                                    config = {
-                                        type: 'line',
-                                        data: data,
-                                        options: {
-                                            responsive: true,
-                                            plugins: {
-                                                legend: {
-                                                    position: 'top',
-                                                },
+                                            ctx.xStarted = true;
+                                            return ctx.index * delayBetweenPoints;
+                                        }
+                                    },
+                                    y: {
+                                        type: 'number',
+                                        easing: 'linear',
+                                        duration: delayBetweenPoints,
+                                        from: previousY,
+                                        delay(ctx) {
+                                            if (ctx.type !== 'data' || ctx.yStarted) {
+                                                return 0;
                                             }
+                                            ctx.yStarted = true;
+                                            return ctx.index * delayBetweenPoints;
+                                        }
+                                    }
+                                };
+
+
+                                config = {
+                                    type: 'line',
+                                    data: {
+                                        datasets: [{
+                                            borderColor: "red",
+                                            borderWidth: 1,
+                                            radius: 0,
+                                            data: data,
                                         },
-                                    };
-
-                                    new Chart(document.getElementById('myChart' + maquina.id), config);
-                                });
-                            }
-
-                        } else {
-                            console.error('Nenhum dado encontrado ou erro na API');
+                                        {
+                                            borderColor: "blue",
+                                            borderWidth: 1,
+                                            radius: 0,
+                                            data: data2,
+                                        },
+                                        {
+                                            borderColor: "green",
+                                            borderWidth: 1,
+                                            radius: 0,
+                                            data: data3,
+                                        }
+                                        ]
+                                    },
+                                    options: {
+                                        animation,
+                                        interaction: {
+                                            intersect: false
+                                        },
+                                        plugins: {
+                                            legend: false
+                                        },
+                                        scales: {
+                                            x: {
+                                                type: 'linear'
+                                            }
+                                        }
+                                    }
+                                };
+                                new Chart(
+                                    document.getElementById('myChart' + maquina.id),
+                                    config
+                                );
+                            });
                         }
-                    }).catch(function (error) {
-                        console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
-                    });
-                }
+
+                    } else {
+                        console.error('Nenhum dado encontrado ou erro na API');
+                    }
+                }).catch(function (error) {
+                    console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+                });
 
             });
+
+
+
+            listagemGrafico.innerHTML = tbody;
             contador.innerHTML = maquinas.length;
         }
 
