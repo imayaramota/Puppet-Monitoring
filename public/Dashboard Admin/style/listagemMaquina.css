@@ -162,16 +162,19 @@ main {
     grid-template-columns: repeat(2, 1fr);
     grid-gap: 3rem;
     margin-top: 1rem;
-    margin-left: 82px;
+    margin-left: 12px;;
 }
 
-.cardSingle {
+.cardServer{
+    display: flex;
     background: #fff;
     padding: 0rem;
-    border-radius: 2px;
+    border-radius: 2px;   
+    flex-direction: column;
+
 }
 
-.cardSingle button {
+.cardServer button {
     background: var(--main-color);
     border-radius: 10px;
     color: #fff;
@@ -180,7 +183,7 @@ main {
     border: 1px solid var(--main-color);
 }
 
-.cardSingle h1 {
+.cardServer h1 {
     display: flex;
     padding-top: 1rem;
     justify-content: center;
@@ -198,6 +201,7 @@ main {
 
 .cardHeader{
     padding: 1rem;
+    margin-left: -74px;
 }
 
 
@@ -215,6 +219,8 @@ main {
     padding: 1rem;
     padding-left: 22px;
     justify-content: center;
+    flex-direction: row-reverse;
+    
 }
 
 .btns button {
@@ -225,8 +231,9 @@ main {
     padding: .5rem 1rem ;
     border: 1px solid var(--main-color);
     margin-right: 16px;
-
+    margin-top: 2px;
 }
+
 
 .btns a {
     color: #fff;
@@ -235,6 +242,20 @@ main {
 .cardHeader a {
     color: #fff;
 }
+
+.status {
+    display: inline-block;
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+    margin-left: 6px;
+    margin-top: 6px;
+}
+
+.status.red {
+    background: #fe0000;
+}
+
 
 /*Parte responsividade*/
 
