@@ -191,16 +191,20 @@ main {
   align-items: center;
 }
 
-.status.pink {
+.status.red {
   background: #ff0000;
 }
 
-.status.purple {
+.status.orange {
   background: #ff8400;
 }
 
-.status.blue {
+.status.green {
   background: rgb(30, 255, 0);
+}
+
+.status.yellow {
+  background: yellow;
 }
 
 .tabelaResponsiva {
@@ -274,3 +278,6 @@ main {
 .machine-content > p {
   font-weight: bold;
 }
+
+
+
