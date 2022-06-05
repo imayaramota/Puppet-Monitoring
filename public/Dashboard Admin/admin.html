@@ -269,6 +269,8 @@
 
                                     new Chart(document.getElementById('myChart' + maquina.id), config);
                                 });
+
+                                setInterval(atualizarGrafico(maquina.id),5000)
                             }
 
                         } else {
@@ -282,6 +284,35 @@
             });
             contador.innerHTML = maquinas.length;
         }
+
+        function atualizarGraficos(maquina) {
+                fetch(`/medidas/tempo-real/${maquina}`, { cache: 'no-store' }).then(function (response) {
+                    if (response.ok) {
+                        response.json().then(function (resposta) {
+                            console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                            resposta.reverse();
+
+
+                            dadosDisco.labels.shift();
+                            dadosDisco.labels.push(resposta[0].dataHora);
+
+                            dadosDisco.datasets[0].data.shift();
+                            dadosDisco.datasets[0].data.push(resposta[0].usoDisco)
+
+
+
+                            window.grafico_linha.update();
+                        });
+                    } else {
+                        console.error('Nenhum dado encontrado ou erro na API');
+                    }
+                })
+                    .catch(function (error) {
+                        console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+                    });
+            }
+
+
 
 
     </script>
