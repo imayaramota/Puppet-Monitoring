@@ -255,6 +255,12 @@ main {
 .status.red {
     background: #fe0000;
 }
+.status.green {
+    background: green;
+}
+.status.yellow {
+    background: yellow;
+}
 
 
 /*Parte responsividade*/
