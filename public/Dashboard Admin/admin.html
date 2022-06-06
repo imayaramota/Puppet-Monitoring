@@ -109,7 +109,8 @@
                         <div class="tooltip">
                             <img src="https://cdn.iconscout.com/icon/free/png-256/information-notice-info-ui-tooltip-guide-30515.png"
                                 alt="">
-                            <span class="tooltiptext" style="background-color: #6db305;"><b>Ótimo Estado(X%)</b><br>
+                            <span class="tooltiptext" style="background-color: #6db305;"><b>Ótimo Estado(Menor que 0%
+                                    até 50%)</b><br>
                                 Após análises o estado da CPU, RAM e
                                 Disco <b>não</b> apresentam riscos de lentidão e baixo processamento.
                             </span>
@@ -126,7 +127,8 @@
                         <div class="tooltip">
                             <img src="https://cdn.iconscout.com/icon/free/png-256/information-notice-info-ui-tooltip-guide-30515.png"
                                 alt="">
-                            <span class="tooltiptext" style="background-color: #ffc411"><b>Estado Razoável(X%)</b><br>
+                            <span class="tooltiptext" style="background-color: #ffc411"><b>Estado Razoável(Maior que 50%
+                                    até 65%)</b><br>
                                 Após análises o estado da CPU, RAM e
                                 Disco apresentam <b>pouco</b> riscos de lentidão e baixo processamento.
                             </span>
@@ -144,7 +146,7 @@
                             <img src="https://cdn.iconscout.com/icon/free/png-256/information-notice-info-ui-tooltip-guide-30515.png"
                                 alt="">
                             <span class="tooltiptext" style="background-color: #f39e00"><b>Estado
-                                    Preocupante(X%)</b><br>
+                                    Preocupante(Maior que 65% até 75%)</b><br>
                                 Após análises o estado da CPU, RAM e
                                 Disco apresentam riscos <b>consideráveis</b> de lentidão e baixo processamento.
                             </span>
@@ -161,7 +163,8 @@
                         <div class="tooltip">
                             <img src="https://cdn.iconscout.com/icon/free/png-256/information-notice-info-ui-tooltip-guide-30515.png"
                                 alt="">
-                            <span class="tooltiptext" style="background-color: #e20b0b"><b>Estado Crítico(X%)</b><br>
+                            <span class="tooltiptext" style="background-color: #e20b0b"><b>Estado Crítico(Maior que
+                                    75%)</b><br>
                                 Após análises o estado da CPU, RAM e
                                 Disco apresentam <b>muitos</b> riscos de lentidão e baixo processamento.
                             </span>
@@ -180,10 +183,10 @@
     </div>
     </main>
     </div>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.8.0/chart.min.js"
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.8.0/chart.min.js"
         integrity="sha512-sW/w8s4RWTdFFSduOTGtk4isV1+190E/GghVffMA9XczdJ2MDzSzLEubKAs5h0wzgSJOQTRYyaz73L3d6RtJSg=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-        
+
     <script>
 
         b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
@@ -200,8 +203,7 @@
             console.log(erro);
         })
 
-        async function listar_maq(maquinas) {
-            // estrutura de repetição que não necessita de um break
+        function listar_maq(maquinas) {
             maquinas.forEach(function (maquina) {
                 if (maquina.hostName != null) {
                     listagemGrafico.innerHTML += `
@@ -212,105 +214,99 @@
                             </div>
                         </div>
                     `;
-                    fetch(`/medidas/ultimas/${maquina.id}`, { cache: 'no-store' }).then(function (response) {
-                        if (response.ok) {
-                            if (response.statusText == "OK") {
-                                response.json().then(function (resposta) {
-                                    resposta.reverse();
 
-                                    let usoDisco = [];
-                                    let usoRam = [];
-                                    let usoProcessador = [];
-                                    let dataHora = [];
-
-                                    resposta.forEach(function (dados) {
-                                        usoDisco.push(dados.usoDisco);
-                                        usoRam.push(dados.usoRam);
-                                        usoProcessador.push(dados.usoProcessador);
-                                        dataHora.push(dados.dataHora);
-                                    });
-
-                                    const data = {
-                                        labels: dataHora,
-                                        datasets: [
-                                            {
-                                                label: 'Uso Processador',
-                                                data: usoProcessador,
-                                                borderColor: '#260c4b',
-                                                backgroundColor: '#260c4b'
-                                            },
-                                            {
-                                                label: 'Uso Disco',
-                                                data: usoDisco,
-                                                borderColor: '#991472',
-                                                backgroundColor: '#991472',
-                                            },
-                                            {
-                                                label: 'Uso Ram',
-                                                data: usoRam,
-                                                borderColor: '#07e4ff',
-                                                backgroundColor: '#07e4ff',
-                                            }
-                                        ]
-                                    };
-
-                                    config = {
-                                        type: 'line',
-                                        data: data,
-                                        options: {
-                                            responsive: true,
-                                            plugins: {
-                                                legend: {
-                                                    position: 'top',
-                                                },
-                                            }
-                                        },
-                                    };
-
-                                    new Chart(document.getElementById('myChart' + maquina.id), config);
-                                });
-
-                                setInterval(atualizarGrafico(maquina.id),5000)
-                            }
-
-                        } else {
-                            console.error('Nenhum dado encontrado ou erro na API');
-                        }
-                    }).catch(function (error) {
-                        console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
-                    });
+                    setInterval(() => {
+                        atualizarGraficos(maquina)
+                    }, 5000)
                 }
-
+                
             });
+
             contador.innerHTML = maquinas.length;
         }
 
+        var graficos = [];
+
         function atualizarGraficos(maquina) {
-                fetch(`/medidas/tempo-real/${maquina}`, { cache: 'no-store' }).then(function (response) {
-                    if (response.ok) {
+            fetch(`/medidas/ultimas/${maquina.id}`, { cache: 'no-store' }).then(function (response) {
+                if (response.ok) {
+                    if (response.statusText == "OK") {
                         response.json().then(function (resposta) {
-                            console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
                             resposta.reverse();
 
+                            let usoDisco = [];
+                            let usoRam = [];
+                            let usoProcessador = [];
+                            let dataHora = [];
 
-                            dadosDisco.labels.shift();
-                            dadosDisco.labels.push(resposta[0].dataHora);
+                            resposta.forEach(function (dados) {
+                                usoDisco.push(dados.usoDisco);
+                                usoRam.push(dados.usoRam);
+                                usoProcessador.push(dados.usoProcessador);
+                                dataHora.push(dados.dataHora);
+                            });
 
-                            dadosDisco.datasets[0].data.shift();
-                            dadosDisco.datasets[0].data.push(resposta[0].usoDisco)
+                            if (typeof graficos[maquina.id] === 'undefined') {
+
+                                const data = {
+                                    labels: dataHora,
+                                    datasets: [
+                                        {
+                                            label: 'Uso Processador',
+                                            data: usoProcessador,
+                                            borderColor: '#260c4b',
+                                            backgroundColor: '#260c4b'
+                                        },
+                                        {
+                                            label: 'Uso Disco',
+                                            data: usoDisco,
+                                            borderColor: '#991472',
+                                            backgroundColor: '#991472',
+                                        },
+                                        {
+                                            label: 'Uso Ram',
+                                            data: usoRam,
+                                            borderColor: '#07e4ff',
+                                            backgroundColor: '#07e4ff',
+                                        }
+                                    ]
+                                };
+
+                                config = {
+                                    type: 'line',
+                                    data: data,
+                                    options: {
+                                        responsive: true,
+                                        plugins: {
+                                            legend: {
+                                                position: 'top',
+                                            },
+                                        }
+                                    },
+                                };
 
 
+                                graficos[maquina.id] = new Chart(document.getElementById('myChart' + maquina.id), config);
+                            } else {
+                                graficos[maquina.id].data.labels.push(dataHora[0])
+                                graficos[maquina.id].data.datasets[0].data.push(usoProcessador[0])
+                                graficos[maquina.id].data.datasets[1].data.push(usoDisco[0])
+                                graficos[maquina.id].data.datasets[2].data.push(usoRam[0])
 
-                            window.grafico_linha.update();
+                                graficos[maquina.id].update();
+                            }
                         });
-                    } else {
-                        console.error('Nenhum dado encontrado ou erro na API');
                     }
-                })
-                    .catch(function (error) {
-                        console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
-                    });
-            }
+
+                } else {
+                    console.error('Nenhum dado encontrado ou erro na API');
+                }
+
+                
+            }).catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
+        }
 
 
 
