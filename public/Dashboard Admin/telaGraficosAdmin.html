@@ -111,23 +111,21 @@
                                     <p id="machine-ram"></p>
                                     <p id="machine-ip"></p>
                                     <p id="machine-hour"></p>
-                                </div>
-                                <div style="display: flex; justify-content: space-between;">
-                                    <div style="max-width: 400px;">
-                                        <div>cpu</div>
-                                        <div>ram</div>
-                                        <div>ram</div>
+                                    <div id="useContainer"
+                                         style="max-width: 350px;">
+                                        <div id="use-ram">oi</div>
+                                        <div id="use-cpu">oi</div>
+                                        <div id="use-disk">oi</div>
                                     </div>
                                 </div>
                             </div>
                             <div class="tabelaResponsiva">
                                 <table width="100%">
                                     <h3>Filtro</h3>
-                                    <span class="status pink"></span>
-                                    <span class="status purple"></span>
-                                    <span class="status yellow"
-                                          style="background-color: yellow"></span>
-                                    <span class="status blue"></span>
+                                    <span class="status red"></span>
+                                    <span class="status orange"></span>
+                                    <span class="status yellow"></span>
+                                    <span class="status green"></span>
                                 </table>
                             </div>
                         </div>
@@ -626,6 +624,14 @@
                             console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
                             resposta.reverse();
 
+
+                            var metricas = document.getElementById("useContainer");
+
+                            metricas.innerHTML = `
+                                        <p class="${estadoMaquina(resposta[0].usoRam)}">oi</p>
+                                        <p class="${estadoMaquina(resposta[0].usoProcessador)}">oi</p>
+                                        <p class="${estadoMaquina(resposta[0].usoDisco)}">oi</p>`
+
                             // Dados uso do processador
                             dadosCpu.labels.shift();
                             dadosCpu.labels.push(resposta[0].dataHora);
@@ -714,6 +720,35 @@
                     .catch(function (error) {
                         console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
                     });
+            }
+
+            function estadoMaquina(status) {
+
+                if (status > 75 && status <= 100) {
+                    return "status red"
+
+                }
+
+                else if (status > 65 && status <= 75) {
+
+                    return "status orange"
+
+                }
+
+
+                else if (status > 55 && status <= 65) {
+
+                    return "status yellow"
+                }
+
+
+                else if (status > 0 && status <= 55) {
+
+                    return "status green"
+                }
+
+
+
             }
 
         </script>

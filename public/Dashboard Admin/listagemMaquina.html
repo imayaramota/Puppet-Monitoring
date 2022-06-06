@@ -7,17 +7,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Listagem Máquinas Virtuais | Puppet</title>
     <link rel="stylesheet"
-        href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
-    <link rel="stylesheet" href="./style/listagemMaquina.css">
+          href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
+    <link rel="stylesheet"
+          href="./style/listagemMaquina.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <link rel="stylesheet" href="./style/listarUsuarios.css">
-    <link rel="icon" href="./assets/LogoRoxo.png">
-    <script src="//code.jivosite.com/widget/5q0iqZqyVo" async></script>
+    <link rel="stylesheet"
+          href="./style/listarUsuarios.css">
+    <link rel="icon"
+          href="./assets/LogoRoxo.png">
+    <script src="//code.jivosite.com/widget/5q0iqZqyVo"
+            async></script>
 </head>
 
 <body>
     <!--Menu Lateral-->
-    <input type="checkbox" id="nav-toggle">
+    <input type="checkbox"
+           id="nav-toggle">
     <div class="barraLateral">
         <div class="barraLateralLogo">
             <h2><span>PUPPET</span></h2>
@@ -45,7 +50,8 @@
                 <li class="list">
                     <a href="#">
                         <span class="las la-cog"></span>
-                        <span id="sair" onclick="functionSair()">Sair</span>
+                        <span id="sair"
+                              onclick="functionSair()">Sair</span>
                     </a>
                 </li>
             </ul>
@@ -61,14 +67,17 @@
                 Máquinas Virtuais
             </h2>
             <div class="usuario">
-                <img src="./assets/whindUsuario.jpg" width="40px" height="40px" alt="">
+                <img src="./assets/whindUsuario.jpg"
+                     width="40px"
+                     height="40px"
+                     alt="">
                 <div>
                     <h3><span id="b_usuario"></span></h3>
                     <small id="setor_usuario"></small>
                 </div>
             </div>
         </header>
-    
+
         <main>
             <div class="card1">
                 <div class="cardSingle">
@@ -82,26 +91,29 @@
                 </div>
             </div>
             <!--Listagem de Máquinas-->
-            
+
             <div class="listagemUsu">
                 <div class="listagem">
                     <div>
                         <div class="cardHeader">
-                            <button class="btnCadastrar"><a href="../CadastroMaquina/maquina.html">Cadastrar</a></button>
+                            <button class="btnCadastrar"><a
+                                   href="../CadastroMaquina/maquina.html">Cadastrar</a></button>
                         </div>
                     </div>
                 </div>
             </div>
-            <div id="listagemMaquina" class="cards"></div>
+            <div id="listagemMaquina"
+                 class="cards"></div>
         </main>
         <script src="../plugins/sweetalert2-11.4.8/package/dist/sweetalert2.min.js"></script>
-        <link rel="stylesheet" href="../plugins/sweetalert2-11.4.8/package/dist/sweetalert2.min.css">
+        <link rel="stylesheet"
+              href="../plugins/sweetalert2-11.4.8/package/dist/sweetalert2.min.css">
         <script>
-             b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
-             setor_usuario.innerHTML = sessionStorage.SETOR_USUARIO;
+            b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
+            setor_usuario.innerHTML = sessionStorage.SETOR_USUARIO;
             //  keyVM_maquina.innerHTML = sessionStorage.KEY_VM;
 
-            fetch("/maquinas/"+ sessionStorage.ID_USUARIO, {
+            fetch("/maquinas/" + sessionStorage.ID_USUARIO, {
                 method: "GET",
             }).then(function (resposta) {
                 resposta.json().then(json => {
@@ -120,10 +132,10 @@
                     tbody += `
                     <div class="cardServer">
                         <div class="status">
-                           <span class="status red"></span> 
+                           <span class="${statusMaquina(maquina.vmStatus)}"></span> 
                         </div>
                         <h1 style="color:#320552">${[maquina.nome]}</h1>
-                        <h5 style="color:darkgray; align-self: center">Status: Offline</h5>
+                        <h5 style="color:darkgray; align-self: center">Status: ${maquina.vmStatus}</h5>
                         <div class="btns">
                             <button class="btn" type="button" onclick="editar_maquina(${maquina.id})">Editar</button>
                             <button class="btn" type="button" onclick="maquinaSelecionada(${maquina.id})">Ver Gráficos</button>
@@ -139,7 +151,7 @@
             }
 
             function maquinaSelecionada(maquina) {
-                window.location = "./telaGraficosAdmin.html?id="+maquina;
+                window.location = "./telaGraficosAdmin.html?id=" + maquina;
                 console.log("hello")
             }
 
@@ -162,25 +174,25 @@
                         fetch("http://localhost:3333/maquinas/deletar/" + id, {
                             method: "DELETE", // deletar
                         }).then(function (resposta) {
-                            
-                                fetch("http://localhost:3333/maquinas", {
-                                    method: "GET",
-                                }).then(function (resposta) {
-                                    if (resposta.status == 200) {
-                                        resposta.json().then(json => {
-                                            listar_maq(json)
-                                            Swal.fire(
-                                                'Deletado!',
-                                                'Sua máquina virtual foi deletada',
-                                                'sucesso'
-                                            )
-                                        });
-                                    } else {
-                                        listagemMaquina.innerHTML = '';
-                                    }
-                                }).catch(function (erro) {
-                                    console.log(erro);
-                                })
+
+                            fetch("http://localhost:3333/maquinas", {
+                                method: "GET",
+                            }).then(function (resposta) {
+                                if (resposta.status == 200) {
+                                    resposta.json().then(json => {
+                                        listar_maq(json)
+                                        Swal.fire(
+                                            'Deletado!',
+                                            'Sua máquina virtual foi deletada',
+                                            'sucesso'
+                                        )
+                                    });
+                                } else {
+                                    listagemMaquina.innerHTML = '';
+                                }
+                            }).catch(function (erro) {
+                                console.log(erro);
+                            })
 
                         }).catch(function (erro) {
                             console.log(erro);
@@ -192,7 +204,7 @@
             let btnSair = document.getElementById("sair")
             btnSair.addEventListener("click", functionSair);
 
-            function functionSair(){
+            function functionSair() {
                 Swal.fire({
                     title: 'Deseja realmente sair?',
                     icon: 'warning',
@@ -206,6 +218,21 @@
                         window.location = "../Home/index.html";
                     }
                 })
+            }
+            function statusMaquina(status) {
+
+                console.log(status)
+                if (status == "unconfigured") {
+                    return "status yellow"
+                }
+
+                else if (status == "on") {
+                    return "status green"
+                }
+
+                else if (status == "off") {
+                    return "status red"
+                };
             }
         </script>
 </body>

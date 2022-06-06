@@ -104,7 +104,7 @@
             <div class="cards">
                 <div class="cardSingle">
                     <div>
-                        <h1 id="contador">0</h1>
+                        <h1 id="contadorSttsVerde">0</h1>
                         <span>Servidores em estado ótimo</span>
                         <div class="tooltip">
                             <img src="https://cdn.iconscout.com/icon/free/png-256/information-notice-info-ui-tooltip-guide-30515.png"
@@ -121,7 +121,7 @@
                 </div>
                 <div class="cardSingle">
                     <div>
-                        <h1 id="contadorServi">0</h1>
+                        <h1 id="contadorSttsAmarelo">0</h1>
                         <span>Servidores em estado razoável</span>
                         <div class="tooltip">
                             <img src="https://cdn.iconscout.com/icon/free/png-256/information-notice-info-ui-tooltip-guide-30515.png"
@@ -138,7 +138,7 @@
                 </div>
                 <div class="cardSingle">
                     <div>
-                        <h1 id="contadorServi">0</h1>
+                        <h1 id="contadorSttsLaranja">0</h1>
                         <span>Servidores em estado preocupante</span>
                         <div class="tooltip">
                             <img src="https://cdn.iconscout.com/icon/free/png-256/information-notice-info-ui-tooltip-guide-30515.png"
@@ -156,7 +156,7 @@
                 </div>
                 <div class="cardSingle">
                     <div>
-                        <h1 id="contadorServi">0</h1>
+                        <h1 id="contadorSttsVermelho">0</h1>
                         <span>Servidores em estado crítico</span>
                         <div class="tooltip">
                             <img src="https://cdn.iconscout.com/icon/free/png-256/information-notice-info-ui-tooltip-guide-30515.png"
@@ -180,10 +180,10 @@
     </div>
     </main>
     </div>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.8.0/chart.min.js"
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.8.0/chart.min.js"
         integrity="sha512-sW/w8s4RWTdFFSduOTGtk4isV1+190E/GghVffMA9XczdJ2MDzSzLEubKAs5h0wzgSJOQTRYyaz73L3d6RtJSg=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-        
+
     <script>
 
         b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
@@ -200,8 +200,7 @@
             console.log(erro);
         })
 
-        async function listar_maq(maquinas) {
-            // estrutura de repetição que não necessita de um break
+        function listar_maq(maquinas) {
             maquinas.forEach(function (maquina) {
                 if (maquina.hostName != null) {
                     listagemGrafico.innerHTML += `
@@ -212,76 +211,199 @@
                             </div>
                         </div>
                     `;
-                    fetch(`/medidas/ultimas/${maquina.id}`, { cache: 'no-store' }).then(function (response) {
-                        if (response.ok) {
-                            if (response.statusText == "OK") {
-                                response.json().then(function (resposta) {
-                                    resposta.reverse();
 
-                                    let usoDisco = [];
-                                    let usoRam = [];
-                                    let usoProcessador = [];
-                                    let dataHora = [];
-
-                                    resposta.forEach(function (dados) {
-                                        usoDisco.push(dados.usoDisco);
-                                        usoRam.push(dados.usoRam);
-                                        usoProcessador.push(dados.usoProcessador);
-                                        dataHora.push(dados.dataHora);
-                                    });
-
-                                    const data = {
-                                        labels: dataHora,
-                                        datasets: [
-                                            {
-                                                label: 'Uso Processador',
-                                                data: usoProcessador,
-                                                borderColor: '#260c4b',
-                                                backgroundColor: '#260c4b'
-                                            },
-                                            {
-                                                label: 'Uso Disco',
-                                                data: usoDisco,
-                                                borderColor: '#991472',
-                                                backgroundColor: '#991472',
-                                            },
-                                            {
-                                                label: 'Uso Ram',
-                                                data: usoRam,
-                                                borderColor: '#07e4ff',
-                                                backgroundColor: '#07e4ff',
-                                            }
-                                        ]
-                                    };
-
-                                    config = {
-                                        type: 'line',
-                                        data: data,
-                                        options: {
-                                            responsive: true,
-                                            plugins: {
-                                                legend: {
-                                                    position: 'top',
-                                                },
-                                            }
-                                        },
-                                    };
-
-                                    new Chart(document.getElementById('myChart' + maquina.id), config);
-                                });
-                            }
-
-                        } else {
-                            console.error('Nenhum dado encontrado ou erro na API');
-                        }
-                    }).catch(function (error) {
-                        console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
-                    });
+                    setInterval(() => {
+                        atualizarGraficos(maquina)
+                    }, 5000)
                 }
 
             });
-            contador.innerHTML = maquinas.length;
         }
+
+        var graficos = [];
+        var statusMaq = [];
+
+        function atualizarGraficos(maquina) {
+            fetch(`/medidas/ultimas/${maquina.id}`, { cache: 'no-store' }).then(function (response) {
+                if (response.ok) {
+                    if (response.statusText == "OK") {
+                        response.json().then(function (resposta) {
+                            resposta.reverse();
+
+                            let usoDisco = [];
+                            let usoRam = [];
+                            let usoProcessador = [];
+                            let dataHora = [];
+
+                            resposta.forEach(function (dados) {
+                                usoDisco.push(dados.usoDisco);
+                                usoRam.push(dados.usoRam);
+                                usoProcessador.push(dados.usoProcessador);
+                                dataHora.push(dados.dataHora);
+                            });
+
+                            if (typeof graficos[maquina.id] === 'undefined') {
+
+                                const data = {
+                                    labels: dataHora,
+                                    datasets: [
+                                        {
+                                            label: 'Uso Processador',
+                                            data: usoProcessador,
+                                            borderColor: '#260c4b',
+                                            backgroundColor: '#260c4b'
+                                        },
+                                        {
+                                            label: 'Uso Disco',
+                                            data: usoDisco,
+                                            borderColor: '#991472',
+                                            backgroundColor: '#991472',
+                                        },
+                                        {
+                                            label: 'Uso Ram',
+                                            data: usoRam,
+                                            borderColor: '#07e4ff',
+                                            backgroundColor: '#07e4ff',
+                                        }
+                                    ]
+                                };
+
+                                config = {
+                                    type: 'line',
+                                    data: data,
+                                    options: {
+                                        responsive: true,
+                                        plugins: {
+                                            legend: {
+                                                position: 'top',
+                                            },
+                                        }
+                                    },
+                                };
+
+
+                                graficos[maquina.id] = new Chart(document.getElementById('myChart' + maquina.id), config);
+                                if (usoDisco[0] <= 50 && usoProcessador[0] <= 50 && usoRam[0] <= 50) {
+                                    statusMaq[maquina.id] = "Status Verde";
+                                    contadorSttsVerde.innerHTML++;
+                                } else if (usoDisco[0] <= 65 && usoProcessador[0] <= 65 && usoRam[0] <= 65) {
+                                    statusMaq[maquina.id] = "Status Amarelo";
+                                    contadorSttsAmarelo.innerHTML++;
+                                } else if (usoDisco[0] <= 75 && usoProcessador[0] <= 75 && usoRam[0] <= 75) {
+                                    statusMaq[maquina.id] = "Status Laranja";
+                                    contadorSttsLaranja++;
+                                } else {
+                                    statusMaq[maquina.id] = "Status Vermelho";
+                                    contadorSttsVermelho++;
+                                }
+
+                            } else {
+                                graficos[maquina.id].data.labels.push(dataHora[0])
+                                graficos[maquina.id].data.datasets[0].data.push(usoProcessador[0])
+                                graficos[maquina.id].data.datasets[1].data.push(usoDisco[0])
+                                graficos[maquina.id].data.datasets[2].data.push(usoRam[0])
+
+                                graficos[maquina.id].update();
+
+                                if (statusMaq[maquina.id] == "Status Verde") {
+                                    if (usoDisco[0] <= 50 && usoProcessador[0] <= 50 && usoRam[0] <= 50) {
+                                        statusMaq[maquina.id] = "Status Verde";
+                                
+                                    } else if (usoDisco[0] <= 65 && usoProcessador[0] <= 65 && usoRam[0] <= 65) {
+                                        statusMaq[maquina.id] = "Status Amarelo";
+                                        contadorSttsAmarelo.innerHTML++;
+                                        contadorSttsVerde.innerHTML--;
+                                    } else if (usoDisco[0] <= 75 && usoProcessador[0] <= 75 && usoRam[0] <= 75) {
+                                        statusMaq[maquina.id] = "Status Laranja";
+                                        contadorSttsLaranja.innerHTML++;
+                                        contadorSttsVerde.innerHTML--;
+                                    } else {
+                                        statusMaq[maquina.id] = "Status Vermelho";
+                                        contadorSttsVermelho.innerHTML++;
+                                        contadorSttsVerde.innerHTML--;
+                                    }
+
+                                }
+
+                                if (statusMaq[maquina.id] == "Status Amarelo") {
+                                    if (usoDisco[0] <= 50 && usoProcessador[0] <= 50 && usoRam[0] <= 50) {
+                                        statusMaq[maquina.id] = "Status Verde";
+                                        contadorSttsVerde.innerHTML++;
+                                        contadorSttsAmarelo.innerHTML--;
+                                
+                                    } else if (usoDisco[0] <= 65 && usoProcessador[0] <= 65 && usoRam[0] <= 65) {
+                                        statusMaq[maquina.id] = "Status Amarelo";
+                                     
+                                    } else if (usoDisco[0] <= 75 && usoProcessador[0] <= 75 && usoRam[0] <= 75) {
+                                        statusMaq[maquina.id] = "Status Laranja";
+                                        contadorSttsLaranja.innerHTML++;
+                                        contadorSttsAmarelo.innerHTML--;
+                                    } else {
+                                        statusMaq[maquina.id] = "Status Vermelho";
+                                        contadorSttsVermelho.innerHTML++;
+                                        contadorSttsAmarelo.innerHTML--;
+                                    }
+
+                                }
+
+                                if (statusMaq[maquina.id] == "Status Laranja") {
+                                    if (usoDisco[0] <= 50 && usoProcessador[0] <= 50 && usoRam[0] <= 50) {
+                                        statusMaq[maquina.id] = "Status Verde";
+                                        contadorSttsVerde.innerHTML++;
+                                        contadorSttsLaranja.innerHTML--;
+                                
+                                    } else if (usoDisco[0] <= 65 && usoProcessador[0] <= 65 && usoRam[0] <= 65) {
+                                        statusMaq[maquina.id] = "Status Amarelo";
+                                        contadorSttsAmarelo.innerHTML++;
+                                        contadorSttsLaranja.innerHTML--;
+                                     
+                                    } else if (usoDisco[0] <= 75 && usoProcessador[0] <= 75 && usoRam[0] <= 75) {
+                                        statusMaq[maquina.id] = "Status Laranja";
+                                     
+                                    } else {
+                                        statusMaq[maquina.id] = "Status Vermelho";
+                                        contadorSttsVermelho.innerHTML++;
+                                        contadorSttsLaranja.innerHTML--;
+                                    }
+
+                                }
+
+                                if (statusMaq[maquina.id] == "Status Vermelho") {
+                                    if (usoDisco[0] <= 50 && usoProcessador[0] <= 50 && usoRam[0] <= 50) {
+                                        statusMaq[maquina.id] = "Status Verde";
+                                        contadorSttsVerde.innerHTML++;
+                                        contadorSttsVermelho.innerHTML--;
+                                
+                                    } else if (usoDisco[0] <= 65 && usoProcessador[0] <= 65 && usoRam[0] <= 65) {
+                                        statusMaq[maquina.id] = "Status Amarelo";
+                                        contadorSttsAmarelo.innerHTML++;
+                                        contadorSttsVermelho.innerHTML--;
+                                     
+                                    } else if (usoDisco[0] <= 75 && usoProcessador[0] <= 75 && usoRam[0] <= 75) {
+                                        statusMaq[maquina.id] = "Status Laranja";
+                                        contadorSttsLaranja.innerHTML++;
+                                        contadorSttsVermelho.innerHTML--;
+                                    } else {
+                                        statusMaq[maquina.id] = "Status Vermelho";
+                                    }
+
+                                }
+
+                            }
+                        });
+                    }
+
+                } else {
+                    console.error('Nenhum dado encontrado ou erro na API');
+                }
+
+
+            }).catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
+        }
+
+
 
 
     </script>

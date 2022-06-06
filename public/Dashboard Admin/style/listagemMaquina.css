@@ -171,6 +171,7 @@ main {
     padding: 0rem;
     border-radius: 2px;   
     flex-direction: column;
+    padding-bottom: 1rem;
 
 }
 
@@ -254,6 +255,12 @@ main {
 
 .status.red {
     background: #fe0000;
+}
+.status.green {
+    background: green;
+}
+.status.yellow {
+    background: yellow;
 }
 
 
