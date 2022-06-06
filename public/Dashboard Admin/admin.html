@@ -298,6 +298,10 @@
                                 }
 
                             } else {
+                                graficos[maquina.id].data.labels.shift()
+                                graficos[maquina.id].data.datasets[0].data.shift()
+                                graficos[maquina.id].data.datasets[1].data.shift()
+                                graficos[maquina.id].data.datasets[2].data.shift()
                                 graficos[maquina.id].data.labels.push(dataHora[0])
                                 graficos[maquina.id].data.datasets[0].data.push(usoProcessador[0])
                                 graficos[maquina.id].data.datasets[1].data.push(usoDisco[0])
