@@ -104,7 +104,7 @@
             <div class="cards">
                 <div class="cardSingle">
                     <div>
-                        <h1 id="contador">0</h1>
+                        <h1 id="contadorSttsVerde">0</h1>
                         <span>Servidores em estado ótimo</span>
                         <div class="tooltip">
                             <img src="https://cdn.iconscout.com/icon/free/png-256/information-notice-info-ui-tooltip-guide-30515.png"
@@ -122,7 +122,7 @@
                 </div>
                 <div class="cardSingle">
                     <div>
-                        <h1 id="contadorServi">0</h1>
+                        <h1 id="contadorSttsAmarelo">0</h1>
                         <span>Servidores em estado razoável</span>
                         <div class="tooltip">
                             <img src="https://cdn.iconscout.com/icon/free/png-256/information-notice-info-ui-tooltip-guide-30515.png"
@@ -140,7 +140,7 @@
                 </div>
                 <div class="cardSingle">
                     <div>
-                        <h1 id="contadorServi">0</h1>
+                        <h1 id="contadorSttsLaranja">0</h1>
                         <span>Servidores em estado preocupante</span>
                         <div class="tooltip">
                             <img src="https://cdn.iconscout.com/icon/free/png-256/information-notice-info-ui-tooltip-guide-30515.png"
@@ -158,7 +158,7 @@
                 </div>
                 <div class="cardSingle">
                     <div>
-                        <h1 id="contadorServi">0</h1>
+                        <h1 id="contadorSttsVermelho">0</h1>
                         <span>Servidores em estado crítico</span>
                         <div class="tooltip">
                             <img src="https://cdn.iconscout.com/icon/free/png-256/information-notice-info-ui-tooltip-guide-30515.png"
@@ -219,13 +219,12 @@
                         atualizarGraficos(maquina)
                     }, 5000)
                 }
-                
-            });
 
-            contador.innerHTML = maquinas.length;
+            });
         }
 
         var graficos = [];
+        var statusMaq = [];
 
         function atualizarGraficos(maquina) {
             fetch(`/medidas/ultimas/${maquina.id}`, { cache: 'no-store' }).then(function (response) {
@@ -287,6 +286,20 @@
 
 
                                 graficos[maquina.id] = new Chart(document.getElementById('myChart' + maquina.id), config);
+                                if (usoDisco[0] <= 50 && usoProcessador[0] <= 50 && usoRam[0] <= 50) {
+                                    statusMaq[maquina.id] = "Status Verde";
+                                    contadorSttsVerde.innerHTML++;
+                                } else if (usoDisco[0] <= 65 && usoProcessador[0] <= 65 && usoRam[0] <= 65) {
+                                    statusMaq[maquina.id] = "Status Amarelo";
+                                    contadorSttsAmarelo.innerHTML++;
+                                } else if (usoDisco[0] <= 75 && usoProcessador[0] <= 75 && usoRam[0] <= 75) {
+                                    statusMaq[maquina.id] = "Status Laranja";
+                                    contadorSttsLaranja++;
+                                } else {
+                                    statusMaq[maquina.id] = "Status Vermelho";
+                                    contadorSttsVermelho++;
+                                }
+
                             } else {
                                 graficos[maquina.id].data.labels.push(dataHora[0])
                                 graficos[maquina.id].data.datasets[0].data.push(usoProcessador[0])
@@ -294,6 +307,91 @@
                                 graficos[maquina.id].data.datasets[2].data.push(usoRam[0])
 
                                 graficos[maquina.id].update();
+
+                                if (statusMaq[maquina.id] == "Status Verde") {
+                                    if (usoDisco[0] <= 50 && usoProcessador[0] <= 50 && usoRam[0] <= 50) {
+                                        statusMaq[maquina.id] = "Status Verde";
+                                
+                                    } else if (usoDisco[0] <= 65 && usoProcessador[0] <= 65 && usoRam[0] <= 65) {
+                                        statusMaq[maquina.id] = "Status Amarelo";
+                                        contadorSttsAmarelo.innerHTML++;
+                                        contadorSttsVerde.innerHTML--;
+                                    } else if (usoDisco[0] <= 75 && usoProcessador[0] <= 75 && usoRam[0] <= 75) {
+                                        statusMaq[maquina.id] = "Status Laranja";
+                                        contadorSttsLaranja.innerHTML++;
+                                        contadorSttsVerde.innerHTML--;
+                                    } else {
+                                        statusMaq[maquina.id] = "Status Vermelho";
+                                        contadorSttsVermelho.innerHTML++;
+                                        contadorSttsVerde.innerHTML--;
+                                    }
+
+                                }
+
+                                if (statusMaq[maquina.id] == "Status Amarelo") {
+                                    if (usoDisco[0] <= 50 && usoProcessador[0] <= 50 && usoRam[0] <= 50) {
+                                        statusMaq[maquina.id] = "Status Verde";
+                                        contadorSttsVerde.innerHTML++;
+                                        contadorSttsAmarelo.innerHTML--;
+                                
+                                    } else if (usoDisco[0] <= 65 && usoProcessador[0] <= 65 && usoRam[0] <= 65) {
+                                        statusMaq[maquina.id] = "Status Amarelo";
+                                     
+                                    } else if (usoDisco[0] <= 75 && usoProcessador[0] <= 75 && usoRam[0] <= 75) {
+                                        statusMaq[maquina.id] = "Status Laranja";
+                                        contadorSttsLaranja.innerHTML++;
+                                        contadorSttsAmarelo.innerHTML--;
+                                    } else {
+                                        statusMaq[maquina.id] = "Status Vermelho";
+                                        contadorSttsVermelho.innerHTML++;
+                                        contadorSttsAmarelo.innerHTML--;
+                                    }
+
+                                }
+
+                                if (statusMaq[maquina.id] == "Status Laranja") {
+                                    if (usoDisco[0] <= 50 && usoProcessador[0] <= 50 && usoRam[0] <= 50) {
+                                        statusMaq[maquina.id] = "Status Verde";
+                                        contadorSttsVerde.innerHTML++;
+                                        contadorSttsLaranja.innerHTML--;
+                                
+                                    } else if (usoDisco[0] <= 65 && usoProcessador[0] <= 65 && usoRam[0] <= 65) {
+                                        statusMaq[maquina.id] = "Status Amarelo";
+                                        contadorSttsAmarelo.innerHTML++;
+                                        contadorSttsLaranja.innerHTML--;
+                                     
+                                    } else if (usoDisco[0] <= 75 && usoProcessador[0] <= 75 && usoRam[0] <= 75) {
+                                        statusMaq[maquina.id] = "Status Laranja";
+                                     
+                                    } else {
+                                        statusMaq[maquina.id] = "Status Vermelho";
+                                        contadorSttsVermelho.innerHTML++;
+                                        contadorSttsLaranja.innerHTML--;
+                                    }
+
+                                }
+
+                                if (statusMaq[maquina.id] == "Status Vermelho") {
+                                    if (usoDisco[0] <= 50 && usoProcessador[0] <= 50 && usoRam[0] <= 50) {
+                                        statusMaq[maquina.id] = "Status Verde";
+                                        contadorSttsVerde.innerHTML++;
+                                        contadorSttsVermelho.innerHTML--;
+                                
+                                    } else if (usoDisco[0] <= 65 && usoProcessador[0] <= 65 && usoRam[0] <= 65) {
+                                        statusMaq[maquina.id] = "Status Amarelo";
+                                        contadorSttsAmarelo.innerHTML++;
+                                        contadorSttsVermelho.innerHTML--;
+                                     
+                                    } else if (usoDisco[0] <= 75 && usoProcessador[0] <= 75 && usoRam[0] <= 75) {
+                                        statusMaq[maquina.id] = "Status Laranja";
+                                        contadorSttsLaranja.innerHTML++;
+                                        contadorSttsVermelho.innerHTML--;
+                                    } else {
+                                        statusMaq[maquina.id] = "Status Vermelho";
+                                    }
+
+                                }
+
                             }
                         });
                     }
@@ -302,7 +400,7 @@
                     console.error('Nenhum dado encontrado ou erro na API');
                 }
 
-                
+
             }).catch(function (error) {
                 console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
             });
