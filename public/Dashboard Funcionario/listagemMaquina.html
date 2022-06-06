@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Máquina Virtual/ Admin Dashboard </title>
+    <title>Listagem Máquinas Virtuais | Puppet</title>
     <link rel="stylesheet"
         href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
     <link rel="stylesheet" href="./style/listagemMaquina.css">
@@ -13,6 +13,8 @@
     <script src="//code.jivosite.com/widget/5q0iqZqyVo" async></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="//code.jivosite.com/widget/5q0iqZqyVo" async></script>
+    <script src="../js/funcoes.js"></script>
+
 </head>
 
 <body>
@@ -91,9 +93,18 @@
                 // estrutura de repetição que não necessita de um break
                 maquinas.forEach(function (maquina) {
                     tbody += `
-                    <div class="cardSingle">
+                    <div class="cardServer">
+                        <div class="status">
+                           <span class="status red"></span> 
+                        </div>
                         <h1 style="color:#320552">${[maquina.nome]}</h1>
-                        <p><h5 style="color:darkgray;margin-left:3rem">Chave: ${[maquina.keyVM]}</h5></p>
+                        <h5 style="color:darkgray; align-self: center">Status: Offline</h5>
+                        <div class="btns">
+                            <button class="btn" type="button" onclick="editar_maquina(${maquina.id})">Editar</button>
+                            <button class="btn" type="button" onclick="maquinaSelecionada(${maquina.id})">Ver Gráficos</button>
+                            <button class="btn" type="button" onclick="excluir_maquina(${maquina.id})">Excluir</button><br>
+                        </div>
+                        <h5 style="color:darkgray; align-self: center";>Chave:<br>${[maquina.keyVM]}</h5>
                      </div>
                     `;
                 });

@@ -186,11 +186,17 @@
                     sessionStorage.EMAIL_USUARIO = json.email;
                     sessionStorage.NOME_USUARIO = json.nome;
                     sessionStorage.SETOR_USUARIO = json.setor;
-                    sessionStorage.ID_USUARIO = json.id;
+                    sessionStorage.ID_USUARIO = json.idUsuario;
                     sessionStorage.EMPRESA_USUARIO = json.fkEmpresa;
+                    sessionStorage.FK_ADMIN = json.fkAdmin;
 
                     setTimeout(function () {
+                      if(json.idUsuario != json.fkAdmin) {
+                        window.location = "./Dashboard Funcionario/listagemMaquina.html";
+                      } 
+                      else{
                         window.location = "./Dashboard Admin/admin.html";
+                      }
                     }, 1000); // apenas para exibir o loading
 
                 });

@@ -19,12 +19,14 @@ function entrar() {
                 console.log(json);
                 console.log(JSON.stringify(json));
 
+                sessionStorage.ID_USUARIO = json.idUsuario;
                 sessionStorage.LOGIN_USUARIO = json.login;
                 sessionStorage.NOME_USUARIO = json.nome;
                 sessionStorage.SETOR_USUARIO = json.setor;
                 sessionStorage.ID_USUARIO = json.id;
                 sessionStorage.EMPRESA_USUARIO = json.fkEmpresa;
-
+                sessionStorage.FK_ADMIN = json.fkAdmin;
+                console.log(json.fkAdmin);
                 setTimeout(function () {
                     window.location = "../Home/index.html";
                 }, 1000);
