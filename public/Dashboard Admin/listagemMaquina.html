@@ -377,6 +377,16 @@
                                     });
                                 } else {
                                     listagemMaquina.innerHTML = '';
+                                    fetch("/maquinas/" + sessionStorage.ID_USUARIO, {
+                                        method: "GET",
+                                    }).then(function (resposta) {
+                                        resposta.json().then(json => {
+                                            listar_maq(json)
+                                        });
+
+                                    }).catch(function (erro) {
+                                        console.log(erro);
+                                    })
                                 }
                             }).catch(function (erro) {
                                 console.log(erro);
