@@ -37,6 +37,36 @@
             async></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
+<style>
+    .tooltip {
+        position: relative;
+        display: inline-block;
+    }
+
+    .tooltip img {
+        width: 15px;
+        height: 15px;
+    }
+
+    .tooltip .tooltiptext {
+        visibility: hidden;
+        width: 120px;
+        background-color: #6db305;
+        color: #fff !important;
+        text-align: center;
+        border-radius: 6px;
+        padding: 5px 0;
+        font-size: smaller !important;
+
+        /* Position the tooltip */
+        position: absolute;
+        z-index: 1;
+    }
+
+    .tooltip:hover .tooltiptext {
+        visibility: visible;
+    }
+</style>
 
 <body>
     <!--Menu Lateral-->
@@ -115,16 +145,47 @@
                                          style="display: flex; align-items: center;">
                                     </div>
                                 </div>
-                            </div>
-                            <div class="tabelaResponsiva">
-                                <table width="100%">
-                                    <h3>Filtro</h3>
-                                    <span class="status red"></span>
-                                    <span class="status orange"></span>
-                                    <span class="status yellow"></span>
-                                    <span class="status green"></span>
-                                </table>
-                            </div>
+                            </div>  
+                            <table class="tabelaResponsiva">
+                                <h3 style="padding-top: 1rem">Filtro</h3>
+                                <span class="status red"></span>
+                                <div class="tooltip">
+                                    <img src="https://cdn.iconscout.com/icon/free/png-256/information-notice-info-ui-tooltip-guide-30515.png"
+                                        alt="">
+                                    <span class="tooltiptext" style="background-color: #e20b0b"><b>Estado Crítico(acima de 75%)</b><br>
+                                        Após análises o estado da CPU, RAM e
+                                        Disco apresentam <b>muitos</b> riscos de lentidão e baixo processamento.
+                                    </span>
+                                </div>
+                                <span class="status orange"></span>
+                                <div class="tooltip">
+                                    <img src="https://cdn.iconscout.com/icon/free/png-256/information-notice-info-ui-tooltip-guide-30515.png"
+                                        alt="">
+                                    <span class="tooltiptext" style="background-color: #f39e00">
+                                        <b>Estado Preocupante(acima de 65 á 75%)</b><br>
+                                        Após análises o estado da CPU, RAM e
+                                        Disco apresentam riscos <b>consideráveis</b> de lentidão e baixo processamento.
+                                    </span>
+                                </div>
+                                <span class="status yellow"></span>
+                                <div class="tooltip">
+                                    <img src="https://cdn.iconscout.com/icon/free/png-256/information-notice-info-ui-tooltip-guide-30515.png"
+                                        alt="">
+                                    <span class="tooltiptext" style="background-color: #ffc411"><b>Estado Razoável(acima de 50 á 65%)</b><br>
+                                        Após análises o estado da CPU, RAM e
+                                        Disco apresentam <b>pouco</b> riscos de lentidão e baixo processamento.
+                                    </span>
+                                </div>
+                                <span class="status green"></span>
+                                <div class="tooltip">
+                                    <img src="https://cdn.iconscout.com/icon/free/png-256/information-notice-info-ui-tooltip-guide-30515.png"
+                                        alt="">
+                                    <span class="tooltiptext" style="background-color: #6db305;"><b>Ótimo Estado(acima de 0 á 50%)</b><br>
+                                        Após análises o estado da CPU, RAM e
+                                        Disco <b>não</b> apresentam riscos de lentidão e baixo processamento.
+                                    </span>
+                                </div>
+                            </table>                        
                         </div>
                     </div>
                 </div>

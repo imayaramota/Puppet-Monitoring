@@ -193,18 +193,22 @@ main {
 
 .status.red {
   background: #ff0000;
+  width: 3rem;
 }
 
 .status.orange {
   background: #ff8400;
+  width: 3rem;
 }
 
 .status.green {
   background: rgb(30, 255, 0);
+  width: 3rem;
 }
 
 .status.yellow {
   background: yellow;
+  width: 3rem;
 }
 
 .statusCircle.red {
