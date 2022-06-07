@@ -104,7 +104,7 @@
             <div class="cards">
                 <div class="cardSingle">
                     <div>
-                        <h1 id="contadorSttsVerde">0</h1>
+                        <h1 id="contadorAlertaVerde">0</h1>
                         <span>Servidores em estado ótimo</span>
                         <div class="tooltip">
                             <img src="https://cdn.iconscout.com/icon/free/png-256/information-notice-info-ui-tooltip-guide-30515.png"
@@ -121,7 +121,7 @@
                 </div>
                 <div class="cardSingle">
                     <div>
-                        <h1 id="contadorSttsAmarelo">0</h1>
+                        <h1 id="contadorAlertaAmarelo">0</h1>
                         <span>Servidores em estado razoável</span>
                         <div class="tooltip">
                             <img src="https://cdn.iconscout.com/icon/free/png-256/information-notice-info-ui-tooltip-guide-30515.png"
@@ -138,7 +138,7 @@
                 </div>
                 <div class="cardSingle">
                     <div>
-                        <h1 id="contadorSttsLaranja">0</h1>
+                        <h1 id="contadorAlertaLaranja">0</h1>
                         <span>Servidores em estado preocupante</span>
                         <div class="tooltip">
                             <img src="https://cdn.iconscout.com/icon/free/png-256/information-notice-info-ui-tooltip-guide-30515.png"
@@ -156,7 +156,7 @@
                 </div>
                 <div class="cardSingle">
                     <div>
-                        <h1 id="contadorSttsVermelho">0</h1>
+                        <h1 id="contadorAlertaVermelho">0</h1>
                         <span>Servidores em estado crítico</span>
                         <div class="tooltip">
                             <img src="https://cdn.iconscout.com/icon/free/png-256/information-notice-info-ui-tooltip-guide-30515.png"
@@ -222,7 +222,7 @@
         }
 
         var graficos = [];
-        var statusMaq = [];
+        var alertaMaq = [];
 
         function atualizarGraficos(maquina) {
             fetch(`/medidas/ultimas/${maquina.id}`, { cache: 'no-store' }).then(function (response) {
@@ -285,17 +285,17 @@
 
                                 graficos[maquina.id] = new Chart(document.getElementById('myChart' + maquina.id), config);
                                 if (usoDisco[0] <= 50 && usoProcessador[0] <= 50 && usoRam[0] <= 50) {
-                                    statusMaq[maquina.id] = "Status Verde";
-                                    contadorSttsVerde.innerHTML++;
+                                    alertaMaq[maquina.id] = "Alerta Verde";
+                                    contadorAlertaVerde.innerHTML++;
                                 } else if (usoDisco[0] <= 65 && usoProcessador[0] <= 65 && usoRam[0] <= 65) {
-                                    statusMaq[maquina.id] = "Status Amarelo";
-                                    contadorSttsAmarelo.innerHTML++;
+                                    alertaMaq[maquina.id] = "Alerta Amarelo";
+                                    contadorAlertaAmarelo.innerHTML++;
                                 } else if (usoDisco[0] <= 75 && usoProcessador[0] <= 75 && usoRam[0] <= 75) {
-                                    statusMaq[maquina.id] = "Status Laranja";
-                                    contadorSttsLaranja++;
+                                    alertaMaq[maquina.id] = "Alerta Laranja";
+                                    contadorAlertaLaranja++;
                                 } else {
-                                    statusMaq[maquina.id] = "Status Vermelho";
-                                    contadorSttsVermelho++;
+                                    alertaMaq[maquina.id] = "Alerta Vermelho";
+                                    contadorAlertaVermelho++;
                                 }
 
                             } else {
@@ -310,86 +310,86 @@
 
                                 graficos[maquina.id].update();
 
-                                if (statusMaq[maquina.id] == "Status Verde") {
+                                if (alertaMaq[maquina.id] == "Alerta Verde") {
                                     if (usoDisco[0] <= 50 && usoProcessador[0] <= 50 && usoRam[0] <= 50) {
-                                        statusMaq[maquina.id] = "Status Verde";
+                                        alertaMaq[maquina.id] = "Alerta Verde";
                                 
                                     } else if (usoDisco[0] <= 65 && usoProcessador[0] <= 65 && usoRam[0] <= 65) {
-                                        statusMaq[maquina.id] = "Status Amarelo";
-                                        contadorSttsAmarelo.innerHTML++;
-                                        contadorSttsVerde.innerHTML--;
+                                        alertaMaq[maquina.id] = "Alerta Amarelo";
+                                        contadorAlertaAmarelo.innerHTML++;
+                                        contadorAlertaVerde.innerHTML--;
                                     } else if (usoDisco[0] <= 75 && usoProcessador[0] <= 75 && usoRam[0] <= 75) {
-                                        statusMaq[maquina.id] = "Status Laranja";
-                                        contadorSttsLaranja.innerHTML++;
-                                        contadorSttsVerde.innerHTML--;
+                                        alertaMaq[maquina.id] = "Alerta Laranja";
+                                        contadorAlertaLaranja.innerHTML++;
+                                        contadorAlertaVerde.innerHTML--;
                                     } else {
-                                        statusMaq[maquina.id] = "Status Vermelho";
-                                        contadorSttsVermelho.innerHTML++;
-                                        contadorSttsVerde.innerHTML--;
+                                        alertaMaq[maquina.id] = "Alerta Vermelho";
+                                        contadorAlertaVermelho.innerHTML++;
+                                        contadorAlertaVerde.innerHTML--;
                                     }
 
                                 }
 
-                                if (statusMaq[maquina.id] == "Status Amarelo") {
+                                if (alertaMaq[maquina.id] == "Alerta Amarelo") {
                                     if (usoDisco[0] <= 50 && usoProcessador[0] <= 50 && usoRam[0] <= 50) {
-                                        statusMaq[maquina.id] = "Status Verde";
-                                        contadorSttsVerde.innerHTML++;
-                                        contadorSttsAmarelo.innerHTML--;
+                                        alertaMaq[maquina.id] = "Alerta Verde";
+                                        contadorAlertaVerde.innerHTML++;
+                                        contadorAlertaAmarelo.innerHTML--;
                                 
                                     } else if (usoDisco[0] <= 65 && usoProcessador[0] <= 65 && usoRam[0] <= 65) {
-                                        statusMaq[maquina.id] = "Status Amarelo";
+                                        alertaMaq[maquina.id] = "Alerta Amarelo";
                                      
                                     } else if (usoDisco[0] <= 75 && usoProcessador[0] <= 75 && usoRam[0] <= 75) {
-                                        statusMaq[maquina.id] = "Status Laranja";
-                                        contadorSttsLaranja.innerHTML++;
-                                        contadorSttsAmarelo.innerHTML--;
+                                        alertaMaq[maquina.id] = "Alerta Laranja";
+                                        contadorAlertaLaranja.innerHTML++;
+                                        contadorAlertaAmarelo.innerHTML--;
                                     } else {
-                                        statusMaq[maquina.id] = "Status Vermelho";
-                                        contadorSttsVermelho.innerHTML++;
-                                        contadorSttsAmarelo.innerHTML--;
+                                        alertaMaq[maquina.id] = "Alerta Vermelho";
+                                        contadorAlertaVermelho.innerHTML++;
+                                        contadorAlertaAmarelo.innerHTML--;
                                     }
 
                                 }
 
-                                if (statusMaq[maquina.id] == "Status Laranja") {
+                                if (alertaMaq[maquina.id] == "Alerta Laranja") {
                                     if (usoDisco[0] <= 50 && usoProcessador[0] <= 50 && usoRam[0] <= 50) {
-                                        statusMaq[maquina.id] = "Status Verde";
-                                        contadorSttsVerde.innerHTML++;
-                                        contadorSttsLaranja.innerHTML--;
+                                        alertaMaq[maquina.id] = "Alerta Verde";
+                                        contadorAlertaVerde.innerHTML++;
+                                        contadorAlertaLaranja.innerHTML--;
                                 
                                     } else if (usoDisco[0] <= 65 && usoProcessador[0] <= 65 && usoRam[0] <= 65) {
-                                        statusMaq[maquina.id] = "Status Amarelo";
-                                        contadorSttsAmarelo.innerHTML++;
-                                        contadorSttsLaranja.innerHTML--;
+                                        alertaMaq[maquina.id] = "Alerta Amarelo";
+                                        contadorAlertaAmarelo.innerHTML++;
+                                        contadorAlertaLaranja.innerHTML--;
                                      
                                     } else if (usoDisco[0] <= 75 && usoProcessador[0] <= 75 && usoRam[0] <= 75) {
-                                        statusMaq[maquina.id] = "Status Laranja";
+                                        alertaMaq[maquina.id] = "Alerta Laranja";
                                      
                                     } else {
-                                        statusMaq[maquina.id] = "Status Vermelho";
-                                        contadorSttsVermelho.innerHTML++;
-                                        contadorSttsLaranja.innerHTML--;
+                                        alertaMaq[maquina.id] = "Alerta Vermelho";
+                                        contadorAlertaVermelho.innerHTML++;
+                                        contadorAlertaLaranja.innerHTML--;
                                     }
 
                                 }
 
-                                if (statusMaq[maquina.id] == "Status Vermelho") {
+                                if (alertaMaq[maquina.id] == "Alerta Vermelho") {
                                     if (usoDisco[0] <= 50 && usoProcessador[0] <= 50 && usoRam[0] <= 50) {
-                                        statusMaq[maquina.id] = "Status Verde";
-                                        contadorSttsVerde.innerHTML++;
-                                        contadorSttsVermelho.innerHTML--;
+                                        alertaMaq[maquina.id] = "Alerta Verde";
+                                        contadorAlertaVerde.innerHTML++;
+                                        contadorAlertaVermelho.innerHTML--;
                                 
                                     } else if (usoDisco[0] <= 65 && usoProcessador[0] <= 65 && usoRam[0] <= 65) {
-                                        statusMaq[maquina.id] = "Status Amarelo";
-                                        contadorSttsAmarelo.innerHTML++;
-                                        contadorSttsVermelho.innerHTML--;
+                                        alertaMaq[maquina.id] = "Alerta Amarelo";
+                                        contadorAlertaAmarelo.innerHTML++;
+                                        contadorAlertaVermelho.innerHTML--;
                                      
                                     } else if (usoDisco[0] <= 75 && usoProcessador[0] <= 75 && usoRam[0] <= 75) {
-                                        statusMaq[maquina.id] = "Status Laranja";
-                                        contadorSttsLaranja.innerHTML++;
-                                        contadorSttsVermelho.innerHTML--;
+                                        alertaMaq[maquina.id] = "Alerta Laranja";
+                                        contadorAlertaLaranja.innerHTML++;
+                                        contadorAlertaVermelho.innerHTML--;
                                     } else {
-                                        statusMaq[maquina.id] = "Status Vermelho";
+                                        alertaMaq[maquina.id] = "Alerta Vermelho";
                                     }
 
                                 }

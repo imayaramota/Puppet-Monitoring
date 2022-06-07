@@ -93,7 +93,7 @@
             <div class="cardInfo">
                 <div class="cardSingle">
                     <div>
-                        <h1 id="contadorSttsVerde">0</h1>
+                        <h1 id="contadorAlertaVerde">0</h1>
                         <span>Servidores em estado ótimo</span>
                         <div class="tooltip">
                             <img src="https://cdn.iconscout.com/icon/free/png-256/information-notice-info-ui-tooltip-guide-30515.png"
@@ -111,7 +111,7 @@
                 </div>
                 <div class="cardSingle">
                     <div>
-                        <h1 id="contadorSttsAmarelo">0</h1>
+                        <h1 id="contadorAlertaAmarelo">0</h1>
                         <span>Servidores em estado razoável</span>
                         <div class="tooltip">
                             <img src="https://cdn.iconscout.com/icon/free/png-256/information-notice-info-ui-tooltip-guide-30515.png"
@@ -129,7 +129,7 @@
                 </div>
                 <div class="cardSingle">
                     <div>
-                        <h1 id="contadorSttsLaranja">0</h1>
+                        <h1 id="contadorAlertaLaranja">0</h1>
                         <span>Servidores em estado preocupante</span>
                         <div class="tooltip">
                             <img src="https://cdn.iconscout.com/icon/free/png-256/information-notice-info-ui-tooltip-guide-30515.png"
@@ -147,7 +147,7 @@
                 </div>
                 <div class="cardSingle">
                     <div>
-                        <h1 id="contadorSttsVermelho">0</h1>
+                        <h1 id="contadorAlertaVermelho">0</h1>
                         <span>Servidores em estado crítico</span>
                         <div class="tooltip">
                             <img src="https://cdn.iconscout.com/icon/free/png-256/information-notice-info-ui-tooltip-guide-30515.png"
@@ -194,7 +194,7 @@
                     tbody += `
                     <div class="cardServer">
                         <div class="status">
-                           <span class="${statusMaquina(maquina.vmStatus)}"></span> 
+                            <span class="alerta red"></span> 
                         </div>
                         <h1 style="color:#320552">${[maquina.nome]}</h1>
                         <h5 class="${statusMaquina(maquina.vmStatus)}"style="align-self: center; width: 150px; display: flex; justify-content: center">Status: ${maquina.vmStatus}</h5>
