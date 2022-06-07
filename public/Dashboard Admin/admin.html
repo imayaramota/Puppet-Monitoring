@@ -211,7 +211,8 @@
                             </div>
                         </div>
                     `;
-
+                    
+                    informacoesMaquina(maquinas.id);
                     setInterval(() => {
                         atualizarGraficos(maquina)
                     }, 5000)
@@ -236,7 +237,7 @@
                             let dataHora = [];
 
                             resposta.forEach(function (dados) {
-                                usoDisco.push(dados.usoDisco);
+                                usoDisco.push(dados.usoDisco * 100);
                                 usoRam.push(dados.usoRam);
                                 usoProcessador.push(dados.usoProcessador);
                                 dataHora.push(dados.dataHora);
@@ -406,6 +407,31 @@
                 console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
             });
         }
+
+        var ramFlat = 0;
+        var disco = 0;
+
+        function informacoesMaquina(url) {
+                fetch(`/medidas/listar-maquina/${url}`, { cache: 'no-store' }).then(function (response) {
+                    if (response.ok) {
+                        response.json().then(function (resposta) {
+                            console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                            resposta.reverse();
+                            console.log(resposta);
+
+
+
+                            ramFlat = resposta[0].memoriaRam;
+                            disco = resposta[0].espacoDisco;
+                        });
+                    } else {
+                        console.error('Nenhum dado encontrado ou erro na API');
+                    }
+                })
+                    .catch(function (error) {
+                        console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+                    });
+            }
 
 
 
