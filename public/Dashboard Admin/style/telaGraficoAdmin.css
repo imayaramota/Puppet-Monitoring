@@ -207,6 +207,34 @@ main {
   background: yellow;
 }
 
+.statusCircle.red {
+  background: #ff0000;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+}
+
+.statusCircle.orange {
+  background: #ff8400;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+}
+
+.statusCircle.green {
+  background: rgb(30, 255, 0);
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+}
+
+.statusCircle.yellow {
+  background: yellow;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+}
+
 .tabelaResponsiva {
   width: 100%;
   overflow-x: auto;
@@ -278,7 +306,3 @@ main {
 .machine-content > p {
   font-weight: bold;
 }
-
-
-
-
