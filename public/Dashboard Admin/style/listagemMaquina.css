@@ -255,12 +255,18 @@ main {
 
 .status.red {
     background: #fe0000;
+    font-size: 12px;
+    color: #fe0000;
 }
 .status.green {
     background: green;
+    font-size: 12px;
+    color: green;
 }
 .status.yellow {
-    background: yellow;
+    background: grey;
+    font-size: 12px;
+    color: grey;
 }
 
 

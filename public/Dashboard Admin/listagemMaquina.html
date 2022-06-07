@@ -135,7 +135,7 @@
                            <span class="${statusMaquina(maquina.vmStatus)}"></span> 
                         </div>
                         <h1 style="color:#320552">${[maquina.nome]}</h1>
-                        <h5 style="color:darkgray; align-self: center">Status: ${maquina.vmStatus}</h5>
+                        <h5 class="${statusMaquina(maquina.vmStatus)}"style="align-self: center; width: 150px; display: flex; justify-content: center">Status: ${maquina.vmStatus}</h5>
                         <div class="btns">
                             <button class="btn" type="button" onclick="editar_maquina(${maquina.id})">Editar</button>
                             <button class="btn" type="button" onclick="maquinaSelecionada(${maquina.id})">Ver Gráficos</button>
