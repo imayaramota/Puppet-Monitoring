@@ -209,7 +209,7 @@
                     listagemGrafico.innerHTML += `
                         <div class="cardGrafico">
                             <div class="status">
-                                <span class="alerta red"></span> 
+                                <span id="alerta${[maquina.id]}" class="alerta"></span> 
                             </div>
                             <h3 style=" display: flex;justify-content: space-evenly;"">${[maquina.nome]}</h3>
                             <h5 class="${statusMaquina(maquina.vmStatus)}"style="align-self: center; width: 480px;; display: flex; justify-content: center">Status: ${maquina.vmStatus}</h5>
@@ -291,17 +291,28 @@
 
                                 graficos[maquina.id] = new Chart(document.getElementById('myChart' + maquina.id), config);
                                 if (usoDisco[0] <= 50 && usoProcessador[0] <= 50 && usoRam[0] <= 50) {
+
                                     alertaMaq[maquina.id] = "Alerta Verde";
                                     contadorAlertaVerde.innerHTML++;
+                                    document.getElementById('alerta'+maquina.id).classList.add('green')
+
                                 } else if (usoDisco[0] <= 65 && usoProcessador[0] <= 65 && usoRam[0] <= 65) {
+
                                     alertaMaq[maquina.id] = "Alerta Amarelo";
                                     contadorAlertaAmarelo.innerHTML++;
+                                    document.getElementById('alerta'+maquina.id).classList.add('yellow')
+
                                 } else if (usoDisco[0] <= 75 && usoProcessador[0] <= 75 && usoRam[0] <= 75) {
+
                                     alertaMaq[maquina.id] = "Alerta Laranja";
                                     contadorAlertaLaranja.innerHTML++;
+                                    document.getElementById('alerta'+maquina.id).classList.add('orange')
+
                                 } else {
+
                                     alertaMaq[maquina.id] = "Alerta Vermelho";
                                     contadorAlertaVermelho.innerHTML++;
+                                    document.getElementById('alerta'+maquina.id).classList.add('red')
                                 }
 
                             } else {
@@ -318,40 +329,68 @@
 
                                 if (alertaMaq[maquina.id] == "Alerta Verde") {
                                     if (usoDisco[0] <= 50 && usoProcessador[0] <= 50 && usoRam[0] <= 50) {
+
                                         alertaMaq[maquina.id] = "Alerta Verde";
+                                        document.getElementById('alerta'+maquina.id).classList.add('green')
+
                                     } else if (usoDisco[0] <= 65 && usoProcessador[0] <= 65 && usoRam[0] <= 65) {
+
                                         alertaMaq[maquina.id] = "Alerta Amarelo";
                                         contadorAlertaAmarelo.innerHTML++;
+                                        document.getElementById('alerta'+maquina.id).classList.add('yellow')
+
                                         contadorAlertaVerde.innerHTML--;
+                                        document.getElementById('alerta'+maquina.id).classList.remove('green')
+
                                     } else if (usoDisco[0] <= 75 && usoProcessador[0] <= 75 && usoRam[0] <= 75) {
+
                                         alertaMaq[maquina.id] = "Alerta Laranja";
                                         contadorAlertaLaranja.innerHTML++;
+                                        document.getElementById('alerta'+maquina.id).classList.add('orange')
+
                                         contadorAlertaVerde.innerHTML--;
+                                        document.getElementById('alerta'+maquina.id).classList.remove('green')
+
                                     } else {
                                         alertaMaq[maquina.id] = "Alerta Vermelho";
                                         contadorAlertaVermelho.innerHTML++;
+                                        document.getElementById('alerta'+maquina.id).classList.add('red')
+
                                         contadorAlertaVerde.innerHTML--;
+                                        document.getElementById('alerta'+maquina.id).classList.remove('green')
                                     }
 
                                 }
 
                                 if (alertaMaq[maquina.id] == "Alerta Amarelo") {
                                     if (usoDisco[0] <= 50 && usoProcessador[0] <= 50 && usoRam[0] <= 50) {
+
                                         alertaMaq[maquina.id] = "Alerta Verde";
                                         contadorAlertaVerde.innerHTML++;
+                                        document.getElementById('alerta'+maquina.id).classList.add('green')
+
                                         contadorAlertaAmarelo.innerHTML--;
+                                        document.getElementById('alerta'+maquina.id).classList.remove('yellow')
 
                                     } else if (usoDisco[0] <= 65 && usoProcessador[0] <= 65 && usoRam[0] <= 65) {
                                         alertaMaq[maquina.id] = "Alerta Amarelo";
+                                        document.getElementById('alerta'+maquina.id).classList.add('yellow')
 
                                     } else if (usoDisco[0] <= 75 && usoProcessador[0] <= 75 && usoRam[0] <= 75) {
                                         alertaMaq[maquina.id] = "Alerta Laranja";
                                         contadorAlertaLaranja.innerHTML++;
+                                        document.getElementById('alerta'+maquina.id).classList.add('orange')
+
                                         contadorAlertaAmarelo.innerHTML--;
+                                        document.getElementById('alerta'+maquina.id).classList.remove('yellow')
+
                                     } else {
                                         alertaMaq[maquina.id] = "Alerta Vermelho";
                                         contadorAlertaVermelho.innerHTML++;
+                                        document.getElementById('alerta'+maquina.id).classList.add('red')
+
                                         contadorAlertaAmarelo.innerHTML--;
+                                        document.getElementById('alerta'+maquina.id).classList.remove('yellow')
                                     }
 
                                 }
@@ -360,20 +399,30 @@
                                     if (usoDisco[0] <= 50 && usoProcessador[0] <= 50 && usoRam[0] <= 50) {
                                         alertaMaq[maquina.id] = "Alerta Verde";
                                         contadorAlertaVerde.innerHTML++;
+                                        document.getElementById('alerta'+maquina.id).classList.add('green')
+
                                         contadorAlertaLaranja.innerHTML--;
+                                        document.getElementById('alerta'+maquina.id).classList.remove('orange')
 
                                     } else if (usoDisco[0] <= 65 && usoProcessador[0] <= 65 && usoRam[0] <= 65) {
                                         alertaMaq[maquina.id] = "Alerta Amarelo";
                                         contadorAlertaAmarelo.innerHTML++;
+                                        document.getElementById('alerta'+maquina.id).classList.add('yellow')
+
                                         contadorAlertaLaranja.innerHTML--;
+                                        document.getElementById('alerta'+maquina.id).classList.remove('orange')
 
                                     } else if (usoDisco[0] <= 75 && usoProcessador[0] <= 75 && usoRam[0] <= 75) {
                                         alertaMaq[maquina.id] = "Alerta Laranja";
+                                        document.getElementById('alerta'+maquina.id).classList.add('orange')
 
                                     } else {
                                         alertaMaq[maquina.id] = "Alerta Vermelho";
                                         contadorAlertaVermelho.innerHTML++;
+                                        document.getElementById('alerta'+maquina.id).classList.add('red')
+
                                         contadorAlertaLaranja.innerHTML--;
+                                        document.getElementById('alerta'+maquina.id).classList.remove('orange')
                                     }
 
                                 }
@@ -382,19 +431,29 @@
                                     if (usoDisco[0] <= 50 && usoProcessador[0] <= 50 && usoRam[0] <= 50) {
                                         alertaMaq[maquina.id] = "Alerta Verde";
                                         contadorAlertaVerde.innerHTML++;
+                                        document.getElementById('alerta'+maquina.id).classList.add('green')
+
                                         contadorAlertaVermelho.innerHTML--;
+                                        document.getElementById('alerta'+maquina.id).classList.remove('red')
 
                                     } else if (usoDisco[0] <= 65 && usoProcessador[0] <= 65 && usoRam[0] <= 65) {
                                         alertaMaq[maquina.id] = "Alerta Amarelo";
                                         contadorAlertaAmarelo.innerHTML++;
+                                        document.getElementById('alerta'+maquina.id).classList.add('yellow')
+
                                         contadorAlertaVermelho.innerHTML--;
+                                        document.getElementById('alerta'+maquina.id).classList.remove('red')
 
                                     } else if (usoDisco[0] <= 75 && usoProcessador[0] <= 75 && usoRam[0] <= 75) {
                                         alertaMaq[maquina.id] = "Alerta Laranja";
                                         contadorAlertaLaranja.innerHTML++;
+                                        document.getElementById('alerta'+maquina.id).classList.add('orange')
+
                                         contadorAlertaVermelho.innerHTML--;
+                                        document.getElementById('alerta'+maquina.id).classList.remove('red')
                                     } else {
                                         alertaMaq[maquina.id] = "Alerta Vermelho";
+                                        document.getElementById('alerta'+maquina.id).classList.add('red')
                                     }
 
                                 }

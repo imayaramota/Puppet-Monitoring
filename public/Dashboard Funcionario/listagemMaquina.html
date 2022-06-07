@@ -126,7 +126,7 @@
                     tbody += `
                     <div class="cardServer">
                         <div class="alerta">
-                            <span class="alerta red"></span> 
+                            <span id="alerta${[maquina.id]}" class="alerta"></span> 
                         </div>
                         <h1 style="color:#320552">${[maquina.nome]}</h1>
                         <h5 class="${statusMaquina(maquina.vmStatus)}"style="align-self: center; width: 150px; display: flex; justify-content: center">Status: ${maquina.vmStatus}</h5>
@@ -140,6 +140,8 @@
 
                 listagemMaquina.innerHTML = tbody;
             }
+
+            
 
             function maquinaSelecionada(maquina) {
                 window.location = "../Dashboard Funcionario/telaGraficosFunc.html?id=" + maquina;

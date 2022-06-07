@@ -258,7 +258,22 @@ td {
 }
 
 .alerta.red {
-    background: #fe0000;
+    background: red;
+    font-size: 12px;
+}
+
+.alerta.green {
+    background: green;
+    font-size: 12px;
+}
+
+.alerta.yellow {
+    background: yellow;
+    font-size: 12px;
+}
+
+.alerta.orange {
+    background: orange;
     font-size: 12px;
 }
 
