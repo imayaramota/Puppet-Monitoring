@@ -7,22 +7,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Listagem Máquinas Virtuais | Puppet</title>
     <link rel="stylesheet"
-          href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
-    <link rel="stylesheet"
-          href="./style/listagemMaquina.css">
+        href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
+    <link rel="stylesheet" href="./style/listagemMaquina.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <link rel="stylesheet"
-          href="./style/listarUsuarios.css">
-    <link rel="icon"
-          href="./assets/LogoRoxo.png">
-    <script src="//code.jivosite.com/widget/5q0iqZqyVo"
-            async></script>
+    <link rel="stylesheet" href="./style/listarUsuarios.css">
+    <link rel="icon" href="./assets/LogoRoxo.png">
+    <script src="//code.jivosite.com/widget/5q0iqZqyVo" async></script>
 </head>
 
 <body>
     <!--Menu Lateral-->
-    <input type="checkbox"
-           id="nav-toggle">
+    <input type="checkbox" id="nav-toggle">
     <div class="barraLateral">
         <div class="barraLateralLogo">
             <h2><span>PUPPET</span></h2>
@@ -50,8 +45,7 @@
                 <li class="list">
                     <a href="#">
                         <span class="las la-cog"></span>
-                        <span id="sair"
-                              onclick="functionSair()">Sair</span>
+                        <span id="sair" onclick="functionSair()">Sair</span>
                     </a>
                 </li>
             </ul>
@@ -67,10 +61,7 @@
                 Máquinas Virtuais
             </h2>
             <div class="usuario">
-                <img src="./assets/whindUsuario.jpg"
-                     width="40px"
-                     height="40px"
-                     alt="">
+                <img src="./assets/whindUsuario.jpg" width="40px" height="40px" alt="">
                 <div>
                     <h3><span id="b_usuario"></span></h3>
                     <small id="setor_usuario"></small>
@@ -97,7 +88,7 @@
                     <div>
                         <div class="cardHeader">
                             <button class="btnCadastrar"><a
-                                   href="../CadastroMaquina/maquina.html">Cadastrar</a></button>
+                                    href="../CadastroMaquina/maquina.html">Cadastrar</a></button>
                         </div>
                     </div>
                 </div>
@@ -105,8 +96,7 @@
             <div id="listagemMaquina" class="cards"></div>
         </main>
         <script src="../plugins/sweetalert2-11.4.8/package/dist/sweetalert2.min.js"></script>
-        <link rel="stylesheet"
-              href="../plugins/sweetalert2-11.4.8/package/dist/sweetalert2.min.css">
+        <link rel="stylesheet" href="../plugins/sweetalert2-11.4.8/package/dist/sweetalert2.min.css">
         <script>
             b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
             setor_usuario.innerHTML = sessionStorage.SETOR_USUARIO;
@@ -131,7 +121,7 @@
                     tbody += `
                     <div class="cardServer">
                         <div class="status">
-                           <span class="alerta red"></span> 
+                            <span id="alerta${[maquina.id]}" class="alerta"></span> 
                         </div>
                         <h1 style="color:#320552">${[maquina.nome]}</h1>
                         <h5 class="${statusMaquina(maquina.vmStatus)}"style="align-self: center; width: 150px; display: flex; justify-content: center">Status: ${maquina.vmStatus}</h5>
@@ -143,11 +133,210 @@
                         <h5 style="color:darkgray; align-self: center";>Chave:<br>${[maquina.keyVM]}</h5>
                      </div>
                     `;
+                    if (maquina.hostName != null) {
+                        setInterval(() => {
+                            atualizarGraficos(maquina)
+                        }, 5000)
+                    }
+
                 });
 
                 listagemMaquina.innerHTML = tbody;
                 contador.innerHTML = maquinas.length;
+
             }
+
+            var alertaMaq = [];
+
+            function atualizarGraficos(maquina) {
+                fetch(`/medidas/ultimas/${maquina.id}`, { cache: 'no-store' }).then(function (response) {
+                    if (response.ok) {
+                        if (response.statusText == "OK") {
+                            response.json().then(function (resposta) {
+                                resposta.reverse();
+
+                                let usoDisco = [];
+                                let usoRam = [];
+                                let usoProcessador = [];
+                                let dataHora = [];
+
+                                resposta.forEach(function (dados) {
+                                    usoDisco.push(dados.usoDisco * 100);
+                                    usoRam.push(dados.usoRam);
+                                    usoProcessador.push(dados.usoProcessador);
+                                    dataHora.push(dados.dataHora);
+                                });
+
+                                if (typeof alertaMaq[maquina.id] === 'undefined') {
+                                    if (usoDisco[0] <= 50 && usoProcessador[0] <= 50 && usoRam[0] <= 50) {
+
+                                        alertaMaq[maquina.id] = "Alerta Verde";
+
+                                        document.getElementById('alerta' + maquina.id).classList.add('green')
+
+                                    } else if (usoDisco[0] <= 65 && usoProcessador[0] <= 65 && usoRam[0] <= 65) {
+
+                                        alertaMaq[maquina.id] = "Alerta Amarelo";
+
+                                        document.getElementById('alerta' + maquina.id).classList.add('yellow')
+
+                                    } else if (usoDisco[0] <= 75 && usoProcessador[0] <= 75 && usoRam[0] <= 75) {
+
+                                        alertaMaq[maquina.id] = "Alerta Laranja";
+
+                                        document.getElementById('alerta' + maquina.id).classList.add('orange')
+
+                                    } else {
+
+                                        alertaMaq[maquina.id] = "Alerta Vermelho";
+                                        document.getElementById('alerta' + maquina.id).classList.add('red')
+                                    }
+
+                                } else {
+                                    if (alertaMaq[maquina.id] == "Alerta Verde") {
+                                        if (usoDisco[0] <= 50 && usoProcessador[0] <= 50 && usoRam[0] <= 50) {
+
+                                            alertaMaq[maquina.id] = "Alerta Verde";
+                                            document.getElementById('alerta' + maquina.id).classList.add('green')
+
+                                        } else if (usoDisco[0] <= 65 && usoProcessador[0] <= 65 && usoRam[0] <= 65) {
+
+                                            alertaMaq[maquina.id] = "Alerta Amarelo";
+
+                                            document.getElementById('alerta' + maquina.id).classList.add('yellow')
+
+
+                                            document.getElementById('alerta' + maquina.id).classList.remove('green')
+
+                                        } else if (usoDisco[0] <= 75 && usoProcessador[0] <= 75 && usoRam[0] <= 75) {
+
+                                            alertaMaq[maquina.id] = "Alerta Laranja";
+
+                                            document.getElementById('alerta' + maquina.id).classList.add('orange')
+
+
+                                            document.getElementById('alerta' + maquina.id).classList.remove('green')
+
+                                        } else {
+                                            alertaMaq[maquina.id] = "Alerta Vermelho";
+
+                                            document.getElementById('alerta' + maquina.id).classList.add('red')
+
+                                            document.getElementById('alerta' + maquina.id).classList.remove('green')
+                                        }
+
+                                    }
+
+                                    if (alertaMaq[maquina.id] == "Alerta Amarelo") {
+                                        if (usoDisco[0] <= 50 && usoProcessador[0] <= 50 && usoRam[0] <= 50) {
+
+                                            alertaMaq[maquina.id] = "Alerta Verde";
+
+                                            document.getElementById('alerta' + maquina.id).classList.add('green')
+
+
+                                            document.getElementById('alerta' + maquina.id).classList.remove('yellow')
+
+                                        } else if (usoDisco[0] <= 65 && usoProcessador[0] <= 65 && usoRam[0] <= 65) {
+                                            alertaMaq[maquina.id] = "Alerta Amarelo";
+                                            document.getElementById('alerta' + maquina.id).classList.add('yellow')
+
+                                        } else if (usoDisco[0] <= 75 && usoProcessador[0] <= 75 && usoRam[0] <= 75) {
+                                            alertaMaq[maquina.id] = "Alerta Laranja";
+
+                                            document.getElementById('alerta' + maquina.id).classList.add('orange')
+
+                                            document.getElementById('alerta' + maquina.id).classList.remove('yellow')
+
+                                        } else {
+                                            alertaMaq[maquina.id] = "Alerta Vermelho";
+
+                                            document.getElementById('alerta' + maquina.id).classList.add('red')
+
+
+                                            document.getElementById('alerta' + maquina.id).classList.remove('yellow')
+                                        }
+
+                                    }
+
+                                    if (alertaMaq[maquina.id] == "Alerta Laranja") {
+                                        if (usoDisco[0] <= 50 && usoProcessador[0] <= 50 && usoRam[0] <= 50) {
+                                            alertaMaq[maquina.id] = "Alerta Verde";
+
+                                            document.getElementById('alerta' + maquina.id).classList.add('green')
+
+
+                                            document.getElementById('alerta' + maquina.id).classList.remove('orange')
+
+                                        } else if (usoDisco[0] <= 65 && usoProcessador[0] <= 65 && usoRam[0] <= 65) {
+                                            alertaMaq[maquina.id] = "Alerta Amarelo";
+
+                                            document.getElementById('alerta' + maquina.id).classList.add('yellow')
+
+
+                                            document.getElementById('alerta' + maquina.id).classList.remove('orange')
+
+                                        } else if (usoDisco[0] <= 75 && usoProcessador[0] <= 75 && usoRam[0] <= 75) {
+                                            alertaMaq[maquina.id] = "Alerta Laranja";
+                                            document.getElementById('alerta' + maquina.id).classList.add('orange')
+
+                                        } else {
+                                            alertaMaq[maquina.id] = "Alerta Vermelho";
+
+                                            document.getElementById('alerta' + maquina.id).classList.add('red')
+
+
+                                            document.getElementById('alerta' + maquina.id).classList.remove('orange')
+                                        }
+
+                                    }
+
+                                    if (alertaMaq[maquina.id] == "Alerta Vermelho") {
+                                        if (usoDisco[0] <= 50 && usoProcessador[0] <= 50 && usoRam[0] <= 50) {
+                                            alertaMaq[maquina.id] = "Alerta Verde";
+
+                                            document.getElementById('alerta' + maquina.id).classList.add('green')
+
+
+                                            document.getElementById('alerta' + maquina.id).classList.remove('red')
+
+                                        } else if (usoDisco[0] <= 65 && usoProcessador[0] <= 65 && usoRam[0] <= 65) {
+                                            alertaMaq[maquina.id] = "Alerta Amarelo";
+
+                                            document.getElementById('alerta' + maquina.id).classList.add('yellow')
+
+
+                                            document.getElementById('alerta' + maquina.id).classList.remove('red')
+
+                                        } else if (usoDisco[0] <= 75 && usoProcessador[0] <= 75 && usoRam[0] <= 75) {
+                                            alertaMaq[maquina.id] = "Alerta Laranja";
+
+                                            document.getElementById('alerta' + maquina.id).classList.add('orange')
+
+
+                                            document.getElementById('alerta' + maquina.id).classList.remove('red')
+                                        } else {
+                                            alertaMaq[maquina.id] = "Alerta Vermelho";
+                                            document.getElementById('alerta' + maquina.id).classList.add('red')
+                                        }
+
+                                    }
+
+                                }
+                            });
+                        }
+
+                    } else {
+                        console.error('Nenhum dado encontrado ou erro na API');
+                    }
+
+
+                }).catch(function (error) {
+                    console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+                });
+            }
+
+
 
             function maquinaSelecionada(maquina) {
                 window.location = "./telaGraficosAdmin.html?id=" + maquina;

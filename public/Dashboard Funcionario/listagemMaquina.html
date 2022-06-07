@@ -136,12 +136,209 @@
                         <h5 style="color:darkgray; align-self: center";>Chave:<br>${[maquina.keyVM]}</h5>
                      </div>
                     `;
+                    if (maquina.hostName != null) {
+                        setInterval(() => {
+                            atualizarGraficos(maquina)
+                        }, 5000)
+                    }
                 });
 
                 listagemMaquina.innerHTML = tbody;
             }
 
-            
+            var alertaMaq = [];
+
+            function atualizarGraficos(maquina) {
+                fetch(`/medidas/ultimas/${maquina.id}`, { cache: 'no-store' }).then(function (response) {
+                    if (response.ok) {
+                        if (response.statusText == "OK") {
+                            response.json().then(function (resposta) {
+                                resposta.reverse();
+
+                                let usoDisco = [];
+                                let usoRam = [];
+                                let usoProcessador = [];
+                                let dataHora = [];
+
+                                resposta.forEach(function (dados) {
+                                    usoDisco.push(dados.usoDisco * 100);
+                                    usoRam.push(dados.usoRam);
+                                    usoProcessador.push(dados.usoProcessador);
+                                    dataHora.push(dados.dataHora);
+                                });
+
+                                if (typeof alertaMaq[maquina.id] === 'undefined') {
+                                    if (usoDisco[0] <= 50 && usoProcessador[0] <= 50 && usoRam[0] <= 50) {
+
+                                        alertaMaq[maquina.id] = "Alerta Verde";
+
+                                        document.getElementById('alerta' + maquina.id).classList.add('green')
+
+                                    } else if (usoDisco[0] <= 65 && usoProcessador[0] <= 65 && usoRam[0] <= 65) {
+
+                                        alertaMaq[maquina.id] = "Alerta Amarelo";
+
+                                        document.getElementById('alerta' + maquina.id).classList.add('yellow')
+
+                                    } else if (usoDisco[0] <= 75 && usoProcessador[0] <= 75 && usoRam[0] <= 75) {
+
+                                        alertaMaq[maquina.id] = "Alerta Laranja";
+
+                                        document.getElementById('alerta' + maquina.id).classList.add('orange')
+
+                                    } else {
+
+                                        alertaMaq[maquina.id] = "Alerta Vermelho";
+                                        document.getElementById('alerta' + maquina.id).classList.add('red')
+                                    }
+
+                                } else {
+                                    if (alertaMaq[maquina.id] == "Alerta Verde") {
+                                        if (usoDisco[0] <= 50 && usoProcessador[0] <= 50 && usoRam[0] <= 50) {
+
+                                            alertaMaq[maquina.id] = "Alerta Verde";
+                                            document.getElementById('alerta' + maquina.id).classList.add('green')
+
+                                        } else if (usoDisco[0] <= 65 && usoProcessador[0] <= 65 && usoRam[0] <= 65) {
+
+                                            alertaMaq[maquina.id] = "Alerta Amarelo";
+
+                                            document.getElementById('alerta' + maquina.id).classList.add('yellow')
+
+
+                                            document.getElementById('alerta' + maquina.id).classList.remove('green')
+
+                                        } else if (usoDisco[0] <= 75 && usoProcessador[0] <= 75 && usoRam[0] <= 75) {
+
+                                            alertaMaq[maquina.id] = "Alerta Laranja";
+
+                                            document.getElementById('alerta' + maquina.id).classList.add('orange')
+
+
+                                            document.getElementById('alerta' + maquina.id).classList.remove('green')
+
+                                        } else {
+                                            alertaMaq[maquina.id] = "Alerta Vermelho";
+
+                                            document.getElementById('alerta' + maquina.id).classList.add('red')
+
+                                            document.getElementById('alerta' + maquina.id).classList.remove('green')
+                                        }
+
+                                    }
+
+                                    if (alertaMaq[maquina.id] == "Alerta Amarelo") {
+                                        if (usoDisco[0] <= 50 && usoProcessador[0] <= 50 && usoRam[0] <= 50) {
+
+                                            alertaMaq[maquina.id] = "Alerta Verde";
+
+                                            document.getElementById('alerta' + maquina.id).classList.add('green')
+
+
+                                            document.getElementById('alerta' + maquina.id).classList.remove('yellow')
+
+                                        } else if (usoDisco[0] <= 65 && usoProcessador[0] <= 65 && usoRam[0] <= 65) {
+                                            alertaMaq[maquina.id] = "Alerta Amarelo";
+                                            document.getElementById('alerta' + maquina.id).classList.add('yellow')
+
+                                        } else if (usoDisco[0] <= 75 && usoProcessador[0] <= 75 && usoRam[0] <= 75) {
+                                            alertaMaq[maquina.id] = "Alerta Laranja";
+
+                                            document.getElementById('alerta' + maquina.id).classList.add('orange')
+
+                                            document.getElementById('alerta' + maquina.id).classList.remove('yellow')
+
+                                        } else {
+                                            alertaMaq[maquina.id] = "Alerta Vermelho";
+
+                                            document.getElementById('alerta' + maquina.id).classList.add('red')
+
+
+                                            document.getElementById('alerta' + maquina.id).classList.remove('yellow')
+                                        }
+
+                                    }
+
+                                    if (alertaMaq[maquina.id] == "Alerta Laranja") {
+                                        if (usoDisco[0] <= 50 && usoProcessador[0] <= 50 && usoRam[0] <= 50) {
+                                            alertaMaq[maquina.id] = "Alerta Verde";
+
+                                            document.getElementById('alerta' + maquina.id).classList.add('green')
+
+
+                                            document.getElementById('alerta' + maquina.id).classList.remove('orange')
+
+                                        } else if (usoDisco[0] <= 65 && usoProcessador[0] <= 65 && usoRam[0] <= 65) {
+                                            alertaMaq[maquina.id] = "Alerta Amarelo";
+
+                                            document.getElementById('alerta' + maquina.id).classList.add('yellow')
+
+
+                                            document.getElementById('alerta' + maquina.id).classList.remove('orange')
+
+                                        } else if (usoDisco[0] <= 75 && usoProcessador[0] <= 75 && usoRam[0] <= 75) {
+                                            alertaMaq[maquina.id] = "Alerta Laranja";
+                                            document.getElementById('alerta' + maquina.id).classList.add('orange')
+
+                                        } else {
+                                            alertaMaq[maquina.id] = "Alerta Vermelho";
+
+                                            document.getElementById('alerta' + maquina.id).classList.add('red')
+
+
+                                            document.getElementById('alerta' + maquina.id).classList.remove('orange')
+                                        }
+
+                                    }
+
+                                    if (alertaMaq[maquina.id] == "Alerta Vermelho") {
+                                        if (usoDisco[0] <= 50 && usoProcessador[0] <= 50 && usoRam[0] <= 50) {
+                                            alertaMaq[maquina.id] = "Alerta Verde";
+
+                                            document.getElementById('alerta' + maquina.id).classList.add('green')
+
+
+                                            document.getElementById('alerta' + maquina.id).classList.remove('red')
+
+                                        } else if (usoDisco[0] <= 65 && usoProcessador[0] <= 65 && usoRam[0] <= 65) {
+                                            alertaMaq[maquina.id] = "Alerta Amarelo";
+
+                                            document.getElementById('alerta' + maquina.id).classList.add('yellow')
+
+
+                                            document.getElementById('alerta' + maquina.id).classList.remove('red')
+
+                                        } else if (usoDisco[0] <= 75 && usoProcessador[0] <= 75 && usoRam[0] <= 75) {
+                                            alertaMaq[maquina.id] = "Alerta Laranja";
+
+                                            document.getElementById('alerta' + maquina.id).classList.add('orange')
+
+
+                                            document.getElementById('alerta' + maquina.id).classList.remove('red')
+                                        } else {
+                                            alertaMaq[maquina.id] = "Alerta Vermelho";
+                                            document.getElementById('alerta' + maquina.id).classList.add('red')
+                                        }
+
+                                    }
+
+                                }
+                            });
+                        }
+
+                    } else {
+                        console.error('Nenhum dado encontrado ou erro na API');
+                    }
+
+
+                }).catch(function (error) {
+                    console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+                });
+            }
+
+
+
+
 
             function maquinaSelecionada(maquina) {
                 window.location = "../Dashboard Funcionario/telaGraficosFunc.html?id=" + maquina;
