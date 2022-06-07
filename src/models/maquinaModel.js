@@ -3,7 +3,7 @@ var database = require("../database/config")
 function cadastrar(nome, idUsuario) {
     console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function cadastrar():", nome);
     var instrucao = `
-        INSERT INTO maquinaVirtual (fkAdmin, nome, keyVM) VALUES (${idUsuario},'${nome}', newId());
+        INSERT INTO maquinaVirtual (fkAdmin, nome, keyVM,vmStatus) VALUES (${idUsuario},'${nome}', newId(), 'unconfigured');
     `;
     console.log("Executando a instrução SQL: \n" + instrucao);
     return database.executar(instrucao);
