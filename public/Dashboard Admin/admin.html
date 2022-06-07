@@ -109,7 +109,8 @@
                         <div class="tooltip">
                             <img src="https://cdn.iconscout.com/icon/free/png-256/information-notice-info-ui-tooltip-guide-30515.png"
                                 alt="">
-                            <span class="tooltiptext" style="background-color: #6db305;"><b>Ótimo Estado(acima de 0 á 50%)</b><br>
+                            <span class="tooltiptext" style="background-color: #6db305;"><b>Ótimo Estado(acima de 0 á
+                                    50%)</b><br>
                                 Após análises o estado da CPU, RAM e
                                 Disco <b>não</b> apresentam riscos de lentidão e baixo processamento.
                             </span>
@@ -126,7 +127,8 @@
                         <div class="tooltip">
                             <img src="https://cdn.iconscout.com/icon/free/png-256/information-notice-info-ui-tooltip-guide-30515.png"
                                 alt="">
-                            <span class="tooltiptext" style="background-color: #ffc411"><b>Estado Razoável(acima de 50 á 65%)</b><br>
+                            <span class="tooltiptext" style="background-color: #ffc411"><b>Estado Razoável(acima de 50 á
+                                    65%)</b><br>
                                 Após análises o estado da CPU, RAM e
                                 Disco apresentam <b>pouco</b> riscos de lentidão e baixo processamento.
                             </span>
@@ -161,7 +163,8 @@
                         <div class="tooltip">
                             <img src="https://cdn.iconscout.com/icon/free/png-256/information-notice-info-ui-tooltip-guide-30515.png"
                                 alt="">
-                            <span class="tooltiptext" style="background-color: #e20b0b"><b>Estado Crítico(acima de 75%)</b><br>
+                            <span class="tooltiptext" style="background-color: #e20b0b"><b>Estado Crítico(acima de
+                                    75%)</b><br>
                                 Após análises o estado da CPU, RAM e
                                 Disco apresentam <b>muitos</b> riscos de lentidão e baixo processamento.
                             </span>
@@ -205,13 +208,17 @@
                 if (maquina.hostName != null) {
                     listagemGrafico.innerHTML += `
                         <div class="cardGrafico">
-                            <h3>${[maquina.nome]}</h3>
+                            <div class="status">
+                                <span class="alerta red"></span> 
+                            </div>
+                            <h3 style=" display: flex;justify-content: space-evenly;"">${[maquina.nome]}</h3>
+                            <h5 class="${statusMaquina(maquina.vmStatus)}"style="align-self: center; width: 480px;; display: flex; justify-content: center">Status: ${maquina.vmStatus}</h5>
                             <div class="parteGrafico">
                                 <canvas id="myChart${[maquina.id]}"></canvas>
                             </div>
                         </div>
                     `;
-                    
+
                     informacoesMaquina(maquinas.id);
                     setInterval(() => {
                         atualizarGraficos(maquina)
@@ -282,7 +289,6 @@
                                     },
                                 };
 
-
                                 graficos[maquina.id] = new Chart(document.getElementById('myChart' + maquina.id), config);
                                 if (usoDisco[0] <= 50 && usoProcessador[0] <= 50 && usoRam[0] <= 50) {
                                     alertaMaq[maquina.id] = "Alerta Verde";
@@ -292,10 +298,10 @@
                                     contadorAlertaAmarelo.innerHTML++;
                                 } else if (usoDisco[0] <= 75 && usoProcessador[0] <= 75 && usoRam[0] <= 75) {
                                     alertaMaq[maquina.id] = "Alerta Laranja";
-                                    contadorAlertaLaranja++;
+                                    contadorAlertaLaranja.innerHTML++;
                                 } else {
                                     alertaMaq[maquina.id] = "Alerta Vermelho";
-                                    contadorAlertaVermelho++;
+                                    contadorAlertaVermelho.innerHTML++;
                                 }
 
                             } else {
@@ -313,7 +319,6 @@
                                 if (alertaMaq[maquina.id] == "Alerta Verde") {
                                     if (usoDisco[0] <= 50 && usoProcessador[0] <= 50 && usoRam[0] <= 50) {
                                         alertaMaq[maquina.id] = "Alerta Verde";
-                                
                                     } else if (usoDisco[0] <= 65 && usoProcessador[0] <= 65 && usoRam[0] <= 65) {
                                         alertaMaq[maquina.id] = "Alerta Amarelo";
                                         contadorAlertaAmarelo.innerHTML++;
@@ -335,10 +340,10 @@
                                         alertaMaq[maquina.id] = "Alerta Verde";
                                         contadorAlertaVerde.innerHTML++;
                                         contadorAlertaAmarelo.innerHTML--;
-                                
+
                                     } else if (usoDisco[0] <= 65 && usoProcessador[0] <= 65 && usoRam[0] <= 65) {
                                         alertaMaq[maquina.id] = "Alerta Amarelo";
-                                     
+
                                     } else if (usoDisco[0] <= 75 && usoProcessador[0] <= 75 && usoRam[0] <= 75) {
                                         alertaMaq[maquina.id] = "Alerta Laranja";
                                         contadorAlertaLaranja.innerHTML++;
@@ -356,15 +361,15 @@
                                         alertaMaq[maquina.id] = "Alerta Verde";
                                         contadorAlertaVerde.innerHTML++;
                                         contadorAlertaLaranja.innerHTML--;
-                                
+
                                     } else if (usoDisco[0] <= 65 && usoProcessador[0] <= 65 && usoRam[0] <= 65) {
                                         alertaMaq[maquina.id] = "Alerta Amarelo";
                                         contadorAlertaAmarelo.innerHTML++;
                                         contadorAlertaLaranja.innerHTML--;
-                                     
+
                                     } else if (usoDisco[0] <= 75 && usoProcessador[0] <= 75 && usoRam[0] <= 75) {
                                         alertaMaq[maquina.id] = "Alerta Laranja";
-                                     
+
                                     } else {
                                         alertaMaq[maquina.id] = "Alerta Vermelho";
                                         contadorAlertaVermelho.innerHTML++;
@@ -378,12 +383,12 @@
                                         alertaMaq[maquina.id] = "Alerta Verde";
                                         contadorAlertaVerde.innerHTML++;
                                         contadorAlertaVermelho.innerHTML--;
-                                
+
                                     } else if (usoDisco[0] <= 65 && usoProcessador[0] <= 65 && usoRam[0] <= 65) {
                                         alertaMaq[maquina.id] = "Alerta Amarelo";
                                         contadorAlertaAmarelo.innerHTML++;
                                         contadorAlertaVermelho.innerHTML--;
-                                     
+
                                     } else if (usoDisco[0] <= 75 && usoProcessador[0] <= 75 && usoRam[0] <= 75) {
                                         alertaMaq[maquina.id] = "Alerta Laranja";
                                         contadorAlertaLaranja.innerHTML++;
@@ -412,26 +417,26 @@
         var disco = 0;
 
         function informacoesMaquina(url) {
-                fetch(`/medidas/listar-maquina/${url}`, { cache: 'no-store' }).then(function (response) {
-                    if (response.ok) {
-                        response.json().then(function (resposta) {
-                            console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
-                            resposta.reverse();
-                            console.log(resposta);
+            fetch(`/medidas/listar-maquina/${url}`, { cache: 'no-store' }).then(function (response) {
+                if (response.ok) {
+                    response.json().then(function (resposta) {
+                        console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                        resposta.reverse();
+                        console.log(resposta);
 
 
 
-                            ramFlat = resposta[0].memoriaRam;
-                            disco = resposta[0].espacoDisco;
-                        });
-                    } else {
-                        console.error('Nenhum dado encontrado ou erro na API');
-                    }
-                })
-                    .catch(function (error) {
-                        console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+                        ramFlat = resposta[0].memoriaRam;
+                        disco = resposta[0].espacoDisco;
                     });
-            }
+                } else {
+                    console.error('Nenhum dado encontrado ou erro na API');
+                }
+            })
+                .catch(function (error) {
+                    console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+                });
+        }
 
 
 
@@ -474,6 +479,22 @@
                     window.location = "../Home/index.html";
                 }
             })
+        }
+
+        function statusMaquina(status) {
+
+            console.log(status)
+            if (status == "unconfigured") {
+                return "status yellow"
+            }
+
+            else if (status == "on") {
+                return "status green"
+            }
+
+            else if (status == "off") {
+                return "status red"
+            };
         }
 
     </script>

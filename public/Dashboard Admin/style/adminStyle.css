@@ -1,11 +1,11 @@
 /*Lugar para guardar variaveis de cor*/
 :root {
-    --main-color:#320552;
+    --main-color: #320552;
     --color-dark: #1d2231;
     --text-grey: #8390a2;
 }
 
-*{
+* {
     padding: 0;
     margin: 0;
     box-sizing: border-box;
@@ -14,7 +14,7 @@
     font-family: 'Poppins', sans-serif;
 }
 
-.barraLateral{
+.barraLateral {
     width: 345px;
     position: fixed;
     left: 0;
@@ -25,13 +25,13 @@
     transition: width 300ms;
 }
 
-.barraLateralLogo{
+.barraLateralLogo {
     height: 90px;
     padding: 1rem 0rem 1rem 2rem;
     color: #fff;
 }
 
-.barraLateralLogo span{
+.barraLateralLogo span {
     display: inline-block;
     padding-right: 1rem;
 }
@@ -40,7 +40,7 @@
     margin-top: 1rem;
 }
 
-.barraLateralMenu li{
+.barraLateralMenu li {
     width: 100%;
     margin-bottom: 1.7rem;
     padding-left: 1rem;
@@ -51,16 +51,16 @@
     display: block;
     color: #fff;
     font-size: 1.1rem;
-   
+
 }
 
-.barraLateralMenu ul li.active{
+.barraLateralMenu ul li.active {
     background: #fff;
     padding-top: 1rem;
     padding-bottom: 1rem;
     color: var(--main-color);
     border-radius: 30px 0px 0px 30px;
-   
+
 }
 
 .barraLateralMenu ul li.active a {
@@ -73,35 +73,35 @@
 
 }
 
-#nav-toggle:checked + .barraLateral{
-   width: 70px;
+#nav-toggle:checked+.barraLateral {
+    width: 70px;
 }
 
-#nav-toggle:checked + .barraLateral .barraLateralLogo ,
-#nav-toggle:checked + .barraLateral li {
+#nav-toggle:checked+.barraLateral .barraLateralLogo,
+#nav-toggle:checked+.barraLateral li {
     padding-left: 1rem;
     text-align: center;
-} 
-
-#nav-toggle:checked + .barraLateral li a{
-    padding-left: 0rem;
-} 
-
-#nav-toggle:checked + .barraLateral .barraLateralLogo h2 span:last-child ,
-#nav-toggle:checked + .barraLateral li a span:last-child{
-   display: none;
 }
 
-#nav-toggle:checked ~ .mainContent{
+#nav-toggle:checked+.barraLateral li a {
+    padding-left: 0rem;
+}
+
+#nav-toggle:checked+.barraLateral .barraLateralLogo h2 span:last-child,
+#nav-toggle:checked+.barraLateral li a span:last-child {
+    display: none;
+}
+
+#nav-toggle:checked~.mainContent {
     margin-left: 70px;
 }
 
- #nav-toggle:checked ~ .mainContent header{
-   width: calc(100% - 70px);
-   left: 70px;
+#nav-toggle:checked~.mainContent header {
+    width: calc(100% - 70px);
+    left: 70px;
 }
 
-.mainContent{
+.mainContent {
     transition: margin-left 300ms;
     margin-left: 345px;
 }
@@ -121,11 +121,11 @@ header {
     transition: left 300ms;
 }
 
-#nav-toggle{
+#nav-toggle {
     display: none;
 }
 
-header h2{
+header h2 {
     color: #222;
 }
 
@@ -141,12 +141,12 @@ header label span {
     padding: .5rem .7rem;
 }
 
-.usuario img{
+.usuario img {
     border-radius: 50%;
     margin-right: 1rem;
 }
 
-.usuario small{
+.usuario small {
     display: inline-block;
     color: var(--text-grey);
 }
@@ -174,33 +174,34 @@ main {
     border-radius: 2px;
 }
 
-.cardSingle div:last-child span{
+.cardSingle div:last-child span {
     font-size: 3rem;
     color: var(--main-color);
 }
 
-.cardSingle div:first-child span{
-   
-   color: var(--text-grey);
+.cardSingle div:first-child span {
+
+    color: var(--text-grey);
 }
 
-.recente{
+.recente {
     margin-top: 3.5rem;
     display: grid;
     grid-gap: 1rem;
     grid-template-columns: 56% auto;
 }
 
-.card{
+.card {
     background: #fff;
     border-radius: 5px;
 }
 
-.cardHeader,.cardBody {
+.cardHeader,
+.cardBody {
     padding: 1rem;
 }
 
-.cardHeader{
+.cardHeader {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -212,7 +213,7 @@ main {
     border-radius: 10px;
     color: #fff;
     font-size: 1rem;
-    padding: .5rem 1rem ;
+    padding: .5rem 1rem;
     border: 1px solid var(--main-color);
 }
 
@@ -220,45 +221,63 @@ table {
     border-collapse: collapse;
 }
 
-thead tr{
+thead tr {
     border-top: 1px solid #f0f0f0;
     border-bottom: 2px solid #f0f0f0;
 }
 
-thead td{
+thead td {
     font-weight: 700;
 }
 
-td{
+td {
     padding: .5rem 1rem;
     font-size: .9rem;
     color: #222;
 }
 
 /*Bolinha de alerta*/
-td .status {
+
+
+.status {
     display: inline-block;
-    height: 10px;
-    width: 10px;
+    height: 20px;
+    width: 20px;
     border-radius: 50%;
-    margin-right: 1rem;
+    margin-left: 6px;
+    margin-top: 6px;
 }
 
-tr td:last-child {
-    display: flex;
-    align-items: center;
+.alerta {
+    display: inline-block;
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+    margin-left: 6px;
+    margin-top: 6px;
 }
 
-.status.pink {
-    background: #dd2f6e;
+.alerta.red {
+    background: #fe0000;
+    font-size: 12px;
 }
 
-.status.purple {
-    background: #8390a2;
+.status.red {
+
+    font-size: 12px;
+    color: #fe0000;
 }
 
-.status.blue {
-    background: aqua;
+.status.green {
+
+    font-size: 12px;
+    color: green;
+}
+
+.status.yellow {
+
+    font-size: 12px;
+    color: grey;
 }
 
 .tabelaResponsiva {
@@ -278,12 +297,12 @@ tr td:last-child {
     align-items: center;
 }
 
-.info img{
+.info img {
     border-radius: 50%;
     margin-right: 1rem;
 }
 
-.info h4{
+.info h4 {
     font-size: .8rem;
     font-weight: 700;
     color: #222;
@@ -294,7 +313,7 @@ tr td:last-child {
     color: var(--text-grey);
 }
 
-.contato span{
+.contato span {
     font-size: 1.2rem;
     display: inline-block;
     margin-left: .5rem;
@@ -303,42 +322,42 @@ tr td:last-child {
 
 /*Parte responsividade*/
 
-@media only sreen and (max-width: 1200px){
-    .barraLateral{
+@media only sreen and (max-width: 1200px) {
+    .barraLateral {
         width: 70px;
-     }
-     
-    .barraLateral .barraLateralLogo ,
+    }
+
+    .barraLateral .barraLateralLogo,
     .barraLateral li {
-         padding-left: 1rem;
-         text-align: center;
-     } 
-     
-    .barraLateral li a{
-         padding-left: 0rem;
-     } 
-     
-    .barraLateral .barraLateralLogo h2 span:last-child ,
-    .barraLateral li a span:last-child{
+        padding-left: 1rem;
+        text-align: center;
+    }
+
+    .barraLateral li a {
+        padding-left: 0rem;
+    }
+
+    .barraLateral .barraLateralLogo h2 span:last-child,
+    .barraLateral li a span:last-child {
         display: none;
-     }
-     
-    .mainContent{
-         margin-left: 70px;
-     }
-     
-    .mainContent header{
+    }
+
+    .mainContent {
+        margin-left: 70px;
+    }
+
+    .mainContent header {
         width: calc(100% - 70px);
         left: 70px;
-     }
+    }
 }
 
-@media only screen and (max-width: 960px){
-    .cards{
+@media only screen and (max-width: 960px) {
+    .cards {
         grid-template-columns: repeat(3, 1fr);
     }
 
-    .colunasGrafico{
+    .colunasGrafico {
         grid-template-columns: repeat(2, 1fr);
     }
 
@@ -347,12 +366,12 @@ tr td:last-child {
     }*/
 }
 
-@media only screen and (max-width: 786px){
-    .cards{
+@media only screen and (max-width: 786px) {
+    .cards {
         grid-template-columns: repeat(2, 1fr);
     }
 
-    .colunasGrafico{
+    .colunasGrafico {
         grid-template-columns: repeat(1, 1fr);
     }
 
@@ -360,16 +379,16 @@ tr td:last-child {
         grid-template-columns: 100%;
     }*/
 
-    .barraLateral{
+    .barraLateral {
         left: -100%;
     }
 
-    header h2{
+    header h2 {
         display: flex;
         align-items: center;
     }
 
-    header h2 label{
+    header h2 label {
         display: inline-block;
         background: var(--main-color);
         padding-right: 0rem;
@@ -384,16 +403,16 @@ tr td:last-child {
 
     }
 
-    header h2  span{
+    header h2 span {
         text-align: center;
         padding-right: 1rem;
     }
 
-    header h2{
+    header h2 {
         font-size: 1.1rem;
     }
 
-    .mainContent{
+    .mainContent {
         width: 100%;
         margin-left: 0rem;
     }
@@ -403,34 +422,34 @@ tr td:last-child {
         left: 0 !important;
     }
 
-    #nav-toggle:checked + .barraLateral{
+    #nav-toggle:checked+.barraLateral {
         left: 0 !important;
         z-index: 100;
         width: 345px;
     }
-     
-    #nav-toggle:checked + .barraLateral .barraLateralLogo ,
-    #nav-toggle:checked + .barraLateral li {
-         padding-left: 2rem;
-         text-align: left;
-     } 
-     
-     #nav-toggle:checked + .barraLateral li a{
-         padding-left: 1rem;
-     } 
-     
-     #nav-toggle:checked + .barraLateral .barraLateralLogo h2 span:last-child ,
-     #nav-toggle:checked + .barraLateral li a span:last-child{
-        display: inline;
-     }
 
-     #nav-toggle:checked ~ .mainContent{
+    #nav-toggle:checked+.barraLateral .barraLateralLogo,
+    #nav-toggle:checked+.barraLateral li {
+        padding-left: 2rem;
+        text-align: left;
+    }
+
+    #nav-toggle:checked+.barraLateral li a {
+        padding-left: 1rem;
+    }
+
+    #nav-toggle:checked+.barraLateral .barraLateralLogo h2 span:last-child,
+    #nav-toggle:checked+.barraLateral li a span:last-child {
+        display: inline;
+    }
+
+    #nav-toggle:checked~.mainContent {
         margin-left: 0rem;
-     }
+    }
 }
 
-@media only screen and (max-width: 560px){
-    .cards{
+@media only screen and (max-width: 560px) {
+    .cards {
         grid-template-columns: 100%;
     }
 
@@ -457,10 +476,8 @@ tr td:last-child {
 
 }
 
- .graficos-linha {
+.graficos-linha {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-} 
-
-  
+}
