@@ -216,15 +216,15 @@ main {
 
 .statusCircle.orange {
   background: #ff8400;
-  width: 3rem;
-  height: 3rem;
+  width: 2rem;
+  height: 2rem;
   border-radius: 50%;
 }
 
 .statusCircle.green {
   background: rgb(30, 255, 0);
-  width: 3rem;
-  height: 3rem;
+  width: 2rem;
+  height: 2rem;
   border-radius: 50%;
 }
 
@@ -239,6 +239,7 @@ main {
   width: 100%;
   overflow-x: auto;
   display: flex;
+  padding-top: 1rem;
 }
 
 .cards {

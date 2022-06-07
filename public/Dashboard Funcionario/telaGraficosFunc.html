@@ -3,32 +3,45 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible"
+          content="IE=edge">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
     <title>Gráficos VM | Puppet</title>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script type="text/javascript"
+            src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet"
-        href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
-    <link rel="stylesheet" href="../Dashboard Funcionario/style/telaGraficoFunc.css">
-    <link rel="icon" href="./assets/LogoRoxo.png">
+          href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
+    <link rel="stylesheet"
+          href="../Dashboard Funcionario/style/telaGraficoFunc.css">
+    <link rel="icon"
+          href="./assets/LogoRoxo.png">
     <!-- Font Awesome JS -->
-    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js"
-        integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ"
-        crossorigin="anonymous"></script>
-    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js"
-        integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY"
-        crossorigin="anonymous"></script>
+    <script defer
+            src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js"
+            integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ"
+            crossorigin="anonymous"></script>
+    <script defer
+            src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js"
+            integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY"
+            crossorigin="anonymous"></script>
 
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Chivo:wght@300&display=swap" rel="stylesheet" />
-    <script src="//code.jivosite.com/widget/5q0iqZqyVo" async></script>
+    <link rel="preconnect"
+          href="https://fonts.googleapis.com" />
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Chivo:wght@300&display=swap"
+          rel="stylesheet" />
+    <script src="//code.jivosite.com/widget/5q0iqZqyVo"
+            async></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body>
     <!--Menu Lateral-->
-    <input type="checkbox" id="nav-toggle">
+    <input type="checkbox"
+           id="nav-toggle">
     <div class="barraLateral">
         <div class="barraLateralLogo">
             <h2><span>PUPPET</span></h2>
@@ -44,7 +57,8 @@
                 <li class="list">
                     <a href="#">
                         <span class="las la-cog"></span>
-                        <span id="sair" onclick="functionSair()">Sair</span>
+                        <span id="sair"
+                              onclick="functionSair()">Sair</span>
                     </a>
                 </li>
             </ul>
@@ -60,7 +74,10 @@
                 Máquinas Virtuais
             </h2>
             <div class="usuario">
-                <img src="./assets/whindUsuario.jpg" width="40px" height="40px" alt="">
+                <img src="./assets/whindUsuario.jpg"
+                     width="40px"
+                     height="40px"
+                     alt="">
                 <div>
                     <h3><span id="b_usuario"></span></h3>
                     <small id="setor_usuario"></small>
@@ -72,7 +89,8 @@
             <div class="recente">
                 <div class="alertas">
                     <div class="card">
-                        <div class="col-md-5 cardHeader" style="margin: 0rem 1rem 1rem">
+                        <div class="col-md-5 cardHeader"
+                             style="margin: 0rem 1rem 1rem">
                             <div class="maquina-info">
                                 <div class="machine-content">
                                     <p id="machine-title"></p>
@@ -81,10 +99,8 @@
                                     <p id="machine-ram"></p>
                                     <p id="machine-ip"></p>
                                     <p id="machine-hour"></p>
-                                    <div id="useContainer" style="max-width: 350px;">
-                                        <div id="use-ram">oi</div>
-                                        <div id="use-cpu">oi</div>
-                                        <div id="use-disk">oi</div>
+                                    <div id="useContainer"
+                                         style="display: flex; align-items: center;">
                                     </div>
                                 </div>
                             </div>
@@ -101,69 +117,86 @@
                     </div>
                 </div>
             </div>
-            <div class="row-1" style="height:80%">
-                <div class="col-md-4 grafico-linha" style="width:100%">
-                    <div class="estilo-grafico-linha" id="grafico-linha-12">
+            <div class="row-1"
+                 style="height:80%">
+                <div class="col-md-4 grafico-linha"
+                     style="width:100%">
+                    <div class="estilo-grafico-linha"
+                         id="grafico-linha-12">
                         <canvas id="graficoProcessador"></canvas>
                     </div>
                 </div>
-                <div class="col-md-5" style="width:30%;">
+                <div class="col-md-5"
+                     style="width:30%;">
                     <h3
                         style="text-align:center;padding-top: 2em;font-size: 26px;font-weight: 600;margin-top: -25px; color: #320552;">
                         CPU</h3>
                     <div style=" padding: 10px 10px;">
                         <canvas id="pieChartProcessador"></canvas>
                     </div>
-
-
+                    <div id="usoCpu"
+                         style="display: flex; align-items: center; justify-content: center; gap: 8px">
+                    </div>
                 </div>
             </div>
             <br>
-            <div class="row-1" style="height:80%">
-                <div class="col-md-4 grafico-linha" style="width:100%">
-                    <div class="estilo-grafico-linha" id="grafico-linha-12">
+            <div class="row-1"
+                 style="height:80%">
+                <div class="col-md-4 grafico-linha"
+                     style="width:100%">
+                    <div class="estilo-grafico-linha"
+                         id="grafico-linha-12">
                         <canvas id="graficoRam"></canvas>
                     </div>
                 </div>
-                <div class="col-md-5" style="width:30%;">
+                <div class="col-md-5"
+                     style="width:30%;">
                     <h3
                         style="text-align:center;padding-top: 2em;font-size: 26px;font-weight: 600;margin-top: -25px; color: #320552;">
                         RAM</h3>
                     <div style=" padding: 10px 10px;">
                         <canvas id="pieChartRam"></canvas>
                     </div>
-
+                    <div id="usoRam"
+                         style="display: flex; align-items: center; justify-content: center; gap: 8px">
+                    </div>
                 </div>
             </div>
             <br>
-            <div class="row-1" style="height:80%">
-                <div class="col-md-4 grafico-linha" style="width:100%">
-                    <div class="estilo-grafico-linha" id="grafico-linha-12">
+            <div class="row-1"
+                 style="height:80%">
+                <div class="col-md-4 grafico-linha"
+                     style="width:100%">
+                    <div class="estilo-grafico-linha"
+                         id="grafico-linha-12">
                         <canvas id="graficoDisco"></canvas>
                     </div>
                 </div>
-                <div class="col-md-5" style="width:30%;">
+                <div class="col-md-5"
+                     style="width:30%;">
                     <h3
                         style="text-align:center;padding-top: 2em;font-size: 26px;font-weight: 600;margin-top: -25px; color: #320552;">
                         DISCO</h3>
                     <div style=" padding: 10px 10px;">
                         <canvas id="pieChartDisco"></canvas>
                     </div>
-
+                    <div id="usoDisco"
+                         style="display: flex; align-items: center; justify-content: center; gap: 8px">
+                    </div>
                 </div>
             </div>
         </main>
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-            crossorigin="anonymous"></script>
+                integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+                crossorigin="anonymous"></script>
         <!-- Popper.JS -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"
-            integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ"
-            crossorigin="anonymous"></script>
+                integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ"
+                crossorigin="anonymous"></script>
         <!-- Bootstrap JS -->
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"
-            integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm"
-            crossorigin="anonymous"></script>
+                integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm"
+                crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
         <script>
             $(document).ready(function () {
@@ -339,7 +372,8 @@
             }
 
             window.pieChartRam = new Chart(document.getElementById('pieChartRam'), configRam2);
-
+            var ramFlat = 0;
+            var disco = 0
             // piechart disco
             var dadosPieDisco = {
                 labels: [
@@ -405,7 +439,7 @@
                     return `--`
                 }
 
-                return `${disco}%`
+                return `${disco}GB`
             }
 
             window.pieChartDisco = new Chart(document.getElementById('pieChartDisco'), configDiscoPie2);
@@ -568,7 +602,7 @@
                     dadosLineRam.datasets[0].data.push(dado.usoRam)
 
                     dadosLineDisco.labels.push(dado.dataHora);
-                    dadosLineDisco.datasets[0].data.push(dado.usoDisco)
+                    dadosLineDisco.datasets[0].data.push(dado.usoDisco * 100)
 
 
 
@@ -584,9 +618,9 @@
                 pieChartRam.data.datasets[0].data[1] = res[res.length - 1].usoRam;
                 pieChartRam.data.datasets[0].data[2] = 100 - (res[res.length - 1].usoRam);
 
-                pieChartDisco.data.datasets[0].data[0] = 30;
-                pieChartDisco.data.datasets[0].data[1] = res[res.length - 1].usoDisco;
-                pieChartDisco.data.datasets[0].data[2] = 100 - (res[res.length - 1].usoDisco);
+                pieChartDisco.data.datasets[0].data[0] = 3.7;
+                // pieChartDisco.data.datasets[0].data[1] = res[res.length - 1].usoDisco;
+                // pieChartDisco.data.datasets[0].data[2] = 100 - (res[res.length - 1].usoDisco);
 
 
                 setInterval(() => {
@@ -603,12 +637,49 @@
                             resposta.reverse();
 
 
-                            var metricas = document.getElementById("useContainer");
+                            var classDisco = document.getElementById("usoDisco");
+                            var classCpu = document.getElementById("usoCpu");
+                            var classRam = document.getElementById("usoRam");
 
-                            metricas.innerHTML = `
-                                        <p class="${estadoMaquina(resposta[0].usoRam)}">oi</p>
-                                        <p class="${estadoMaquina(resposta[0].usoProcessador)}">oi</p>
-                                        <p class="${estadoMaquina(resposta[0].usoDisco)}">oi</p>`
+                            classDisco.innerHTML = `
+                            <div class="${estadoMaquina(Number(100 * resposta[0].usoDisco))}"></div>
+                            <h3
+                            style="text-align:center;font-size: 26px;font-weight: 600; color: #320552;">
+                            ${resposta[0].usoDisco * 100}%
+                        </h3>
+                            `
+                            classCpu.innerHTML = `
+                            <div class="${estadoMaquina(Number(resposta[0].usoProcessador))}"></div>
+                            <h3
+                            style="text-align:center;font-size: 26px;font-weight: 600; color: #320552;">
+                            ${resposta[0].usoProcessador}%
+                        </h3>
+                            `
+                            classRam.innerHTML = `
+                            <div class="${estadoMaquina(Number(resposta[0].usoRam))}"></div>
+                            <h3
+                            style="text-align:center;font-size: 26px;font-weight: 600; color: #320552;">
+                            ${resposta[0].usoRam}%
+                        </h3>
+                            `
+
+                            //     metricas.innerHTML = `
+                            //                 <p class="${estadoMaquina(resposta[0].usoRam)}"></p>
+                            //                 <h3
+                            //     style="text-align:center;padding-top: 2em;font-size: 26px;font-weight: 600;margin-top: -25px; color: #320552;">
+                            //     ${resposta[0].usoRam}
+                            // </h3>
+                            //                 <p class="${estadoMaquina(resposta[0].usoProcessador)}"></p>
+                            //                 <h3
+                            //     style="text-align:center;padding-top: 2em;font-size: 26px;font-weight: 600;margin-top: -25px; color: #320552;">
+                            //     ${resposta[0].usoProcessador}
+                            // </h3>
+                            //                 <p class="${estadoMaquina(resposta[0].usoDisco)}"></p>
+                            //                 <h3
+                            //     style="text-align:center;padding-top: 2em;font-size: 26px;font-weight: 600;margin-top: -25px; color: #320552;">
+                            //     ${resposta[0].usoDisco}
+                            // </h3>`
+
 
                             // Dados uso do processador
                             dadosCpu.labels.shift();
@@ -640,11 +711,9 @@
                             dadosDisco.labels.push(resposta[0].dataHora);
 
                             dadosDisco.datasets[0].data.shift();
-                            dadosDisco.datasets[0].data.push(resposta[0].usoDisco)
-
-
-                            pieChartDisco.data.datasets[0].data[1] = resposta[resposta.length - 1].usoDisco;
-                            pieChartDisco.data.datasets[0].data[2] = 100 - (resposta[resposta.length - 1].usoDisco)
+                            dadosDisco.datasets[0].data.push(resposta[0].usoDisco * 100)
+                            pieChartDisco.data.datasets[0].data[1] = disco * resposta[resposta.length - 1].usoDisco;
+                            pieChartDisco.data.datasets[0].data[2] = disco - disco * (resposta[resposta.length - 1].usoDisco)
 
                             // Atualizando gráficos
 
@@ -667,8 +736,7 @@
 
             }
 
-            var ramFlat = 0;
-            var disco = 0
+
 
             function informacoesMaquina(url) {
                 fetch(`/medidas/listar-maquina/${url}`, { cache: 'no-store' }).then(function (response) {
@@ -681,7 +749,7 @@
 
 
                             ramFlat = resposta[0].memoriaRam;
-                            disco = resposta[0].disco;
+                            disco = resposta[0].espacoDisco;
 
 
                             document.getElementById("machine-title").innerHTML = `NOME: ${resposta[0].nome} `;
@@ -703,26 +771,26 @@
             function estadoMaquina(status) {
 
                 if (status > 75 && status <= 100) {
-                    return "status red"
+                    return "statusCircle red"
 
                 }
 
                 else if (status > 65 && status <= 75) {
 
-                    return "status orange"
+                    return "statusCircle orange"
 
                 }
 
 
                 else if (status > 55 && status <= 65) {
 
-                    return "status yellow"
+                    return "statusCircle yellow"
                 }
 
 
                 else if (status > 0 && status <= 55) {
 
-                    return "status green"
+                    return "statusCircle green"
                 }
 
 
